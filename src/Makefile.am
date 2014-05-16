@@ -1,4 +1,4 @@
-AM_CXXFLAGS = -Wall -Os `fltk-config --cxxflags --use-images` 
+AM_CXXFLAGS = -Wall -O2 `fltk-config --cxxflags --use-images` 
 AM_LDFLAGS = `fltk-config --ldflags --use-images` -s
 
 bin_PROGRAMS = aussielotto

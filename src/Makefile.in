@@ -269,7 +269,7 @@ target_vendor = @target_vendor@
 top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
-AM_CXXFLAGS = -Wall -Os `fltk-config --cxxflags --use-images` 
+AM_CXXFLAGS = -Wall -O2 `fltk-config --cxxflags --use-images` 
 AM_LDFLAGS = `fltk-config --ldflags --use-images` -s
 aussielotto_SOURCES = AussieLotto.cxx AussieLottoGUI.cxx LottoGame.cxx types.h AussieLottoGUI.h AussieLotto.h LottoGame.h
 all: all-am
