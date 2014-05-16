@@ -1,0 +1,1043 @@
+# data file for the Fltk User Interface Designer (fluid)
+version 1.0302 
+i18n_type 2 
+i18n_include <nl_types.h> 
+i18n_set 1 
+header_name {.h} 
+code_name {.cxx}
+decl {/* Aussie Lotto */} {private local
+} 
+
+decl {\#include <iostream>} {private local
+} 
+
+decl {\#include <Fl/fl_ask.h>} {private local
+} 
+
+decl {\#include "types.h"} {public global
+} 
+
+class UserInterface {open
+} {
+  decl {Fl_Text_Buffer *ozlottoTextBuffer;} {public local
+  }
+  decl {Fl_Text_Buffer *lottostrikeTextBuffer;} {public local
+  }
+  decl {Fl_Text_Buffer *licenseTextBuffer;} {public local
+  }
+  decl {Fl_Text_Buffer *powerballTextBuffer;} {public local
+  }
+  decl {Fl_Text_Buffer *tattslottoTextBuffer;} {public local
+  }
+  decl {Fl_Text_Buffer *textbuf_results;} {public local
+  }
+  decl {Fl_Text_Buffer *help_text;} {public local
+  }
+  Function {make_window()} {open
+  } {
+    Fl_Window lotto_gui {
+      label {Aussie Lotto} open
+      xywh {69 103 605 620} type Single color 14 selection_color 32 labelcolor 12 align 80 when 6 visible
+    } {
+      Fl_Box {} {
+        label {Aussie Lotto}
+        xywh {0 0 605 40} box DOWN_BOX color 4 selection_color 7 labeltype SHADOW_LABEL labelfont 14 labelsize 26 labelcolor 1
+      }
+      Fl_Button {} {
+        label Quit
+        callback {quit()}
+        xywh {540 55 65 25} color 14
+      }
+      Fl_Menu_Button {} {
+        label File open
+        xywh {5 55 75 25} color 14
+      } {
+        MenuItem {} {
+          label Open
+          callback {open_file()}
+          xywh {0 0 100 20}
+        }
+        MenuItem {} {
+          label Save
+          callback {save_file()}
+          xywh {0 0 100 20}
+        }
+        MenuItem {} {
+          label Exit
+          callback {quit()}
+          xywh {0 0 100 20}
+        }
+      }
+      Fl_Button {} {
+        label About
+        callback {fl_message("Aussie Lotto\\nWritten by Dennis Katsonis, April 2014.\\nVersion " PROG_VERSION"\\nBuild date : "__DATE__ "  " __TIME__"\\n(C) Dennis Katsonis 2014\\nLicensed under the GPL3.  See 'License' for more details");}
+        xywh {395 55 65 25} color 14 selection_color 6
+      }
+      Fl_Button {} {
+        label {Generate Numbers}
+        callback {generate()}
+        xywh {5 85 125 35} color 137 selection_color 0 labelfont 1 labelcolor 88 align 128
+      }
+      Fl_Button {} {
+        label {Check Numbers}
+        callback {check_lotto()}
+        xywh {135 85 135 35} color 138 selection_color 0 labelfont 1 labelcolor 88 align 128
+      }
+      Fl_Value_Input num_games {
+        label {Number of Games}
+        xywh {460 85 55 30} color 0 textfont 1 textsize 16 textcolor 3
+      }
+      Fl_Menu_Button {} {
+        label Options open
+        xywh {80 55 90 25} color 14
+      } {
+        MenuItem {} {
+          label Check
+          callback {check_lotto()}
+          xywh {0 0 100 20}
+        }
+        MenuItem {} {
+          label Generate
+          callback {generate()}
+          xywh {0 0 100 20}
+        }
+        MenuItem {} {
+          label {Clear Numbers}
+          callback {clear_lotto()}
+          xywh {0 0 100 20}
+        }
+        MenuItem {} {
+          label {Clear Lottery Results}
+          callback {clear_results()}
+          xywh {0 0 100 20}
+        }
+      }
+      Fl_Button {} {
+        label Help
+        callback {show_help_window()}
+        xywh {330 55 65 25} color 14
+      }
+      Fl_Tabs tabular {
+        callback {changeTab()} open
+        xywh {0 125 565 605} box THIN_DOWN_BOX labeltype NO_LABEL align 37
+      } {
+        Fl_Group tattslotto_tab {
+          label {Tattslotto/Gold Lotto/X Lotto} open
+          xywh {0 150 565 470} box DOWN_BOX color 140 selection_color 29 labeltype EMBOSSED_LABEL
+        } {
+          Fl_Group {} {
+            label {Lottery Numbers} open
+            xywh {20 170 280 45} box PLASTIC_DOWN_BOX color 6 labelsize 16
+          } {
+            Fl_Value_Input num1 {
+              xywh {45 180 35 30} color 58 textsize 16 textcolor 3
+            }
+            Fl_Value_Input num2 {
+              xywh {85 180 35 30} color 58 textsize 16 textcolor 3
+            }
+            Fl_Value_Input num3 {
+              xywh {125 180 35 30} color 58 textsize 16 textcolor 3
+            }
+            Fl_Value_Input num4 {
+              xywh {165 180 35 30} color 58 textsize 16 textcolor 3
+            }
+            Fl_Value_Input num5 {
+              xywh {205 180 35 30} color 58 textsize 16 textcolor 3
+            }
+            Fl_Value_Input num6 {
+              xywh {245 180 35 30} color 58 textsize 16 textcolor 3
+            }
+          }
+          Fl_Group {} {
+            label Supplementaries open
+            xywh {315 170 135 45} box PLASTIC_DOWN_BOX color 222 labelsize 16
+          } {
+            Fl_Value_Input supp1 {
+              xywh {335 180 35 30} color 59 selection_color 58 labelcolor 3 textsize 16 textcolor 3
+            }
+            Fl_Value_Input supp2 {
+              xywh {375 180 35 30} color 59 selection_color 58 labelcolor 3 textsize 16 textcolor 3
+            }
+          }
+          Fl_Text_Display number_view {
+            label {Lottery Numbers}
+            xywh {15 250 410 355} box THIN_DOWN_BOX color 0 selection_color 0 labeltype ENGRAVED_LABEL labelsize 22 labelcolor 80 textfont 13 textcolor 2
+            code0 {o->buffer(tattslottoTextBuffer);}
+          }
+          Fl_Button ShowTattsEntryWidget {
+            label {Enter numbers with form}
+            callback {show_tatts_entry_window()}
+            xywh {440 235 120 60} color 14 align 128
+          }
+          Fl_Button {} {
+            label {Enter numbers with buttons}
+            callback {show_Numberentry_window()}
+            xywh {440 305 120 60} color 14 align 128
+          }
+        }
+        Fl_Group ozlotto_tab {
+          label OzLotto
+          xywh {0 150 565 470} box DOWN_BOX color 60 labeltype EMBOSSED_LABEL hide
+        } {
+          Fl_Group {} {
+            label {Oz Lotto Numbers} open
+            xywh {20 170 335 45} box PLASTIC_DOWN_BOX color 6 labelsize 16
+          } {
+            Fl_Value_Input oz_num1 {
+              xywh {45 180 35 30} color 58 textsize 16 textcolor 3
+            }
+            Fl_Value_Input oz_num2 {
+              xywh {85 180 35 30} color 58 textsize 16 textcolor 3
+            }
+            Fl_Value_Input oz_num3 {
+              xywh {125 180 35 30} color 58 textsize 16 textcolor 3
+            }
+            Fl_Value_Input oz_num4 {
+              xywh {165 180 35 30} color 58 textsize 16 textcolor 3
+            }
+            Fl_Value_Input oz_num5 {
+              xywh {205 180 35 30} color 58 textsize 16 textcolor 3
+            }
+            Fl_Value_Input oz_num6 {
+              xywh {245 180 35 30} color 58 textsize 16 textcolor 3
+            }
+            Fl_Value_Input oz_num7 {
+              xywh {285 180 35 30} color 58 textsize 16 textcolor 3
+            }
+          }
+          Fl_Group {} {
+            label Supplementaries open
+            xywh {375 170 125 45} box PLASTIC_DOWN_BOX color 222 labelsize 16
+          } {
+            Fl_Value_Input oz_supp1 {
+              xywh {395 180 35 30} color 59 selection_color 58 labelcolor 3 textsize 16 textcolor 3
+            }
+            Fl_Value_Input oz_supp2 {
+              xywh {435 180 35 30} color 59 selection_color 58 labelcolor 3 textsize 16 textcolor 3
+            }
+          }
+          Fl_Text_Display oz_number_view {
+            label {Oz Lotto Numbers}
+            xywh {15 250 410 355} box THIN_DOWN_BOX color 0 selection_color 0 labeltype ENGRAVED_LABEL labelsize 22 labelcolor 80 textfont 13 textcolor 2 resizable
+            code0 {o->buffer(ozlottoTextBuffer);}
+          }
+          Fl_Button ShowOzlottoEntryWidget {
+            label {Enter numbers with form}
+            callback {show_ozlotto_entry_window()}
+            xywh {440 235 120 60} color 10 align 128
+          }
+          Fl_Button {} {
+            label {Enter numbers with buttons}
+            callback {show_Numberentry_window()}
+            xywh {440 305 120 60} color 10 align 128
+          }
+        }
+        Fl_Group powerball_tab {
+          label Powerball open
+          xywh {0 150 565 580} box DOWN_BOX color 187 labeltype EMBOSSED_LABEL hide
+        } {
+          Fl_Group {} {
+            label {Powerball Numbers} open
+            xywh {20 170 260 45} box PLASTIC_DOWN_BOX color 6 labelsize 16
+          } {
+            Fl_Value_Input pb_num1 {
+              xywh {35 180 35 30} color 58 textsize 16 textcolor 3
+            }
+            Fl_Value_Input pb_num2 {
+              xywh {75 180 35 30} color 58 textsize 16 textcolor 3
+            }
+            Fl_Value_Input pb_num3 {
+              xywh {115 180 35 30} color 58 textsize 16 textcolor 3
+            }
+            Fl_Value_Input pb_num4 {
+              xywh {155 180 35 30} color 58 textsize 16 textcolor 3
+            }
+            Fl_Value_Input pb_num5 {
+              xywh {195 180 35 30} color 58 textsize 16 textcolor 3
+            }
+            Fl_Value_Input pb_num6 {
+              xywh {235 180 35 30} color 58 textsize 16 textcolor 3
+            }
+          }
+          Fl_Group {} {
+            label Powerball open
+            xywh {375 170 85 55} box PLASTIC_DOWN_BOX color 4 labeltype ENGRAVED_LABEL labelsize 16
+          } {
+            Fl_Value_Input powerball_value {
+              xywh {395 175 50 45} color 59 selection_color 58 labelsize 16 labelcolor 6 textfont 1 textsize 18 textcolor 6
+            }
+          }
+          Fl_Text_Display powerball_number_view {
+            label {Powerball Numbers}
+            xywh {15 250 410 355} box THIN_DOWN_BOX color 0 selection_color 0 labeltype ENGRAVED_LABEL labelsize 22 labelcolor 80 textfont 13 textcolor 2 resizable
+            code0 {o->buffer(powerballTextBuffer);}
+          }
+          Fl_Button ShowPowerballEntryWidget {
+            label {Enter Powerball Numbers to play}
+            callback {show_powerball_entry_window()}
+            xywh {440 235 120 60} color 12 align 128
+          }
+        }
+        Fl_Group lottostrike_tab {
+          label {Lotto Strike} open
+          xywh {0 150 565 470} box DOWN_BOX color 11 selection_color 29 labeltype EMBOSSED_LABEL hide resizable
+        } {
+          Fl_Group {} {
+            label {Gold Lotto Numbers} open
+            xywh {20 170 280 45} box PLASTIC_DOWN_BOX color 6 labelsize 16
+          } {
+            Fl_Value_Input lsnum1 {
+              xywh {45 180 35 30} color 58 textsize 16 textcolor 3
+            }
+            Fl_Value_Input lsnum2 {
+              xywh {85 180 35 30} color 58 textsize 16 textcolor 3
+            }
+            Fl_Value_Input lsnum3 {
+              xywh {125 180 35 30} color 58 textsize 16 textcolor 3
+            }
+            Fl_Value_Input lsnum4 {
+              xywh {165 180 35 30} color 58 textsize 16 textcolor 3
+            }
+            Fl_Value_Input lsnum5 {
+              xywh {205 180 35 30} color 58 textsize 16 textcolor 3
+            }
+            Fl_Value_Input lsnum6 {
+              xywh {245 180 35 30} color 58 textsize 16 textcolor 3
+            }
+          }
+          Fl_Text_Display lottostrike_number_view {
+            label {Lotto Strike Numbers}
+            xywh {15 250 410 355} box THIN_DOWN_BOX color 0 selection_color 0 labeltype ENGRAVED_LABEL labelsize 22 labelcolor 80 textfont 13 textcolor 2 resizable
+            code0 {o->buffer(lottostrikeTextBuffer);}
+          }
+          Fl_Button ShowLottostrikeEntryWidget {
+            label {Enter numbers with form}
+            callback {show_lottostrike_entry_window()}
+            xywh {440 235 120 60} color 3 align 128
+          }
+        }
+      }
+      Fl_Menu_Button {} {
+        label {Winning Divisions} open
+        xywh {170 55 160 25} color 14
+      } {
+        MenuItem {} {
+          label Tattslotto
+          callback {show_tatts_divisions_window()}
+          xywh {0 0 34 20}
+        }
+        MenuItem {} {
+          label {Oz Lotto}
+          callback {show_oz_divisions_window()}
+          xywh {10 10 34 20}
+        }
+        MenuItem {} {
+          label Powerball
+          callback {show_powerball_divisions_window()}
+          xywh {20 20 34 20}
+        }
+        MenuItem {} {
+          label {Lotto Strike}
+          callback {show_lottostrike_divisions_window()}
+          xywh {30 30 34 20}
+        }
+      }
+      Fl_Button {} {
+        label License
+        callback {show_license_window()}
+        xywh {460 55 80 25} color 14 selection_color 6
+      }
+      Fl_Box {} {
+        xywh {170 55 90 25}
+      }
+    }
+    Fl_Window results_window {
+      label Results
+      xywh {512 211 415 380} type Double color 14 align 80 modal visible
+    } {
+      Fl_Button {} {
+        label Close
+        callback {close_results_window()} selected
+        xywh {315 350 85 25} color 22 labeltype ENGRAVED_LABEL labelsize 16 labelcolor 1
+      }
+      Fl_Box {} {
+        label RESULTS
+        xywh {0 0 415 50} box DOWN_BOX color 137 labeltype SHADOW_LABEL labelfont 14 labelsize 28 labelcolor 3
+      }
+      Fl_Text_Display {} {
+        xywh {5 50 410 295} box DOWN_BOX color 0 labelcolor 2 textfont 13 textcolor 2
+        code0 {o->buffer(textbuf_results);}
+      }
+      Fl_Button {} {
+        label Save
+        callback {saveResults()}
+        xywh {15 350 85 25} color 22 labeltype ENGRAVED_LABEL labelsize 16 labelcolor 1
+      }
+    }
+    Fl_Window divisions_window {
+      label {Tattslotto Divisions}
+      xywh {330 218 505 295} type Double color 14 align 80 modal visible
+    } {
+      Fl_Text_Display {} {
+        label {Division 1 : 6 numbers}
+        xywh {15 70 15 20} box NO_BOX labelsize 18 align 8
+      }
+      Fl_Text_Display {} {
+        label {Division 2 : 5 numbers and a supplementary}
+        xywh {15 100 15 20} box NO_BOX labelsize 18 align 8
+      }
+      Fl_Text_Display {} {
+        label {Division 3 : 5 numbers}
+        xywh {15 130 15 20} box NO_BOX labelsize 18 align 8
+      }
+      Fl_Text_Display {} {
+        label {Division 4 : 4 numbers}
+        xywh {15 160 15 20} box NO_BOX labelsize 18 align 8
+      }
+      Fl_Text_Display {} {
+        label {Division 5 : 3 numbers and a supplementary}
+        xywh {15 190 15 20} box NO_BOX labelsize 18 align 8
+      }
+      Fl_Text_Display {} {
+        label {Division 6 : 1 number and 2 supplementaries}
+        xywh {15 220 15 20} box NO_BOX labelsize 18 align 8
+      }
+      Fl_Box {} {
+        label {Tattslotto Winning Divisions}
+        xywh {25 10 470 40} box DOWN_BOX color 4 labelsize 28 labelcolor 3
+      }
+      Fl_Button {} {
+        label Close
+        callback {close_tatts_divisions_window()}
+        xywh {400 255 95 30}
+      }
+    }
+    Fl_Window help_window {
+      label {HELP / MANUAL} open
+      xywh {31 77 555 440} type Double color 14 align 80 visible
+    } {
+      Fl_Box {} {
+        label {HELP / MANUAL}
+        xywh {15 5 535 40} box DOWN_BOX color 4 labeltype SHADOW_LABEL labelfont 14 labelsize 26 labelcolor 3
+      }
+      Fl_Button {} {
+        label Close
+        callback {close_help_window()}
+        xywh {230 405 85 25} color 22 labeltype ENGRAVED_LABEL labelsize 16 labelcolor 1
+      }
+      Fl_Help_View helpView {
+        xywh {15 45 535 355} labelcolor 18
+        code0 {loadHelp();}
+      }
+    }
+    Fl_Window oz_divisions_window {
+      label {OzLotto Divisions}
+      xywh {255 167 495 355} type Double color 14 align 80 modal visible
+    } {
+      Fl_Text_Display {} {
+        label {Division 1 : 7 numbers}
+        xywh {15 70 15 20} box NO_BOX labelsize 18 align 8
+      }
+      Fl_Text_Display {} {
+        label {Division 2 : 6 numbers and a supplementary}
+        xywh {15 100 15 20} box NO_BOX labelsize 18 align 8
+      }
+      Fl_Text_Display {} {
+        label {Division 3 : 6 numbers}
+        xywh {15 130 15 20} box NO_BOX labelsize 18 align 8
+      }
+      Fl_Text_Display {} {
+        label {Division 4 : 5 numbers and a supplementary}
+        xywh {15 160 15 20} box NO_BOX labelsize 18 align 8
+      }
+      Fl_Text_Display {} {
+        label {Division 5 : 5 numbers}
+        xywh {15 190 15 20} box NO_BOX labelsize 18 align 8
+      }
+      Fl_Text_Display {} {
+        label {Division 6 : 4 numbers}
+        xywh {15 220 15 20} box NO_BOX labelsize 18 align 8
+      }
+      Fl_Text_Display {} {
+        label {Division 7 : 3 numbers and a supplementary}
+        xywh {15 250 15 20} box NO_BOX labelsize 18 align 8
+      }
+      Fl_Box {} {
+        label {Ozlotto Winning Divisions}
+        xywh {25 10 450 40} box DOWN_BOX color 4 labelsize 28 labelcolor 3
+      }
+      Fl_Button {} {
+        label Close
+        callback {close_oz_divisions_window()}
+        xywh {385 295 95 30}
+      }
+    }
+    Fl_Window powerball_divisions_window {
+      label Divisions
+      xywh {350 238 555 330} type Double color 14 align 80 modal visible
+    } {
+      Fl_Text_Display {} {
+        label {Division 1 : 6 numbers and the powerball}
+        xywh {15 70 15 20} box NO_BOX labelsize 18 align 8
+      }
+      Fl_Text_Display {} {
+        label {Division 2 : 6 numbers and a supplementary}
+        xywh {15 100 15 20} box NO_BOX labelsize 18 align 8
+      }
+      Fl_Text_Display {} {
+        label {Division 3 : 6 numbers}
+        xywh {15 130 15 20} box NO_BOX labelsize 18 align 8
+      }
+      Fl_Text_Display {} {
+        label {Division 4 : 5 numbers and a supplementary}
+        xywh {15 160 15 20} box NO_BOX labelsize 18 align 8
+      }
+      Fl_Text_Display {} {
+        label {Division 5 : 5 numbers}
+        xywh {15 190 15 20} box NO_BOX labelsize 18 align 8
+      }
+      Fl_Text_Display {} {
+        label {Division 6 : 4 numbers}
+        xywh {15 215 15 20} box NO_BOX labelsize 18 align 8
+      }
+      Fl_Text_Display {} {
+        label {Division 7 : 3 numbers and a supplementary}
+        xywh {15 245 15 20} box NO_BOX labelsize 18 align 8
+      }
+      Fl_Box {} {
+        label {Powerball Winning Divisions}
+        xywh {25 10 560 40} box DOWN_BOX color 4 labelsize 28 labelcolor 3
+      }
+      Fl_Button {} {
+        label Close
+        callback {close_powerball_divisions_window()}
+        xywh {395 280 95 30}
+      }
+    }
+    Fl_Window TattsNumberEntryWindow {
+      label {Tattslotto Number}
+      xywh {67 45 430 565} type Double color 14 hide
+    } {
+      Fl_Group TattsEntryGroup {
+        label {Enter Tattslotto Numbers} open
+        xywh {10 20 405 530}
+      } {
+        Fl_Button {} {
+          label OK
+          callback {tattsEntry()}
+          xywh {20 530 105 20} color 14
+        }
+        Fl_Button {} {
+          label Cancel
+          callback {hide_tatts_entry_window()}
+          xywh {300 530 105 20} color 14
+        }
+      }
+    }
+    Fl_Window OzlottoNumberEntryWindow {
+      label {Ozlotto Number}
+      xywh {455 60 430 565} type Double color 14 hide
+    } {
+      Fl_Group OzlottoEntryGroup {
+        label {Enter Ozlotto Numbers} open
+        xywh {10 20 405 530}
+      } {
+        Fl_Button {} {
+          label OK
+          callback {ozlottoEntry()}
+          xywh {20 530 105 20} color 14
+        }
+        Fl_Button {} {
+          label Cancel
+          callback {hide_ozlotto_entry_window()}
+          xywh {300 530 105 20} color 14
+        }
+      }
+    }
+    Fl_Window LottostrikeNumberEntryWindow {
+      label {Lotto Strike Number} open
+      xywh {77 56 430 565} type Double color 14 visible
+    } {
+      Fl_Group LottostrikeEntryGroup {
+        label {Enter Lotto Strike Numbers} open
+        xywh {10 20 405 530}
+      } {
+        Fl_Button {} {
+          label OK
+          callback {lottostrikeEntry()}
+          xywh {20 530 105 20} color 14
+        }
+        Fl_Button {} {
+          label Cancel
+          callback {hide_lottostrike_entry_window()}
+          xywh {300 530 105 20} color 14
+        }
+      }
+    }
+    Fl_Window Numberentry {
+      label {Number Entry} open
+      xywh {90 376 350 250} type Double align 80 visible
+    } {
+      Fl_Light_Button button_1 {
+        label 1
+        callback {NumberSelectorUpdate(1)}
+        xywh {15 25 40 25}
+      }
+      Fl_Light_Button button_2 {
+        label 2
+        callback {NumberSelectorUpdate(2)}
+        xywh {55 25 40 25}
+      }
+      Fl_Light_Button button_3 {
+        label 3
+        callback {NumberSelectorUpdate(3)}
+        xywh {95 25 40 25}
+      }
+      Fl_Light_Button button_4 {
+        label 4
+        callback {NumberSelectorUpdate(4)}
+        xywh {135 25 40 25}
+      }
+      Fl_Light_Button button_5 {
+        label 5
+        callback {NumberSelectorUpdate(5)}
+        xywh {175 25 40 25}
+      }
+      Fl_Light_Button button_6 {
+        label 6
+        callback {NumberSelectorUpdate(6)}
+        xywh {215 25 40 25}
+      }
+      Fl_Light_Button button_7 {
+        label 7
+        callback {NumberSelectorUpdate(7)}
+        xywh {255 25 40 25}
+      }
+      Fl_Light_Button button_8 {
+        label 8
+        callback {NumberSelectorUpdate(8)}
+        xywh {295 25 40 25}
+      }
+      Fl_Light_Button button_9 {
+        label 9
+        callback {NumberSelectorUpdate(9)}
+        xywh {15 50 40 25}
+      }
+      Fl_Light_Button button_10 {
+        label 10
+        callback {NumberSelectorUpdate(10)}
+        xywh {55 50 40 25}
+      }
+      Fl_Light_Button button_11 {
+        label 11
+        callback {NumberSelectorUpdate(11)}
+        xywh {95 50 40 25}
+      }
+      Fl_Light_Button button_12 {
+        label 12
+        callback {NumberSelectorUpdate(12)}
+        xywh {135 50 40 25}
+      }
+      Fl_Light_Button button_13 {
+        label 13
+        callback {NumberSelectorUpdate(13)}
+        xywh {175 50 40 25}
+      }
+      Fl_Light_Button button_14 {
+        label 14
+        callback {NumberSelectorUpdate(14)}
+        xywh {215 50 40 25}
+      }
+      Fl_Light_Button button_15 {
+        label 15
+        callback {NumberSelectorUpdate(15)}
+        xywh {255 50 40 25}
+      }
+      Fl_Light_Button button_16 {
+        label 16
+        callback {NumberSelectorUpdate(16)}
+        xywh {295 50 40 25}
+      }
+      Fl_Light_Button button_17 {
+        label 17
+        callback {NumberSelectorUpdate(17)}
+        xywh {15 75 40 25}
+      }
+      Fl_Light_Button button_18 {
+        label 18
+        callback {NumberSelectorUpdate(18)}
+        xywh {55 75 40 25}
+      }
+      Fl_Light_Button button_19 {
+        label 19
+        callback {NumberSelectorUpdate(19)}
+        xywh {95 75 40 25}
+      }
+      Fl_Light_Button button_20 {
+        label 20
+        callback {NumberSelectorUpdate(20)}
+        xywh {135 75 40 25}
+      }
+      Fl_Light_Button button_21 {
+        label 21
+        callback {NumberSelectorUpdate(21)}
+        xywh {175 75 40 25}
+      }
+      Fl_Light_Button button_22 {
+        label 22
+        callback {NumberSelectorUpdate(22)}
+        xywh {215 75 40 25}
+      }
+      Fl_Light_Button button_23 {
+        label 23
+        callback {NumberSelectorUpdate(23)}
+        xywh {255 75 40 25}
+      }
+      Fl_Light_Button button_24 {
+        label 24
+        callback {NumberSelectorUpdate(24)}
+        xywh {295 75 40 25}
+      }
+      Fl_Light_Button button_25 {
+        label 25
+        callback {NumberSelectorUpdate(25)}
+        xywh {15 100 40 25}
+      }
+      Fl_Light_Button button_26 {
+        label 26
+        callback {NumberSelectorUpdate(26)}
+        xywh {55 100 40 25}
+      }
+      Fl_Light_Button button_27 {
+        label 27
+        callback {NumberSelectorUpdate(27)}
+        xywh {95 100 40 25}
+      }
+      Fl_Light_Button button_28 {
+        label 28
+        callback {NumberSelectorUpdate(28)}
+        xywh {135 100 40 25}
+      }
+      Fl_Light_Button button_29 {
+        label 29
+        callback {NumberSelectorUpdate(29)}
+        xywh {175 100 40 25}
+      }
+      Fl_Light_Button button_30 {
+        label 30
+        callback {NumberSelectorUpdate(30)}
+        xywh {215 100 40 25}
+      }
+      Fl_Light_Button button_31 {
+        label 31
+        callback {NumberSelectorUpdate(31)}
+        xywh {255 100 40 25}
+      }
+      Fl_Light_Button button_32 {
+        label 32
+        callback {NumberSelectorUpdate(32)}
+        xywh {295 100 40 25}
+      }
+      Fl_Light_Button button_33 {
+        label 33
+        callback {NumberSelectorUpdate(33)}
+        xywh {15 125 40 25}
+      }
+      Fl_Light_Button button_34 {
+        label 34
+        callback {NumberSelectorUpdate(34)}
+        xywh {55 125 40 25}
+      }
+      Fl_Light_Button button_35 {
+        label 35
+        callback {NumberSelectorUpdate(35)}
+        xywh {95 125 40 25}
+      }
+      Fl_Light_Button button_36 {
+        label 36
+        callback {NumberSelectorUpdate(36)}
+        xywh {135 125 40 25}
+      }
+      Fl_Light_Button button_37 {
+        label 37
+        callback {NumberSelectorUpdate(37)}
+        xywh {175 125 40 25}
+      }
+      Fl_Light_Button button_38 {
+        label 38
+        callback {NumberSelectorUpdate(38)}
+        xywh {215 125 40 25}
+      }
+      Fl_Light_Button button_39 {
+        label 39
+        callback {NumberSelectorUpdate(39)}
+        xywh {255 125 40 25}
+      }
+      Fl_Light_Button button_40 {
+        label 40
+        callback {NumberSelectorUpdate(40)}
+        xywh {295 125 40 25}
+      }
+      Fl_Light_Button button_41 {
+        label 41
+        callback {NumberSelectorUpdate(41)}
+        xywh {15 150 40 25}
+      }
+      Fl_Light_Button button_42 {
+        label 42
+        callback {NumberSelectorUpdate(42)}
+        xywh {55 150 40 25}
+      }
+      Fl_Light_Button button_43 {
+        label 43
+        callback {NumberSelectorUpdate(43)}
+        xywh {95 150 40 25}
+      }
+      Fl_Light_Button button_44 {
+        label 44
+        callback {NumberSelectorUpdate(44)}
+        xywh {135 150 40 25}
+      }
+      Fl_Light_Button button_45 {
+        label 45
+        callback {NumberSelectorUpdate(45)}
+        xywh {175 150 40 25}
+      }
+      Fl_Button {} {
+        label OK
+        callback {submitButtonNums()}
+        xywh {40 210 60 30} labeltype EMBOSSED_LABEL
+      }
+      Fl_Button {} {
+        label Cancel
+        callback {hide_Numberentry_window()}
+        xywh {255 210 60 30} labeltype EMBOSSED_LABEL
+      }
+    }
+    Fl_Window PowerballNumberEntryWindow {
+      label {Powerball Number} open
+      xywh {461 63 430 565} type Double color 14 align 80 visible
+    } {
+      Fl_Group PowerballEntryGroup {
+        label {Enter Powerball Numbers} open
+        xywh {10 20 405 530}
+      } {
+        Fl_Button {} {
+          label OK
+          callback {powerballEntry()}
+          xywh {20 530 105 20} color 14
+        }
+        Fl_Button {} {
+          label Cancel
+          callback {hide_powerball_entry_window()}
+          xywh {300 530 105 20} color 14
+        }
+      }
+    }
+    Fl_Window lottostrike_divisions_window {
+      label {Lotto Strike Divisions} open
+      xywh {360 248 490 240} type Double color 14 align 80 modal visible
+    } {
+      Fl_Text_Display {} {
+        label {Division 1 : All 4 of the 1st four numbers in order}
+        xywh {15 70 15 20} box NO_BOX labelsize 18 align 8
+      }
+      Fl_Text_Display {} {
+        label {Division 2 : 3 of the first four numbers in order}
+        xywh {15 100 15 20} box NO_BOX labelsize 18 align 8
+      }
+      Fl_Text_Display {} {
+        label {Division 3 : 2 of the first 4 numbers in order}
+        xywh {15 130 15 20} box NO_BOX labelsize 18 align 8
+      }
+      Fl_Text_Display {} {
+        label {Division 4 : 1 of the first 4 numbers}
+        xywh {15 160 15 20} box NO_BOX labelsize 18 align 8
+      }
+      Fl_Box {} {
+        label {Lotto Strike Winning Divisions}
+        xywh {25 10 445 40} box DOWN_BOX color 4 labelsize 28 labelcolor 3
+      }
+      Fl_Button {} {
+        label Close
+        callback {close_lottostrike_divisions_window()}
+        xywh {360 190 95 35}
+      }
+    }
+    Fl_Window LicenseWindow {
+      label License open
+      xywh {75 129 590 570} type Double color 14 visible
+    } {
+      Fl_Box {} {
+        label License
+        xywh {0 0 590 55} box ENGRAVED_BOX color 15 labeltype ENGRAVED_LABEL labelsize 36 labelcolor 6
+      }
+      Fl_Text_Display {} {
+        xywh {0 55 585 465} box DOWN_BOX color 0 labelfont 13 labelsize 10 align 129 textfont 13 textsize 12 textcolor 6
+        code0 {o->buffer(licenseTextBuffer);}
+      }
+      Fl_Button {} {
+        label Close
+        callback {close_license_window()}
+        xywh {250 540 145 25} color 31 labeltype EMBOSSED_LABEL
+      }
+      Fl_Box {} {
+        label {(C) Dennis Katsonis   2014}
+        xywh {0 520 265 20} labelfont 14
+      }
+    }
+  }
+  Function {quit()} {return_type int
+  } {
+    code {this->lotto_gui->hide();
+this->divisions_window->hide();
+this->results_window->hide();
+this->TattsNumberEntryWindow->hide();;
+return 0;
+// Closes the program by hiding the main gui.  Hiding the main window ends the 
+// execution loop.} {}
+  }
+  Function {close_results_window()} {} {
+    code {this->results_window->hide();} {}
+  }
+  Function {close_tatts_divisions_window()} {} {
+    code {this->divisions_window->hide();} {}
+  }
+  Function {show_tatts_divisions_window()} {} {
+    code {this->divisions_window->show();} {}
+  }
+  Function {show_help_window()} {} {
+    code {this->help_window->show();} {}
+  }
+  Function {close_help_window()} {} {
+    code {this->help_window->hide();} {}
+  }
+  Function {show_oz_divisions_window()} {} {
+    code {this->oz_divisions_window->show();} {}
+  }
+  Function {show_powerball_divisions_window()} {} {
+    code {this->powerball_divisions_window->show();} {}
+  }
+  Function {close_oz_divisions_window()} {} {
+    code {this->oz_divisions_window->hide();} {}
+  }
+  Function {close_powerball_divisions_window()} {} {
+    code {this->powerball_divisions_window->hide();} {}
+  }
+  Function {open_file()} {return_type {virtual int}
+  } {
+    code {return 0;} {}
+  }
+  Function {save_file()} {return_type {virtual int}
+  } {
+    code {return 0;} {}
+  }
+  Function {clear_results()} {return_type {virtual void}
+  } {
+    code {} {}
+  }
+  Function {check_lotto()} {return_type {virtual void}
+  } {
+    code {} {}
+  }
+  Function {generate()} {return_type {virtual int}
+  } {
+    code {return 0;} {}
+  }
+  Function {clear_lotto()} {return_type {virtual void}
+  } {
+    code {} {}
+  }
+  Function {changeTab()} {return_type {virtual void}
+  } {
+    code {} {}
+  }
+  Function {show_tatts_entry_window()} {return_type virtual
+  } {
+    code {this->TattsNumberEntryWindow->show();} {}
+  }
+  Function {hide_tatts_entry_window()} {} {
+    code {this->TattsNumberEntryWindow->hide();} {}
+  }
+  Function {show_ozlotto_entry_window()} {return_type virtual
+  } {
+    code {this->OzlottoNumberEntryWindow->show();} {}
+  }
+  Function {hide_ozlotto_entry_window()} {} {
+    code {this->OzlottoNumberEntryWindow->hide();} {}
+  }
+  Function {tattsEntry()} {return_type {virtual void}
+  } {
+    code {return;} {}
+  }
+  Function {ozlottoEntry()} {return_type {virtual void}
+  } {
+    code {return;} {}
+  }
+  Function {powerballEntry()} {return_type {virtual void}
+  } {
+    code {return;} {}
+  }
+  Function {show_powerball_entry_window()} {return_type virtual
+  } {
+    code {this->PowerballNumberEntryWindow->show();} {}
+  }
+  Function {hide_powerball_entry_window()} {} {
+    code {this->PowerballNumberEntryWindow->hide();} {}
+  }
+  Function {saveResults()} {return_type {virtual void}
+  } {
+    code {return;} {}
+  }
+  Function {NumberSelectorUpdate(int x)} {return_type {virtual void}
+  } {
+    code {} {}
+  }
+  Function {show_Numberentry_window()} {return_type virtual
+  } {
+    code {this->Numberentry->show();} {}
+  }
+  Function {hide_Numberentry_window()} {return_type virtual
+  } {
+    code {this->Numberentry->hide();} {}
+  }
+  Function {submitButtonNums()} {return_type {virtual void}
+  } {
+    code {return;} {}
+  }
+  Function {clearNumberSelector()} {return_type {virtual void}
+  } {
+    code {return;} {}
+  }
+  Function {loadHelp()} {return_type {virtual void}
+  } {
+    code {return;} {}
+  }
+  Function {show_lottostrike_entry_window()} {open return_type virtual
+  } {
+    code {this->LottostrikeNumberEntryWindow->show();} {}
+  }
+  Function {hide_lottostrike_entry_window()} {} {
+    code {this->LottostrikeNumberEntryWindow->hide();} {}
+  }
+  Function {lottostrikeEntry()} {open return_type {virtual void}
+  } {
+    code {return;} {}
+  }
+  Function {show_lottostrike_divisions_window()} {open
+  } {
+    code {this->lottostrike_divisions_window->show();} {}
+  }
+  Function {close_lottostrike_divisions_window()} {open
+  } {
+    code {this->lottostrike_divisions_window->hide();} {}
+  }
+  Function {show_license_window()} {open return_type {virtual void}
+  } {
+    code {this->LicenseWindow->show();} {}
+  }
+  Function {close_license_window()} {open
+  } {
+    code {this->LicenseWindow->hide();} {}
+  }
+} 
