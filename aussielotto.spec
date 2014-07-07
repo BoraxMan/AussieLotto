@@ -4,7 +4,7 @@ Version: 1.0.0
 Release: 1
 License: GPL
 Group: Applications
-Source: http://dennisk.customer.netspace.net.au/aussielotto/aussielotto-0.9.3.tar.gz
+Source: http://dennisk.customer.netspace.net.au/aussielotto/aussielotto-1.0.0.tar.gz
 URL: http://dennisk.customer.netspace.net.au/aussielotto.html
 Distribution: Fedora
 Vendor: DK Soft
