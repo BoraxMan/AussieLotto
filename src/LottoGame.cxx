@@ -39,21 +39,13 @@ gameType getFileGameType(char *fname)
 { 
   std::ifstream fin;
   std::string header;
-  
-  /*std::string tatts_id = "TATTS_GAME";
-  std::string ozlotto_id = "OZLOTTO_GAME";
-  std::string powerball_id = "POWERBALL_GAME";
-  std::string lottostrike_id = "LOTTOSTRIKE_GAME";
-   */
+
   fin.open(fname);
   
   if (!fin.is_open())
     throw std::string("Could not open file");
   
-  
-  std::cout << lottostrike_id << std::endl;
   fin >> header;
-  
   fin.close();
       
   if (header == tatts_id)
@@ -72,16 +64,8 @@ gameType getFileGameType(char *fname)
 // Lotto Game methods
 //*******************
 
-LottoGame::LottoGame()
+LottoGame::LottoGame() : memoryAllocated(false), games(0), outputted(0)
 {
-  
-  /*tatts_id = "TATTS_GAME";
-  ozlotto_id = "OZLOTTO_GAME";
-  powerball_id = "POWERBALL_GAME";
-  lottostrike_id = "LOTTOSTRIKE_GAME";*/
-  games = 0;
-  outputted = 0;
-  memoryAllocated = false; // This is more to determine whether there are 
 }
 
 LottoGame::~LottoGame()
@@ -207,7 +191,6 @@ void tattslottoGame::addGame(int x1, int x2, int x3, int x4, int x5, int x6) thr
   games++;
   
   return;
-  
 }  
 
 int tattslottoGame::generateGames(int numGames)
@@ -244,7 +227,7 @@ int tattslottoGame::generateGames(int numGames)
   return 0;
   }
 
- int tattslottoGame::loadGame(char *fname)
+int tattslottoGame::loadGame(char *fname)
 {
   
   std::ifstream fin;
@@ -296,7 +279,6 @@ int tattslottoGame::saveGame(std::string fname)
   if (!file_out.is_open())
     throw std::string("Could not open file");
   
-  std::cout << "TATTS ID" << tatts_id << std::endl;
   file_out << tatts_id << "\n";
   file_out << games << "\n";
   
@@ -341,7 +323,6 @@ tattslottoGame::tattslottoGame(int numgames) : LottoGame()
 
 std::string tattslottoGame::checkResults()
 {
-  int i;
   int tat;
   int sup;
   int c;
@@ -371,7 +352,7 @@ std::string tattslottoGame::checkResults()
 
     tat = 0;
     sup = 0;
-    for (i = 0; i < tattsBalls; i++)
+    for (int i = 0; i < tattsBalls; i++)
     {
     if (numbers[c][i] == results[0])
       tat++;
@@ -511,7 +492,7 @@ void ozlottoGame::addGame(int x1, int x2, int x3, int x4, int x5, int x6, int x7
 
 int ozlottoGame::generateGames(int numGames)
 {
-  int i;  //  The number ball
+
   int c;  // General counter
   int gamecounter; // To count which game
 
@@ -529,7 +510,7 @@ int ozlottoGame::generateGames(int numGames)
 
   for (gamecounter = 0; gamecounter < games ; gamecounter++)
   {
-    for (i = 0 ; i < ozlottoBalls; i++)
+    for (int i = 0 ; i < ozlottoBalls; i++)
     {
       numbers[gamecounter][i] = (static_cast<int>(highest_ball * (rand()/(RAND_MAX+1.0)))+1);
       for (c = 0; c < i; c++)
@@ -550,7 +531,7 @@ int ozlottoGame::generateGames(int numGames)
 int ozlottoGame::saveGame(std::string fname)
 {
   std::ofstream file_out;
-  int c;
+
   file_out.open(fname.c_str(), std::ios::out | std::ios::trunc | std::ios::binary);
   
   if (!file_out.is_open())
@@ -560,7 +541,7 @@ int ozlottoGame::saveGame(std::string fname)
 
   file_out << games << "\n";
   
-  for (c = 0; c < games; c++)
+  for (int c = 0; c < games; c++)
   {
     file_out << numbers[c][0] << "\t" << numbers[c][1] << "\t" << numbers[c][2] << "\t";
     file_out << numbers[c][3] << "\t" << numbers[c][4] << "\t" << numbers[c][5] << "\t";
@@ -652,7 +633,6 @@ ozlottoGame::~ozlottoGame()
 
 std::string ozlottoGame::checkResults()
 {
-  int i;
   int tat;
   int sup;
   int c;
@@ -681,7 +661,7 @@ std::string ozlottoGame::checkResults()
     if (results_tally.size() == static_cast<unsigned int>(winners))
       results_tally.resize(results_tally.size() + 10);
 
-    for (i = 0; i < ozlottoBalls; i++)
+    for (int i = 0; i < ozlottoBalls; i++)
     {
       if (numbers[c][i] == results[0])
 	tat++;
@@ -813,12 +793,27 @@ std::ostream &operator<<(std::ostream &outstream, powerballGame & p)
 }
 
 
-int powerballGame::generateGames(int numGames)
+void powerballGame::resetPowerballRandomPool(void)
 {
-  int i;  //  The number ball
+ 
+  for (int c = 0; c < highest_ball; c++)
+  {
+    powerballPool[c] = (c + 1);
+  }
+  std::random_shuffle(powerballPool.begin(), powerballPool.end());
+  
+  return;
+  
+}
+  
+int powerballGame::generateGames(int numGames, bool ensp)
+{
   int c;  // General counter
   int gamecounter; // To count which game
   games = numGames;
+  powerballsRemaining = highest_ball;
+
+  resetPowerballRandomPool();
   
   if (!memoryAllocated)
   {
@@ -833,7 +828,7 @@ int powerballGame::generateGames(int numGames)
 
   for (gamecounter = 0; gamecounter < games ; gamecounter++)
   {
-    for (i = 0 ; i < (powerballBalls - 1); i++)
+    for (int i = 0 ; i < (powerballBalls - 1); i++)
     {
       numbers[gamecounter][i] = (static_cast<int>(highest_ball * (rand()/(RAND_MAX+1.0)))+1);
       for (c = 0; c < i; c++)
@@ -849,8 +844,23 @@ int powerballGame::generateGames(int numGames)
     } // This sets the 5 numbers
 // Sort the generated numbers.
     sort(numbers[gamecounter].begin(), numbers[gamecounter].end());
-
-    pb[gamecounter] = (static_cast<int>(highest_ball * (rand()/(RAND_MAX+1.0)))+1);
+    
+    
+    if (ensp == false)
+      pb[gamecounter] = (static_cast<int>(highest_ball * (rand()/(RAND_MAX+1.0)))+1); //Any random number
+    else // If we are ensuring the powerball, we use a different method.
+    {
+      if (powerballsRemaining <= 0)
+      {
+	powerballsRemaining = highest_ball;
+	resetPowerballRandomPool();
+      }
+      else
+      {
+	pb[gamecounter] = powerballPool[(powerballsRemaining - 1)];
+	--powerballsRemaining;
+      }
+    }
   }  
   return 0;
 }
@@ -963,7 +973,7 @@ powerballGame::~powerballGame()
 
 std::string powerballGame::checkResults()
 {
-  int i;
+
   int tat;
   int sup;
   int c;
@@ -991,7 +1001,7 @@ std::string powerballGame::checkResults()
     tat = 0;
     sup = 0;
     pow = 0;
-    for (i = 0; i < powerballBalls; i++)
+    for (int i = 0; i < powerballBalls; i++)
     {
     if (numbers[c][i] == results[0])
       tat++;
@@ -1086,19 +1096,22 @@ return strout.str();
 powerballGame::powerballGame() : LottoGame()
 {
     results.resize((powerballBalls - 1));
+    powerballPool.resize(highest_ball);
 }
 
 powerballGame::powerballGame(char *fname) : LottoGame()
 { 
   results.resize((powerballBalls - 1));
   loadGame(fname);
+  powerballPool.resize(highest_ball);
 }
 
-powerballGame::powerballGame(int numgames) : LottoGame()
+powerballGame::powerballGame(int numgames, bool ensp) : LottoGame()
 {
   results.resize((powerballBalls - 1));
+  powerballPool.resize(highest_ball);
   if (numgames)
-    generateGames(numgames);
+    generateGames(numgames, ensp);
 }
 
 
@@ -1186,7 +1199,6 @@ void lottostrikeGame::addGame(int x1, int x2, int x3, int x4) throw (std::string
 
 int lottostrikeGame::generateGames(int numGames)
 {
-  int i;  //  The number ball
   int c;  // General counter
   int gamecounter; // To count which game
   games = numGames;
@@ -1202,7 +1214,7 @@ int lottostrikeGame::generateGames(int numGames)
 
   for (gamecounter = 0; gamecounter < games ; gamecounter++)
   {
-    for (i = 0 ; i < lottostrikeBalls; i++)
+    for (int i = 0 ; i < lottostrikeBalls; i++)
     {
       numbers[gamecounter][i] = (static_cast<int>(highest_ball * (rand()/(RAND_MAX+1.0)))+1);
       for (c = 0; c < i; c++)
@@ -1289,23 +1301,22 @@ lottostrikeGame::~lottostrikeGame()
 
 lottostrikeGame::lottostrikeGame() : LottoGame()
 {
-
   results.resize(tattsBalls);
 }
 
 lottostrikeGame::lottostrikeGame(char *fname) : LottoGame()
 {
 
-  loadGame(fname); 
   results.resize(tattsBalls);
+  loadGame(fname); 
 }
 
 lottostrikeGame::lottostrikeGame(int numgames) : LottoGame()
 {
 
+  results.resize(tattsBalls);
   if (numgames)
     generateGames(numgames);
-  results.resize(tattsBalls);
 }
 
 

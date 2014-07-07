@@ -30,7 +30,7 @@
 #include <fstream>
 #include <string>
 #include <bitset>
-#include <Fl/fl_ask.h>
+#include <Fl/Fl_Choice.h>
 #include <FL/Fl_File_Chooser.H>
 
 const int max_games = 1048576;
@@ -354,17 +354,15 @@ void AusLotto::createLottostrikeEntryWindows(void)
 
 void AusLotto::tattsEntry(void)
 {
-  int r;
-  int c;
   int intValues[tattsBalls];
   std::string value;
   std::stringstream strout;
   
   
-  for (r = 0; r < 16; r++)
+  for (int r = 0; r < 16; r++)
   {
 
-    for (c = 0; c < tattsBalls; c++)
+    for (int c = 0; c < tattsBalls; c++)
     {
       if (tew[r][c]->size())
       {
@@ -401,15 +399,13 @@ void AusLotto::tattsEntry(void)
 
 void AusLotto::ozlottoEntry(void)
 {
-  int r;
-  int c;
   int intValues[ozlottoBalls];
   std::string value;
   std::stringstream strout;
   
-  for (r = 0; r < 16; r++)
+  for (int r = 0; r < 16; r++)
   {
-    for (c = 0; c < ozlottoBalls; c++)
+    for (int c = 0; c < ozlottoBalls; c++)
     {
       if (oew[r][c]->size())
       {
@@ -447,15 +443,14 @@ void AusLotto::ozlottoEntry(void)
 
 void AusLotto::powerballEntry(void)
 {
-  int r;
-  int c;
+
   int intValues[powerballBalls];
   std::string value;
   std::stringstream strout;
   
-  for (r = 0; r < 16; r++)
+  for (int r = 0; r < 16; r++)
   {
-    for (c = 0; c < powerballBalls; c++)
+    for (int c = 0; c < powerballBalls; c++)
     {
       if (pew[r][c]->size())
       {
@@ -492,15 +487,14 @@ void AusLotto::powerballEntry(void)
 
 void AusLotto::lottostrikeEntry(void)
 {
-  int r;
-  int c;
+
   int intValues[lottostrikeBalls];
   std::string value;
   std::stringstream strout;
   
-  for (r = 0; r < 16; r++)
+  for (int r = 0; r < 16; r++)
   {
-    for (c = 0; c < lottostrikeBalls; c++)
+    for (int c = 0; c < lottostrikeBalls; c++)
     {
       if (lew[r][c]->size())
       {
@@ -584,7 +578,7 @@ void AusLotto::show_lottostrike_entry_window(void)
 }
 
 
-AusLotto::AusLotto()
+AusLotto::AusLotto() : ensurePowerballValue(false)
 {
   tattslottoTextBuffer = new Fl_Text_Buffer();
   ozlottoTextBuffer = new Fl_Text_Buffer();
@@ -803,7 +797,7 @@ int AusLotto::save_file(void)
   fname = fl_file_chooser("Save Tatts Game", NULL, NULL);
 
   if (fname == NULL)
-    return 1;
+    return -1;
     
   std::string filename(fname);
   
@@ -816,7 +810,8 @@ int AusLotto::save_file(void)
   
   if(fexists(filename))
   {
-    fl_message("Do you want to overwrite this file?");
+    if (fl_choice("Do you want to overwrite this file?","CANCEL", fl_no, fl_yes) != 2)
+      return -1;
   }
 
   
@@ -950,6 +945,17 @@ int AusLotto::open_file(void)
 } // end open_file()
 
 
+void AusLotto::ensurePowerballButton(void)
+{
+  if (ensurePowerballValue == true)
+    ensurePowerballValue = false;
+  else
+    ensurePowerballValue = true;
+  return;
+}
+
+  
+
 void AusLotto::setGameTab(gameType gt)
 { 
   switch(gt)
@@ -1031,7 +1037,7 @@ int AusLotto::generate()
     case POWERBALL:
       delete powerball;
       powerballTextBuffer->text("");
-      powerball = new powerballGame(numgames);
+      powerball = new powerballGame(numgames, ensurePowerballValue);
       strout << *powerball;
       powerballTextBuffer->append(strout.str().c_str()); 
       break;

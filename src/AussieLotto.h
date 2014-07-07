@@ -37,6 +37,7 @@ private:
   ozlottoGame *ozlotto;
   powerballGame *powerball;
   lottostrikeGame *lottostrike;
+  bool ensurePowerballValue;
   void setGameTab(gameType);
   gameType getGameTab(void);
   void changeTab(void);
@@ -50,6 +51,7 @@ private:
   void clear_lotto(void);
   void clear_results(void);
   void show_license_window(void);
+  void ensurePowerballButton(void);
   
 public:
   void tattsEntry(void);

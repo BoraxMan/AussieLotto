@@ -37,7 +37,7 @@ class UserInterface {open
   } {
     Fl_Window lotto_gui {
       label {Aussie Lotto} open
-      xywh {69 103 605 620} type Single color 14 selection_color 32 labelcolor 12 align 80 when 6 visible
+      xywh {829 346 605 620} type Single color 14 selection_color 32 labelcolor 12 align 80 when 6 visible
     } {
       Fl_Box {} {
         label {Aussie Lotto}
@@ -122,7 +122,7 @@ class UserInterface {open
         xywh {0 125 565 605} box THIN_DOWN_BOX labeltype NO_LABEL align 37
       } {
         Fl_Group tattslotto_tab {
-          label {Tattslotto/Gold Lotto/X Lotto} open
+          label {Tattslotto/Gold Lotto/X Lotto} open selected
           xywh {0 150 565 470} box DOWN_BOX color 140 selection_color 29 labeltype EMBOSSED_LABEL
         } {
           Fl_Group {} {
@@ -277,6 +277,11 @@ class UserInterface {open
             callback {show_powerball_entry_window()}
             xywh {440 235 120 60} color 12 align 128
           }
+          Fl_Check_Button ensurePowerball {
+            label {Ensure Powerball}
+            callback {ensurePowerballButton()}
+            xywh {475 150 90 55} down_box DOWN_BOX align 148
+          }
         }
         Fl_Group lottostrike_tab {
           label {Lotto Strike} open
@@ -357,7 +362,7 @@ class UserInterface {open
     } {
       Fl_Button {} {
         label Close
-        callback {close_results_window()} selected
+        callback {close_results_window()}
         xywh {315 350 85 25} color 22 labeltype ENGRAVED_LABEL labelsize 16 labelcolor 1
       }
       Fl_Box {} {
@@ -432,7 +437,7 @@ class UserInterface {open
     }
     Fl_Window oz_divisions_window {
       label {OzLotto Divisions}
-      xywh {255 167 495 355} type Double color 14 align 80 modal visible
+      xywh {255 167 495 355} type Double color 14 align 80 hide modal
     } {
       Fl_Text_Display {} {
         label {Division 1 : 7 numbers}
@@ -474,7 +479,7 @@ class UserInterface {open
     }
     Fl_Window powerball_divisions_window {
       label Divisions
-      xywh {350 238 555 330} type Double color 14 align 80 modal visible
+      xywh {350 238 555 330} type Double color 14 align 80 hide modal
     } {
       Fl_Text_Display {} {
         label {Division 1 : 6 numbers and the powerball}
@@ -576,7 +581,7 @@ class UserInterface {open
     }
     Fl_Window Numberentry {
       label {Number Entry} open
-      xywh {90 376 350 250} type Double align 80 visible
+      xywh {90 376 350 250} type Double align 80 hide
     } {
       Fl_Light_Button button_1 {
         label 1
@@ -816,7 +821,7 @@ class UserInterface {open
     }
     Fl_Window PowerballNumberEntryWindow {
       label {Powerball Number} open
-      xywh {461 63 430 565} type Double color 14 align 80 visible
+      xywh {461 63 430 565} type Double color 14 align 80 hide
     } {
       Fl_Group PowerballEntryGroup {
         label {Enter Powerball Numbers} open
@@ -836,7 +841,7 @@ class UserInterface {open
     }
     Fl_Window lottostrike_divisions_window {
       label {Lotto Strike Divisions} open
-      xywh {360 248 490 240} type Double color 14 align 80 modal visible
+      xywh {360 248 490 240} type Double color 14 align 80 hide modal
     } {
       Fl_Text_Display {} {
         label {Division 1 : All 4 of the 1st four numbers in order}
@@ -1039,5 +1044,9 @@ return 0;
   Function {close_license_window()} {open
   } {
     code {this->LicenseWindow->hide();} {}
+  }
+  Function {ensurePowerballButton()} {open return_type {virtual void}
+  } {
+    code {return;} {}
   }
 } 

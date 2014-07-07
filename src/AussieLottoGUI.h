@@ -12,6 +12,7 @@
 #include <FL/Fl_Tabs.H>
 #include <FL/Fl_Group.H>
 #include <FL/Fl_Text_Display.H>
+#include <FL/Fl_Check_Button.H>
 #include <FL/Fl_Double_Window.H>
 #include <FL/Fl_Help_View.H>
 #include <FL/Fl_Light_Button.H>
@@ -113,6 +114,11 @@ public:
 private:
   inline void cb_ShowPowerballEntryWidget_i(Fl_Button*, void*);
   static void cb_ShowPowerballEntryWidget(Fl_Button*, void*);
+public:
+  Fl_Check_Button *ensurePowerball;
+private:
+  inline void cb_ensurePowerball_i(Fl_Check_Button*, void*);
+  static void cb_ensurePowerball(Fl_Check_Button*, void*);
 public:
   Fl_Group *lottostrike_tab;
   Fl_Value_Input *lsnum1;
@@ -479,5 +485,6 @@ public:
   void close_lottostrike_divisions_window();
   virtual void show_license_window();
   void close_license_window();
+  virtual void ensurePowerballButton();
 };
 #endif

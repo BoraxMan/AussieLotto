@@ -61,7 +61,6 @@ class tattslottoGame : public LottoGame
   public:
     int saveGame(std::string fname);
     int generateGames(int numGames);
-
     std::string checkResults();
     ~tattslottoGame();
     tattslottoGame();
@@ -87,7 +86,6 @@ class ozlottoGame : public LottoGame
     int loadGame(char *fname);
     void addGame(int x1, int x2, int x3, int x4, int x5, int x6, int x7) throw (std::string);
     std::string checkResults();
-    
     friend std::ostream &operator<<(std::ostream &outstream, ozlottoGame & p);
   private:
 };
@@ -98,18 +96,22 @@ class powerballGame : public LottoGame
   public:
     int saveGame(std::string fname);
     void addGame(int x1, int x2, int x3, int x4, int x5, int x6, int pb) throw (std::string);
-    int generateGames(int numGames);
+    int generateGames(int numGames, bool ensp);
     int setResults(int x1, int x2, int x3, int x4, int x5, int x6, int pb) throw (std::string);
     std::string checkResults();
     int loadGame(char *fname);
     ~powerballGame();
     powerballGame();
     powerballGame(char *fname);
-    powerballGame(int numgames);
+    powerballGame(int numgames, bool ensp);
     friend std::ostream &operator<<(std::ostream &outstream, powerballGame & p);
-    std::vector<int> pb;
+
   private:
+    void resetPowerballRandomPool(void);
     int result_pb;
+    std::vector<int> powerballPool;
+    std::vector<int> pb;
+    int powerballsRemaining;
 };
 
 class lottostrikeGame : public LottoGame
@@ -127,7 +129,7 @@ class lottostrikeGame : public LottoGame
     
     friend std::ostream &operator<<(std::ostream &outstream, lottostrikeGame & p);
   private:
-    //int results[7];
+
 };
 
 
@@ -155,7 +157,9 @@ class lottostrikeGame : public LottoGame
  * powerball.
  * 
  * generateGames() Pass an int, and this will generate that number of random games.  Note that this
- * does not add to the existing games, but resets.
+ * does not add to the existing games, but resets.  Powerball takes an additional parameter, a boolean
+ * which is set to true if we want to ensure the powerball, or false if not.  Ensuring the powerball
+ * essentially means that every 45 powerballs picked randomly, are guaranteed to be unique.
  * 
  * getNumGames() this function returns an 'int' which is the number games currently generated
  * or created.

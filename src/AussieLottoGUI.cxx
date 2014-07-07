@@ -153,6 +153,13 @@ void UserInterface::cb_ShowPowerballEntryWidget(Fl_Button* o, void* v) {
   ((UserInterface*)(o->parent()->parent()->parent()->user_data()))->cb_ShowPowerballEntryWidget_i(o,v);
 }
 
+void UserInterface::cb_ensurePowerball_i(Fl_Check_Button*, void*) {
+  ensurePowerballButton();
+}
+void UserInterface::cb_ensurePowerball(Fl_Check_Button* o, void* v) {
+  ((UserInterface*)(o->parent()->parent()->parent()->user_data()))->cb_ensurePowerball_i(o,v);
+}
+
 void UserInterface::cb_ShowLottostrikeEntryWidget_i(Fl_Button*, void*) {
   show_lottostrike_entry_window();
 }
@@ -972,15 +979,20 @@ Fl_Window* UserInterface::make_window() {
           ShowPowerballEntryWidget->callback((Fl_Callback*)cb_ShowPowerballEntryWidget);
           ShowPowerballEntryWidget->align(Fl_Align(FL_ALIGN_WRAP));
         } // Fl_Button* ShowPowerballEntryWidget
+        { ensurePowerball = new Fl_Check_Button(475, 150, 90, 55, catgets(_catalog,1,35,"Ensure Powerball"));
+          ensurePowerball->down_box(FL_DOWN_BOX);
+          ensurePowerball->callback((Fl_Callback*)cb_ensurePowerball);
+          ensurePowerball->align(Fl_Align(132|FL_ALIGN_INSIDE));
+        } // Fl_Check_Button* ensurePowerball
         powerball_tab->end();
       } // Fl_Group* powerball_tab
-      { lottostrike_tab = new Fl_Group(0, 150, 565, 470, catgets(_catalog,1,35,"Lotto Strike"));
+      { lottostrike_tab = new Fl_Group(0, 150, 565, 470, catgets(_catalog,1,36,"Lotto Strike"));
         lottostrike_tab->box(FL_DOWN_BOX);
         lottostrike_tab->color((Fl_Color)11);
         lottostrike_tab->selection_color((Fl_Color)29);
         lottostrike_tab->labeltype(FL_EMBOSSED_LABEL);
         lottostrike_tab->hide();
-        { Fl_Group* o = new Fl_Group(20, 170, 280, 45, catgets(_catalog,1,36,"Gold Lotto Numbers"));
+        { Fl_Group* o = new Fl_Group(20, 170, 280, 45, catgets(_catalog,1,37,"Gold Lotto Numbers"));
           o->box(FL_PLASTIC_DOWN_BOX);
           o->color((Fl_Color)6);
           o->labelsize(16);
@@ -1016,7 +1028,7 @@ Fl_Window* UserInterface::make_window() {
           } // Fl_Value_Input* lsnum6
           o->end();
         } // Fl_Group* o
-        { Fl_Text_Display* o = lottostrike_number_view = new Fl_Text_Display(15, 250, 410, 355, catgets(_catalog,1,37,"Lotto Strike Numbers"));
+        { Fl_Text_Display* o = lottostrike_number_view = new Fl_Text_Display(15, 250, 410, 355, catgets(_catalog,1,38,"Lotto Strike Numbers"));
           lottostrike_number_view->box(FL_THIN_DOWN_BOX);
           lottostrike_number_view->color(FL_FOREGROUND_COLOR);
           lottostrike_number_view->selection_color(FL_FOREGROUND_COLOR);
@@ -1028,7 +1040,7 @@ Fl_Window* UserInterface::make_window() {
           Fl_Group::current()->resizable(lottostrike_number_view);
           o->buffer(lottostrikeTextBuffer);
         } // Fl_Text_Display* lottostrike_number_view
-        { ShowLottostrikeEntryWidget = new Fl_Button(440, 235, 120, 60, catgets(_catalog,1,38,"Enter numbers with form"));
+        { ShowLottostrikeEntryWidget = new Fl_Button(440, 235, 120, 60, catgets(_catalog,1,39,"Enter numbers with form"));
           ShowLottostrikeEntryWidget->color((Fl_Color)3);
           ShowLottostrikeEntryWidget->callback((Fl_Callback*)cb_ShowLottostrikeEntryWidget);
           ShowLottostrikeEntryWidget->align(Fl_Align(FL_ALIGN_WRAP));
@@ -1038,18 +1050,18 @@ Fl_Window* UserInterface::make_window() {
       } // Fl_Group* lottostrike_tab
       tabular->end();
     } // Fl_Tabs* tabular
-    { Fl_Menu_Button* o = new Fl_Menu_Button(170, 55, 160, 25, catgets(_catalog,1,39,"Winning Divisions"));
+    { Fl_Menu_Button* o = new Fl_Menu_Button(170, 55, 160, 25, catgets(_catalog,1,40,"Winning Divisions"));
       o->color((Fl_Color)14);
       if (!menu_Winning_i18n_done) {
         int i=0;
         for ( ; i<4; i++)
           if (menu_Winning[i].label())
-            menu_Winning[i].label(catgets(_catalog,1,i+40,menu_Winning[i].label()));
+            menu_Winning[i].label(catgets(_catalog,1,i+41,menu_Winning[i].label()));
         menu_Winning_i18n_done = 1;
       }
       o->menu(menu_Winning);
     } // Fl_Menu_Button* o
-    { Fl_Button* o = new Fl_Button(460, 55, 80, 25, catgets(_catalog,1,44,"License"));
+    { Fl_Button* o = new Fl_Button(460, 55, 80, 25, catgets(_catalog,1,45,"License"));
       o->color((Fl_Color)14);
       o->selection_color((Fl_Color)6);
       o->callback((Fl_Callback*)cb_License);
@@ -1058,18 +1070,18 @@ Fl_Window* UserInterface::make_window() {
     } // Fl_Box* o
     lotto_gui->end();
   } // Fl_Window* lotto_gui
-  { results_window = new Fl_Double_Window(415, 380, catgets(_catalog,1,45,"Results"));
+  { results_window = new Fl_Double_Window(415, 380, catgets(_catalog,1,46,"Results"));
     results_window->color((Fl_Color)14);
     results_window->user_data((void*)(this));
     results_window->align(Fl_Align(FL_ALIGN_CLIP|FL_ALIGN_INSIDE));
-    { Fl_Button* o = new Fl_Button(315, 350, 85, 25, catgets(_catalog,1,46,"Close"));
+    { Fl_Button* o = new Fl_Button(315, 350, 85, 25, catgets(_catalog,1,47,"Close"));
       o->color((Fl_Color)22);
       o->labeltype(FL_ENGRAVED_LABEL);
       o->labelsize(16);
       o->labelcolor((Fl_Color)1);
       o->callback((Fl_Callback*)cb_Close);
     } // Fl_Button* o
-    { Fl_Box* o = new Fl_Box(0, 0, 415, 50, catgets(_catalog,1,47,"RESULTS"));
+    { Fl_Box* o = new Fl_Box(0, 0, 415, 50, catgets(_catalog,1,48,"RESULTS"));
       o->box(FL_DOWN_BOX);
       o->color((Fl_Color)137);
       o->labeltype(FL_SHADOW_LABEL);
@@ -1085,7 +1097,7 @@ Fl_Window* UserInterface::make_window() {
       o->textcolor((Fl_Color)2);
       o->buffer(textbuf_results);
     } // Fl_Text_Display* o
-    { Fl_Button* o = new Fl_Button(15, 350, 85, 25, catgets(_catalog,1,48,"Save"));
+    { Fl_Button* o = new Fl_Button(15, 350, 85, 25, catgets(_catalog,1,49,"Save"));
       o->color((Fl_Color)22);
       o->labeltype(FL_ENGRAVED_LABEL);
       o->labelsize(16);
@@ -1095,57 +1107,57 @@ Fl_Window* UserInterface::make_window() {
     results_window->set_modal();
     results_window->end();
   } // Fl_Double_Window* results_window
-  { divisions_window = new Fl_Double_Window(505, 295, catgets(_catalog,1,49,"Tattslotto Divisions"));
+  { divisions_window = new Fl_Double_Window(505, 295, catgets(_catalog,1,50,"Tattslotto Divisions"));
     divisions_window->color((Fl_Color)14);
     divisions_window->user_data((void*)(this));
     divisions_window->align(Fl_Align(FL_ALIGN_CLIP|FL_ALIGN_INSIDE));
-    { Fl_Text_Display* o = new Fl_Text_Display(15, 70, 15, 20, catgets(_catalog,1,50,"Division 1 : 6 numbers"));
+    { Fl_Text_Display* o = new Fl_Text_Display(15, 70, 15, 20, catgets(_catalog,1,51,"Division 1 : 6 numbers"));
       o->box(FL_NO_BOX);
       o->labelsize(18);
       o->align(Fl_Align(FL_ALIGN_RIGHT));
     } // Fl_Text_Display* o
-    { Fl_Text_Display* o = new Fl_Text_Display(15, 100, 15, 20, catgets(_catalog,1,51,"Division 2 : 5 numbers and a supplementary"));
+    { Fl_Text_Display* o = new Fl_Text_Display(15, 100, 15, 20, catgets(_catalog,1,52,"Division 2 : 5 numbers and a supplementary"));
       o->box(FL_NO_BOX);
       o->labelsize(18);
       o->align(Fl_Align(FL_ALIGN_RIGHT));
     } // Fl_Text_Display* o
-    { Fl_Text_Display* o = new Fl_Text_Display(15, 130, 15, 20, catgets(_catalog,1,52,"Division 3 : 5 numbers"));
+    { Fl_Text_Display* o = new Fl_Text_Display(15, 130, 15, 20, catgets(_catalog,1,53,"Division 3 : 5 numbers"));
       o->box(FL_NO_BOX);
       o->labelsize(18);
       o->align(Fl_Align(FL_ALIGN_RIGHT));
     } // Fl_Text_Display* o
-    { Fl_Text_Display* o = new Fl_Text_Display(15, 160, 15, 20, catgets(_catalog,1,53,"Division 4 : 4 numbers"));
+    { Fl_Text_Display* o = new Fl_Text_Display(15, 160, 15, 20, catgets(_catalog,1,54,"Division 4 : 4 numbers"));
       o->box(FL_NO_BOX);
       o->labelsize(18);
       o->align(Fl_Align(FL_ALIGN_RIGHT));
     } // Fl_Text_Display* o
-    { Fl_Text_Display* o = new Fl_Text_Display(15, 190, 15, 20, catgets(_catalog,1,54,"Division 5 : 3 numbers and a supplementary"));
+    { Fl_Text_Display* o = new Fl_Text_Display(15, 190, 15, 20, catgets(_catalog,1,55,"Division 5 : 3 numbers and a supplementary"));
       o->box(FL_NO_BOX);
       o->labelsize(18);
       o->align(Fl_Align(FL_ALIGN_RIGHT));
     } // Fl_Text_Display* o
-    { Fl_Text_Display* o = new Fl_Text_Display(15, 220, 15, 20, catgets(_catalog,1,55,"Division 6 : 1 number and 2 supplementaries"));
+    { Fl_Text_Display* o = new Fl_Text_Display(15, 220, 15, 20, catgets(_catalog,1,56,"Division 6 : 1 number and 2 supplementaries"));
       o->box(FL_NO_BOX);
       o->labelsize(18);
       o->align(Fl_Align(FL_ALIGN_RIGHT));
     } // Fl_Text_Display* o
-    { Fl_Box* o = new Fl_Box(25, 10, 470, 40, catgets(_catalog,1,56,"Tattslotto Winning Divisions"));
+    { Fl_Box* o = new Fl_Box(25, 10, 470, 40, catgets(_catalog,1,57,"Tattslotto Winning Divisions"));
       o->box(FL_DOWN_BOX);
       o->color((Fl_Color)4);
       o->labelsize(28);
       o->labelcolor((Fl_Color)3);
     } // Fl_Box* o
-    { Fl_Button* o = new Fl_Button(400, 255, 95, 30, catgets(_catalog,1,57,"Close"));
+    { Fl_Button* o = new Fl_Button(400, 255, 95, 30, catgets(_catalog,1,58,"Close"));
       o->callback((Fl_Callback*)cb_Close1);
     } // Fl_Button* o
     divisions_window->set_modal();
     divisions_window->end();
   } // Fl_Double_Window* divisions_window
-  { help_window = new Fl_Double_Window(555, 440, catgets(_catalog,1,58,"HELP / MANUAL"));
+  { help_window = new Fl_Double_Window(555, 440, catgets(_catalog,1,59,"HELP / MANUAL"));
     help_window->color((Fl_Color)14);
     help_window->user_data((void*)(this));
     help_window->align(Fl_Align(FL_ALIGN_CLIP|FL_ALIGN_INSIDE));
-    { Fl_Box* o = new Fl_Box(15, 5, 535, 40, catgets(_catalog,1,59,"HELP / MANUAL"));
+    { Fl_Box* o = new Fl_Box(15, 5, 535, 40, catgets(_catalog,1,60,"HELP / MANUAL"));
       o->box(FL_DOWN_BOX);
       o->color((Fl_Color)4);
       o->labeltype(FL_SHADOW_LABEL);
@@ -1153,7 +1165,7 @@ Fl_Window* UserInterface::make_window() {
       o->labelsize(26);
       o->labelcolor((Fl_Color)3);
     } // Fl_Box* o
-    { Fl_Button* o = new Fl_Button(230, 405, 85, 25, catgets(_catalog,1,60,"Close"));
+    { Fl_Button* o = new Fl_Button(230, 405, 85, 25, catgets(_catalog,1,61,"Close"));
       o->color((Fl_Color)22);
       o->labeltype(FL_ENGRAVED_LABEL);
       o->labelsize(16);
@@ -1166,117 +1178,117 @@ Fl_Window* UserInterface::make_window() {
     } // Fl_Help_View* helpView
     help_window->end();
   } // Fl_Double_Window* help_window
-  { oz_divisions_window = new Fl_Double_Window(495, 355, catgets(_catalog,1,61,"OzLotto Divisions"));
+  { oz_divisions_window = new Fl_Double_Window(495, 355, catgets(_catalog,1,62,"OzLotto Divisions"));
     oz_divisions_window->color((Fl_Color)14);
     oz_divisions_window->user_data((void*)(this));
     oz_divisions_window->align(Fl_Align(FL_ALIGN_CLIP|FL_ALIGN_INSIDE));
-    { Fl_Text_Display* o = new Fl_Text_Display(15, 70, 15, 20, catgets(_catalog,1,62,"Division 1 : 7 numbers"));
+    { Fl_Text_Display* o = new Fl_Text_Display(15, 70, 15, 20, catgets(_catalog,1,63,"Division 1 : 7 numbers"));
       o->box(FL_NO_BOX);
       o->labelsize(18);
       o->align(Fl_Align(FL_ALIGN_RIGHT));
     } // Fl_Text_Display* o
-    { Fl_Text_Display* o = new Fl_Text_Display(15, 100, 15, 20, catgets(_catalog,1,63,"Division 2 : 6 numbers and a supplementary"));
+    { Fl_Text_Display* o = new Fl_Text_Display(15, 100, 15, 20, catgets(_catalog,1,64,"Division 2 : 6 numbers and a supplementary"));
       o->box(FL_NO_BOX);
       o->labelsize(18);
       o->align(Fl_Align(FL_ALIGN_RIGHT));
     } // Fl_Text_Display* o
-    { Fl_Text_Display* o = new Fl_Text_Display(15, 130, 15, 20, catgets(_catalog,1,64,"Division 3 : 6 numbers"));
+    { Fl_Text_Display* o = new Fl_Text_Display(15, 130, 15, 20, catgets(_catalog,1,65,"Division 3 : 6 numbers"));
       o->box(FL_NO_BOX);
       o->labelsize(18);
       o->align(Fl_Align(FL_ALIGN_RIGHT));
     } // Fl_Text_Display* o
-    { Fl_Text_Display* o = new Fl_Text_Display(15, 160, 15, 20, catgets(_catalog,1,65,"Division 4 : 5 numbers and a supplementary"));
+    { Fl_Text_Display* o = new Fl_Text_Display(15, 160, 15, 20, catgets(_catalog,1,66,"Division 4 : 5 numbers and a supplementary"));
       o->box(FL_NO_BOX);
       o->labelsize(18);
       o->align(Fl_Align(FL_ALIGN_RIGHT));
     } // Fl_Text_Display* o
-    { Fl_Text_Display* o = new Fl_Text_Display(15, 190, 15, 20, catgets(_catalog,1,66,"Division 5 : 5 numbers"));
+    { Fl_Text_Display* o = new Fl_Text_Display(15, 190, 15, 20, catgets(_catalog,1,67,"Division 5 : 5 numbers"));
       o->box(FL_NO_BOX);
       o->labelsize(18);
       o->align(Fl_Align(FL_ALIGN_RIGHT));
     } // Fl_Text_Display* o
-    { Fl_Text_Display* o = new Fl_Text_Display(15, 220, 15, 20, catgets(_catalog,1,67,"Division 6 : 4 numbers"));
+    { Fl_Text_Display* o = new Fl_Text_Display(15, 220, 15, 20, catgets(_catalog,1,68,"Division 6 : 4 numbers"));
       o->box(FL_NO_BOX);
       o->labelsize(18);
       o->align(Fl_Align(FL_ALIGN_RIGHT));
     } // Fl_Text_Display* o
-    { Fl_Text_Display* o = new Fl_Text_Display(15, 250, 15, 20, catgets(_catalog,1,68,"Division 7 : 3 numbers and a supplementary"));
+    { Fl_Text_Display* o = new Fl_Text_Display(15, 250, 15, 20, catgets(_catalog,1,69,"Division 7 : 3 numbers and a supplementary"));
       o->box(FL_NO_BOX);
       o->labelsize(18);
       o->align(Fl_Align(FL_ALIGN_RIGHT));
     } // Fl_Text_Display* o
-    { Fl_Box* o = new Fl_Box(25, 10, 450, 40, catgets(_catalog,1,69,"Ozlotto Winning Divisions"));
+    { Fl_Box* o = new Fl_Box(25, 10, 450, 40, catgets(_catalog,1,70,"Ozlotto Winning Divisions"));
       o->box(FL_DOWN_BOX);
       o->color((Fl_Color)4);
       o->labelsize(28);
       o->labelcolor((Fl_Color)3);
     } // Fl_Box* o
-    { Fl_Button* o = new Fl_Button(385, 295, 95, 30, catgets(_catalog,1,70,"Close"));
+    { Fl_Button* o = new Fl_Button(385, 295, 95, 30, catgets(_catalog,1,71,"Close"));
       o->callback((Fl_Callback*)cb_Close3);
     } // Fl_Button* o
     oz_divisions_window->set_modal();
     oz_divisions_window->end();
   } // Fl_Double_Window* oz_divisions_window
-  { powerball_divisions_window = new Fl_Double_Window(555, 330, catgets(_catalog,1,71,"Divisions"));
+  { powerball_divisions_window = new Fl_Double_Window(555, 330, catgets(_catalog,1,72,"Divisions"));
     powerball_divisions_window->color((Fl_Color)14);
     powerball_divisions_window->user_data((void*)(this));
     powerball_divisions_window->align(Fl_Align(FL_ALIGN_CLIP|FL_ALIGN_INSIDE));
-    { Fl_Text_Display* o = new Fl_Text_Display(15, 70, 15, 20, catgets(_catalog,1,72,"Division 1 : 6 numbers and the powerball"));
+    { Fl_Text_Display* o = new Fl_Text_Display(15, 70, 15, 20, catgets(_catalog,1,73,"Division 1 : 6 numbers and the powerball"));
       o->box(FL_NO_BOX);
       o->labelsize(18);
       o->align(Fl_Align(FL_ALIGN_RIGHT));
     } // Fl_Text_Display* o
-    { Fl_Text_Display* o = new Fl_Text_Display(15, 100, 15, 20, catgets(_catalog,1,73,"Division 2 : 6 numbers and a supplementary"));
+    { Fl_Text_Display* o = new Fl_Text_Display(15, 100, 15, 20, catgets(_catalog,1,74,"Division 2 : 6 numbers and a supplementary"));
       o->box(FL_NO_BOX);
       o->labelsize(18);
       o->align(Fl_Align(FL_ALIGN_RIGHT));
     } // Fl_Text_Display* o
-    { Fl_Text_Display* o = new Fl_Text_Display(15, 130, 15, 20, catgets(_catalog,1,74,"Division 3 : 6 numbers"));
+    { Fl_Text_Display* o = new Fl_Text_Display(15, 130, 15, 20, catgets(_catalog,1,75,"Division 3 : 6 numbers"));
       o->box(FL_NO_BOX);
       o->labelsize(18);
       o->align(Fl_Align(FL_ALIGN_RIGHT));
     } // Fl_Text_Display* o
-    { Fl_Text_Display* o = new Fl_Text_Display(15, 160, 15, 20, catgets(_catalog,1,75,"Division 4 : 5 numbers and a supplementary"));
+    { Fl_Text_Display* o = new Fl_Text_Display(15, 160, 15, 20, catgets(_catalog,1,76,"Division 4 : 5 numbers and a supplementary"));
       o->box(FL_NO_BOX);
       o->labelsize(18);
       o->align(Fl_Align(FL_ALIGN_RIGHT));
     } // Fl_Text_Display* o
-    { Fl_Text_Display* o = new Fl_Text_Display(15, 190, 15, 20, catgets(_catalog,1,76,"Division 5 : 5 numbers"));
+    { Fl_Text_Display* o = new Fl_Text_Display(15, 190, 15, 20, catgets(_catalog,1,77,"Division 5 : 5 numbers"));
       o->box(FL_NO_BOX);
       o->labelsize(18);
       o->align(Fl_Align(FL_ALIGN_RIGHT));
     } // Fl_Text_Display* o
-    { Fl_Text_Display* o = new Fl_Text_Display(15, 215, 15, 20, catgets(_catalog,1,77,"Division 6 : 4 numbers"));
+    { Fl_Text_Display* o = new Fl_Text_Display(15, 215, 15, 20, catgets(_catalog,1,78,"Division 6 : 4 numbers"));
       o->box(FL_NO_BOX);
       o->labelsize(18);
       o->align(Fl_Align(FL_ALIGN_RIGHT));
     } // Fl_Text_Display* o
-    { Fl_Text_Display* o = new Fl_Text_Display(15, 245, 15, 20, catgets(_catalog,1,78,"Division 7 : 3 numbers and a supplementary"));
+    { Fl_Text_Display* o = new Fl_Text_Display(15, 245, 15, 20, catgets(_catalog,1,79,"Division 7 : 3 numbers and a supplementary"));
       o->box(FL_NO_BOX);
       o->labelsize(18);
       o->align(Fl_Align(FL_ALIGN_RIGHT));
     } // Fl_Text_Display* o
-    { Fl_Box* o = new Fl_Box(25, 10, 560, 40, catgets(_catalog,1,79,"Powerball Winning Divisions"));
+    { Fl_Box* o = new Fl_Box(25, 10, 560, 40, catgets(_catalog,1,80,"Powerball Winning Divisions"));
       o->box(FL_DOWN_BOX);
       o->color((Fl_Color)4);
       o->labelsize(28);
       o->labelcolor((Fl_Color)3);
     } // Fl_Box* o
-    { Fl_Button* o = new Fl_Button(395, 280, 95, 30, catgets(_catalog,1,80,"Close"));
+    { Fl_Button* o = new Fl_Button(395, 280, 95, 30, catgets(_catalog,1,81,"Close"));
       o->callback((Fl_Callback*)cb_Close4);
     } // Fl_Button* o
     powerball_divisions_window->set_modal();
     powerball_divisions_window->end();
   } // Fl_Double_Window* powerball_divisions_window
-  { TattsNumberEntryWindow = new Fl_Double_Window(430, 565, catgets(_catalog,1,81,"Tattslotto Number"));
+  { TattsNumberEntryWindow = new Fl_Double_Window(430, 565, catgets(_catalog,1,82,"Tattslotto Number"));
     TattsNumberEntryWindow->color((Fl_Color)14);
     TattsNumberEntryWindow->user_data((void*)(this));
-    { TattsEntryGroup = new Fl_Group(10, 20, 405, 530, catgets(_catalog,1,82,"Enter Tattslotto Numbers"));
-      { Fl_Button* o = new Fl_Button(20, 530, 105, 20, catgets(_catalog,1,83,"OK"));
+    { TattsEntryGroup = new Fl_Group(10, 20, 405, 530, catgets(_catalog,1,83,"Enter Tattslotto Numbers"));
+      { Fl_Button* o = new Fl_Button(20, 530, 105, 20, catgets(_catalog,1,84,"OK"));
         o->color((Fl_Color)14);
         o->callback((Fl_Callback*)cb_OK);
       } // Fl_Button* o
-      { Fl_Button* o = new Fl_Button(300, 530, 105, 20, catgets(_catalog,1,84,"Cancel"));
+      { Fl_Button* o = new Fl_Button(300, 530, 105, 20, catgets(_catalog,1,85,"Cancel"));
         o->color((Fl_Color)14);
         o->callback((Fl_Callback*)cb_Cancel);
       } // Fl_Button* o
@@ -1284,15 +1296,15 @@ Fl_Window* UserInterface::make_window() {
     } // Fl_Group* TattsEntryGroup
     TattsNumberEntryWindow->end();
   } // Fl_Double_Window* TattsNumberEntryWindow
-  { OzlottoNumberEntryWindow = new Fl_Double_Window(430, 565, catgets(_catalog,1,85,"Ozlotto Number"));
+  { OzlottoNumberEntryWindow = new Fl_Double_Window(430, 565, catgets(_catalog,1,86,"Ozlotto Number"));
     OzlottoNumberEntryWindow->color((Fl_Color)14);
     OzlottoNumberEntryWindow->user_data((void*)(this));
-    { OzlottoEntryGroup = new Fl_Group(10, 20, 405, 530, catgets(_catalog,1,86,"Enter Ozlotto Numbers"));
-      { Fl_Button* o = new Fl_Button(20, 530, 105, 20, catgets(_catalog,1,87,"OK"));
+    { OzlottoEntryGroup = new Fl_Group(10, 20, 405, 530, catgets(_catalog,1,87,"Enter Ozlotto Numbers"));
+      { Fl_Button* o = new Fl_Button(20, 530, 105, 20, catgets(_catalog,1,88,"OK"));
         o->color((Fl_Color)14);
         o->callback((Fl_Callback*)cb_OK1);
       } // Fl_Button* o
-      { Fl_Button* o = new Fl_Button(300, 530, 105, 20, catgets(_catalog,1,88,"Cancel"));
+      { Fl_Button* o = new Fl_Button(300, 530, 105, 20, catgets(_catalog,1,89,"Cancel"));
         o->color((Fl_Color)14);
         o->callback((Fl_Callback*)cb_Cancel1);
       } // Fl_Button* o
@@ -1300,15 +1312,15 @@ Fl_Window* UserInterface::make_window() {
     } // Fl_Group* OzlottoEntryGroup
     OzlottoNumberEntryWindow->end();
   } // Fl_Double_Window* OzlottoNumberEntryWindow
-  { LottostrikeNumberEntryWindow = new Fl_Double_Window(430, 565, catgets(_catalog,1,89,"Lotto Strike Number"));
+  { LottostrikeNumberEntryWindow = new Fl_Double_Window(430, 565, catgets(_catalog,1,90,"Lotto Strike Number"));
     LottostrikeNumberEntryWindow->color((Fl_Color)14);
     LottostrikeNumberEntryWindow->user_data((void*)(this));
-    { LottostrikeEntryGroup = new Fl_Group(10, 20, 405, 530, catgets(_catalog,1,90,"Enter Lotto Strike Numbers"));
-      { Fl_Button* o = new Fl_Button(20, 530, 105, 20, catgets(_catalog,1,91,"OK"));
+    { LottostrikeEntryGroup = new Fl_Group(10, 20, 405, 530, catgets(_catalog,1,91,"Enter Lotto Strike Numbers"));
+      { Fl_Button* o = new Fl_Button(20, 530, 105, 20, catgets(_catalog,1,92,"OK"));
         o->color((Fl_Color)14);
         o->callback((Fl_Callback*)cb_OK2);
       } // Fl_Button* o
-      { Fl_Button* o = new Fl_Button(300, 530, 105, 20, catgets(_catalog,1,92,"Cancel"));
+      { Fl_Button* o = new Fl_Button(300, 530, 105, 20, catgets(_catalog,1,93,"Cancel"));
         o->color((Fl_Color)14);
         o->callback((Fl_Callback*)cb_Cancel2);
       } // Fl_Button* o
@@ -1316,164 +1328,164 @@ Fl_Window* UserInterface::make_window() {
     } // Fl_Group* LottostrikeEntryGroup
     LottostrikeNumberEntryWindow->end();
   } // Fl_Double_Window* LottostrikeNumberEntryWindow
-  { Numberentry = new Fl_Double_Window(350, 250, catgets(_catalog,1,93,"Number Entry"));
+  { Numberentry = new Fl_Double_Window(350, 250, catgets(_catalog,1,94,"Number Entry"));
     Numberentry->user_data((void*)(this));
     Numberentry->align(Fl_Align(FL_ALIGN_CLIP|FL_ALIGN_INSIDE));
-    { button_1 = new Fl_Light_Button(15, 25, 40, 25, catgets(_catalog,1,94,"1"));
+    { button_1 = new Fl_Light_Button(15, 25, 40, 25, catgets(_catalog,1,95,"1"));
       button_1->callback((Fl_Callback*)cb_button_1);
     } // Fl_Light_Button* button_1
-    { button_2 = new Fl_Light_Button(55, 25, 40, 25, catgets(_catalog,1,95,"2"));
+    { button_2 = new Fl_Light_Button(55, 25, 40, 25, catgets(_catalog,1,96,"2"));
       button_2->callback((Fl_Callback*)cb_button_2);
     } // Fl_Light_Button* button_2
-    { button_3 = new Fl_Light_Button(95, 25, 40, 25, catgets(_catalog,1,96,"3"));
+    { button_3 = new Fl_Light_Button(95, 25, 40, 25, catgets(_catalog,1,97,"3"));
       button_3->callback((Fl_Callback*)cb_button_3);
     } // Fl_Light_Button* button_3
-    { button_4 = new Fl_Light_Button(135, 25, 40, 25, catgets(_catalog,1,97,"4"));
+    { button_4 = new Fl_Light_Button(135, 25, 40, 25, catgets(_catalog,1,98,"4"));
       button_4->callback((Fl_Callback*)cb_button_4);
     } // Fl_Light_Button* button_4
-    { button_5 = new Fl_Light_Button(175, 25, 40, 25, catgets(_catalog,1,98,"5"));
+    { button_5 = new Fl_Light_Button(175, 25, 40, 25, catgets(_catalog,1,99,"5"));
       button_5->callback((Fl_Callback*)cb_button_5);
     } // Fl_Light_Button* button_5
-    { button_6 = new Fl_Light_Button(215, 25, 40, 25, catgets(_catalog,1,99,"6"));
+    { button_6 = new Fl_Light_Button(215, 25, 40, 25, catgets(_catalog,1,100,"6"));
       button_6->callback((Fl_Callback*)cb_button_6);
     } // Fl_Light_Button* button_6
-    { button_7 = new Fl_Light_Button(255, 25, 40, 25, catgets(_catalog,1,100,"7"));
+    { button_7 = new Fl_Light_Button(255, 25, 40, 25, catgets(_catalog,1,101,"7"));
       button_7->callback((Fl_Callback*)cb_button_7);
     } // Fl_Light_Button* button_7
-    { button_8 = new Fl_Light_Button(295, 25, 40, 25, catgets(_catalog,1,101,"8"));
+    { button_8 = new Fl_Light_Button(295, 25, 40, 25, catgets(_catalog,1,102,"8"));
       button_8->callback((Fl_Callback*)cb_button_8);
     } // Fl_Light_Button* button_8
-    { button_9 = new Fl_Light_Button(15, 50, 40, 25, catgets(_catalog,1,102,"9"));
+    { button_9 = new Fl_Light_Button(15, 50, 40, 25, catgets(_catalog,1,103,"9"));
       button_9->callback((Fl_Callback*)cb_button_9);
     } // Fl_Light_Button* button_9
-    { button_10 = new Fl_Light_Button(55, 50, 40, 25, catgets(_catalog,1,103,"10"));
+    { button_10 = new Fl_Light_Button(55, 50, 40, 25, catgets(_catalog,1,104,"10"));
       button_10->callback((Fl_Callback*)cb_button_10);
     } // Fl_Light_Button* button_10
-    { button_11 = new Fl_Light_Button(95, 50, 40, 25, catgets(_catalog,1,104,"11"));
+    { button_11 = new Fl_Light_Button(95, 50, 40, 25, catgets(_catalog,1,105,"11"));
       button_11->callback((Fl_Callback*)cb_button_11);
     } // Fl_Light_Button* button_11
-    { button_12 = new Fl_Light_Button(135, 50, 40, 25, catgets(_catalog,1,105,"12"));
+    { button_12 = new Fl_Light_Button(135, 50, 40, 25, catgets(_catalog,1,106,"12"));
       button_12->callback((Fl_Callback*)cb_button_12);
     } // Fl_Light_Button* button_12
-    { button_13 = new Fl_Light_Button(175, 50, 40, 25, catgets(_catalog,1,106,"13"));
+    { button_13 = new Fl_Light_Button(175, 50, 40, 25, catgets(_catalog,1,107,"13"));
       button_13->callback((Fl_Callback*)cb_button_13);
     } // Fl_Light_Button* button_13
-    { button_14 = new Fl_Light_Button(215, 50, 40, 25, catgets(_catalog,1,107,"14"));
+    { button_14 = new Fl_Light_Button(215, 50, 40, 25, catgets(_catalog,1,108,"14"));
       button_14->callback((Fl_Callback*)cb_button_14);
     } // Fl_Light_Button* button_14
-    { button_15 = new Fl_Light_Button(255, 50, 40, 25, catgets(_catalog,1,108,"15"));
+    { button_15 = new Fl_Light_Button(255, 50, 40, 25, catgets(_catalog,1,109,"15"));
       button_15->callback((Fl_Callback*)cb_button_15);
     } // Fl_Light_Button* button_15
-    { button_16 = new Fl_Light_Button(295, 50, 40, 25, catgets(_catalog,1,109,"16"));
+    { button_16 = new Fl_Light_Button(295, 50, 40, 25, catgets(_catalog,1,110,"16"));
       button_16->callback((Fl_Callback*)cb_button_16);
     } // Fl_Light_Button* button_16
-    { button_17 = new Fl_Light_Button(15, 75, 40, 25, catgets(_catalog,1,110,"17"));
+    { button_17 = new Fl_Light_Button(15, 75, 40, 25, catgets(_catalog,1,111,"17"));
       button_17->callback((Fl_Callback*)cb_button_17);
     } // Fl_Light_Button* button_17
-    { button_18 = new Fl_Light_Button(55, 75, 40, 25, catgets(_catalog,1,111,"18"));
+    { button_18 = new Fl_Light_Button(55, 75, 40, 25, catgets(_catalog,1,112,"18"));
       button_18->callback((Fl_Callback*)cb_button_18);
     } // Fl_Light_Button* button_18
-    { button_19 = new Fl_Light_Button(95, 75, 40, 25, catgets(_catalog,1,112,"19"));
+    { button_19 = new Fl_Light_Button(95, 75, 40, 25, catgets(_catalog,1,113,"19"));
       button_19->callback((Fl_Callback*)cb_button_19);
     } // Fl_Light_Button* button_19
-    { button_20 = new Fl_Light_Button(135, 75, 40, 25, catgets(_catalog,1,113,"20"));
+    { button_20 = new Fl_Light_Button(135, 75, 40, 25, catgets(_catalog,1,114,"20"));
       button_20->callback((Fl_Callback*)cb_button_20);
     } // Fl_Light_Button* button_20
-    { button_21 = new Fl_Light_Button(175, 75, 40, 25, catgets(_catalog,1,114,"21"));
+    { button_21 = new Fl_Light_Button(175, 75, 40, 25, catgets(_catalog,1,115,"21"));
       button_21->callback((Fl_Callback*)cb_button_21);
     } // Fl_Light_Button* button_21
-    { button_22 = new Fl_Light_Button(215, 75, 40, 25, catgets(_catalog,1,115,"22"));
+    { button_22 = new Fl_Light_Button(215, 75, 40, 25, catgets(_catalog,1,116,"22"));
       button_22->callback((Fl_Callback*)cb_button_22);
     } // Fl_Light_Button* button_22
-    { button_23 = new Fl_Light_Button(255, 75, 40, 25, catgets(_catalog,1,116,"23"));
+    { button_23 = new Fl_Light_Button(255, 75, 40, 25, catgets(_catalog,1,117,"23"));
       button_23->callback((Fl_Callback*)cb_button_23);
     } // Fl_Light_Button* button_23
-    { button_24 = new Fl_Light_Button(295, 75, 40, 25, catgets(_catalog,1,117,"24"));
+    { button_24 = new Fl_Light_Button(295, 75, 40, 25, catgets(_catalog,1,118,"24"));
       button_24->callback((Fl_Callback*)cb_button_24);
     } // Fl_Light_Button* button_24
-    { button_25 = new Fl_Light_Button(15, 100, 40, 25, catgets(_catalog,1,118,"25"));
+    { button_25 = new Fl_Light_Button(15, 100, 40, 25, catgets(_catalog,1,119,"25"));
       button_25->callback((Fl_Callback*)cb_button_25);
     } // Fl_Light_Button* button_25
-    { button_26 = new Fl_Light_Button(55, 100, 40, 25, catgets(_catalog,1,119,"26"));
+    { button_26 = new Fl_Light_Button(55, 100, 40, 25, catgets(_catalog,1,120,"26"));
       button_26->callback((Fl_Callback*)cb_button_26);
     } // Fl_Light_Button* button_26
-    { button_27 = new Fl_Light_Button(95, 100, 40, 25, catgets(_catalog,1,120,"27"));
+    { button_27 = new Fl_Light_Button(95, 100, 40, 25, catgets(_catalog,1,121,"27"));
       button_27->callback((Fl_Callback*)cb_button_27);
     } // Fl_Light_Button* button_27
-    { button_28 = new Fl_Light_Button(135, 100, 40, 25, catgets(_catalog,1,121,"28"));
+    { button_28 = new Fl_Light_Button(135, 100, 40, 25, catgets(_catalog,1,122,"28"));
       button_28->callback((Fl_Callback*)cb_button_28);
     } // Fl_Light_Button* button_28
-    { button_29 = new Fl_Light_Button(175, 100, 40, 25, catgets(_catalog,1,122,"29"));
+    { button_29 = new Fl_Light_Button(175, 100, 40, 25, catgets(_catalog,1,123,"29"));
       button_29->callback((Fl_Callback*)cb_button_29);
     } // Fl_Light_Button* button_29
-    { button_30 = new Fl_Light_Button(215, 100, 40, 25, catgets(_catalog,1,123,"30"));
+    { button_30 = new Fl_Light_Button(215, 100, 40, 25, catgets(_catalog,1,124,"30"));
       button_30->callback((Fl_Callback*)cb_button_30);
     } // Fl_Light_Button* button_30
-    { button_31 = new Fl_Light_Button(255, 100, 40, 25, catgets(_catalog,1,124,"31"));
+    { button_31 = new Fl_Light_Button(255, 100, 40, 25, catgets(_catalog,1,125,"31"));
       button_31->callback((Fl_Callback*)cb_button_31);
     } // Fl_Light_Button* button_31
-    { button_32 = new Fl_Light_Button(295, 100, 40, 25, catgets(_catalog,1,125,"32"));
+    { button_32 = new Fl_Light_Button(295, 100, 40, 25, catgets(_catalog,1,126,"32"));
       button_32->callback((Fl_Callback*)cb_button_32);
     } // Fl_Light_Button* button_32
-    { button_33 = new Fl_Light_Button(15, 125, 40, 25, catgets(_catalog,1,126,"33"));
+    { button_33 = new Fl_Light_Button(15, 125, 40, 25, catgets(_catalog,1,127,"33"));
       button_33->callback((Fl_Callback*)cb_button_33);
     } // Fl_Light_Button* button_33
-    { button_34 = new Fl_Light_Button(55, 125, 40, 25, catgets(_catalog,1,127,"34"));
+    { button_34 = new Fl_Light_Button(55, 125, 40, 25, catgets(_catalog,1,128,"34"));
       button_34->callback((Fl_Callback*)cb_button_34);
     } // Fl_Light_Button* button_34
-    { button_35 = new Fl_Light_Button(95, 125, 40, 25, catgets(_catalog,1,128,"35"));
+    { button_35 = new Fl_Light_Button(95, 125, 40, 25, catgets(_catalog,1,129,"35"));
       button_35->callback((Fl_Callback*)cb_button_35);
     } // Fl_Light_Button* button_35
-    { button_36 = new Fl_Light_Button(135, 125, 40, 25, catgets(_catalog,1,129,"36"));
+    { button_36 = new Fl_Light_Button(135, 125, 40, 25, catgets(_catalog,1,130,"36"));
       button_36->callback((Fl_Callback*)cb_button_36);
     } // Fl_Light_Button* button_36
-    { button_37 = new Fl_Light_Button(175, 125, 40, 25, catgets(_catalog,1,130,"37"));
+    { button_37 = new Fl_Light_Button(175, 125, 40, 25, catgets(_catalog,1,131,"37"));
       button_37->callback((Fl_Callback*)cb_button_37);
     } // Fl_Light_Button* button_37
-    { button_38 = new Fl_Light_Button(215, 125, 40, 25, catgets(_catalog,1,131,"38"));
+    { button_38 = new Fl_Light_Button(215, 125, 40, 25, catgets(_catalog,1,132,"38"));
       button_38->callback((Fl_Callback*)cb_button_38);
     } // Fl_Light_Button* button_38
-    { button_39 = new Fl_Light_Button(255, 125, 40, 25, catgets(_catalog,1,132,"39"));
+    { button_39 = new Fl_Light_Button(255, 125, 40, 25, catgets(_catalog,1,133,"39"));
       button_39->callback((Fl_Callback*)cb_button_39);
     } // Fl_Light_Button* button_39
-    { button_40 = new Fl_Light_Button(295, 125, 40, 25, catgets(_catalog,1,133,"40"));
+    { button_40 = new Fl_Light_Button(295, 125, 40, 25, catgets(_catalog,1,134,"40"));
       button_40->callback((Fl_Callback*)cb_button_40);
     } // Fl_Light_Button* button_40
-    { button_41 = new Fl_Light_Button(15, 150, 40, 25, catgets(_catalog,1,134,"41"));
+    { button_41 = new Fl_Light_Button(15, 150, 40, 25, catgets(_catalog,1,135,"41"));
       button_41->callback((Fl_Callback*)cb_button_41);
     } // Fl_Light_Button* button_41
-    { button_42 = new Fl_Light_Button(55, 150, 40, 25, catgets(_catalog,1,135,"42"));
+    { button_42 = new Fl_Light_Button(55, 150, 40, 25, catgets(_catalog,1,136,"42"));
       button_42->callback((Fl_Callback*)cb_button_42);
     } // Fl_Light_Button* button_42
-    { button_43 = new Fl_Light_Button(95, 150, 40, 25, catgets(_catalog,1,136,"43"));
+    { button_43 = new Fl_Light_Button(95, 150, 40, 25, catgets(_catalog,1,137,"43"));
       button_43->callback((Fl_Callback*)cb_button_43);
     } // Fl_Light_Button* button_43
-    { button_44 = new Fl_Light_Button(135, 150, 40, 25, catgets(_catalog,1,137,"44"));
+    { button_44 = new Fl_Light_Button(135, 150, 40, 25, catgets(_catalog,1,138,"44"));
       button_44->callback((Fl_Callback*)cb_button_44);
     } // Fl_Light_Button* button_44
-    { button_45 = new Fl_Light_Button(175, 150, 40, 25, catgets(_catalog,1,138,"45"));
+    { button_45 = new Fl_Light_Button(175, 150, 40, 25, catgets(_catalog,1,139,"45"));
       button_45->callback((Fl_Callback*)cb_button_45);
     } // Fl_Light_Button* button_45
-    { Fl_Button* o = new Fl_Button(40, 210, 60, 30, catgets(_catalog,1,139,"OK"));
+    { Fl_Button* o = new Fl_Button(40, 210, 60, 30, catgets(_catalog,1,140,"OK"));
       o->labeltype(FL_EMBOSSED_LABEL);
       o->callback((Fl_Callback*)cb_OK3);
     } // Fl_Button* o
-    { Fl_Button* o = new Fl_Button(255, 210, 60, 30, catgets(_catalog,1,140,"Cancel"));
+    { Fl_Button* o = new Fl_Button(255, 210, 60, 30, catgets(_catalog,1,141,"Cancel"));
       o->labeltype(FL_EMBOSSED_LABEL);
       o->callback((Fl_Callback*)cb_Cancel3);
     } // Fl_Button* o
     Numberentry->end();
   } // Fl_Double_Window* Numberentry
-  { PowerballNumberEntryWindow = new Fl_Double_Window(430, 565, catgets(_catalog,1,141,"Powerball Number"));
+  { PowerballNumberEntryWindow = new Fl_Double_Window(430, 565, catgets(_catalog,1,142,"Powerball Number"));
     PowerballNumberEntryWindow->color((Fl_Color)14);
     PowerballNumberEntryWindow->user_data((void*)(this));
     PowerballNumberEntryWindow->align(Fl_Align(FL_ALIGN_CLIP|FL_ALIGN_INSIDE));
-    { PowerballEntryGroup = new Fl_Group(10, 20, 405, 530, catgets(_catalog,1,142,"Enter Powerball Numbers"));
-      { Fl_Button* o = new Fl_Button(20, 530, 105, 20, catgets(_catalog,1,143,"OK"));
+    { PowerballEntryGroup = new Fl_Group(10, 20, 405, 530, catgets(_catalog,1,143,"Enter Powerball Numbers"));
+      { Fl_Button* o = new Fl_Button(20, 530, 105, 20, catgets(_catalog,1,144,"OK"));
         o->color((Fl_Color)14);
         o->callback((Fl_Callback*)cb_OK4);
       } // Fl_Button* o
-      { Fl_Button* o = new Fl_Button(300, 530, 105, 20, catgets(_catalog,1,144,"Cancel"));
+      { Fl_Button* o = new Fl_Button(300, 530, 105, 20, catgets(_catalog,1,145,"Cancel"));
         o->color((Fl_Color)14);
         o->callback((Fl_Callback*)cb_Cancel4);
       } // Fl_Button* o
@@ -1481,46 +1493,46 @@ Fl_Window* UserInterface::make_window() {
     } // Fl_Group* PowerballEntryGroup
     PowerballNumberEntryWindow->end();
   } // Fl_Double_Window* PowerballNumberEntryWindow
-  { lottostrike_divisions_window = new Fl_Double_Window(490, 240, catgets(_catalog,1,145,"Lotto Strike Divisions"));
+  { lottostrike_divisions_window = new Fl_Double_Window(490, 240, catgets(_catalog,1,146,"Lotto Strike Divisions"));
     lottostrike_divisions_window->color((Fl_Color)14);
     lottostrike_divisions_window->user_data((void*)(this));
     lottostrike_divisions_window->align(Fl_Align(FL_ALIGN_CLIP|FL_ALIGN_INSIDE));
-    { Fl_Text_Display* o = new Fl_Text_Display(15, 70, 15, 20, catgets(_catalog,1,146,"Division 1 : All 4 of the 1st four numbers in order"));
+    { Fl_Text_Display* o = new Fl_Text_Display(15, 70, 15, 20, catgets(_catalog,1,147,"Division 1 : All 4 of the 1st four numbers in order"));
       o->box(FL_NO_BOX);
       o->labelsize(18);
       o->align(Fl_Align(FL_ALIGN_RIGHT));
     } // Fl_Text_Display* o
-    { Fl_Text_Display* o = new Fl_Text_Display(15, 100, 15, 20, catgets(_catalog,1,147,"Division 2 : 3 of the first four numbers in order"));
+    { Fl_Text_Display* o = new Fl_Text_Display(15, 100, 15, 20, catgets(_catalog,1,148,"Division 2 : 3 of the first four numbers in order"));
       o->box(FL_NO_BOX);
       o->labelsize(18);
       o->align(Fl_Align(FL_ALIGN_RIGHT));
     } // Fl_Text_Display* o
-    { Fl_Text_Display* o = new Fl_Text_Display(15, 130, 15, 20, catgets(_catalog,1,148,"Division 3 : 2 of the first 4 numbers in order"));
+    { Fl_Text_Display* o = new Fl_Text_Display(15, 130, 15, 20, catgets(_catalog,1,149,"Division 3 : 2 of the first 4 numbers in order"));
       o->box(FL_NO_BOX);
       o->labelsize(18);
       o->align(Fl_Align(FL_ALIGN_RIGHT));
     } // Fl_Text_Display* o
-    { Fl_Text_Display* o = new Fl_Text_Display(15, 160, 15, 20, catgets(_catalog,1,149,"Division 4 : 1 of the first 4 numbers"));
+    { Fl_Text_Display* o = new Fl_Text_Display(15, 160, 15, 20, catgets(_catalog,1,150,"Division 4 : 1 of the first 4 numbers"));
       o->box(FL_NO_BOX);
       o->labelsize(18);
       o->align(Fl_Align(FL_ALIGN_RIGHT));
     } // Fl_Text_Display* o
-    { Fl_Box* o = new Fl_Box(25, 10, 445, 40, catgets(_catalog,1,150,"Lotto Strike Winning Divisions"));
+    { Fl_Box* o = new Fl_Box(25, 10, 445, 40, catgets(_catalog,1,151,"Lotto Strike Winning Divisions"));
       o->box(FL_DOWN_BOX);
       o->color((Fl_Color)4);
       o->labelsize(28);
       o->labelcolor((Fl_Color)3);
     } // Fl_Box* o
-    { Fl_Button* o = new Fl_Button(360, 190, 95, 35, catgets(_catalog,1,151,"Close"));
+    { Fl_Button* o = new Fl_Button(360, 190, 95, 35, catgets(_catalog,1,152,"Close"));
       o->callback((Fl_Callback*)cb_Close5);
     } // Fl_Button* o
     lottostrike_divisions_window->set_modal();
     lottostrike_divisions_window->end();
   } // Fl_Double_Window* lottostrike_divisions_window
-  { LicenseWindow = new Fl_Double_Window(590, 570, catgets(_catalog,1,152,"License"));
+  { LicenseWindow = new Fl_Double_Window(590, 570, catgets(_catalog,1,153,"License"));
     LicenseWindow->color((Fl_Color)14);
     LicenseWindow->user_data((void*)(this));
-    { Fl_Box* o = new Fl_Box(0, 0, 590, 55, catgets(_catalog,1,153,"License"));
+    { Fl_Box* o = new Fl_Box(0, 0, 590, 55, catgets(_catalog,1,154,"License"));
       o->box(FL_ENGRAVED_BOX);
       o->color(FL_SELECTION_COLOR);
       o->labeltype(FL_ENGRAVED_LABEL);
@@ -1538,12 +1550,12 @@ Fl_Window* UserInterface::make_window() {
       o->align(Fl_Align(129));
       o->buffer(licenseTextBuffer);
     } // Fl_Text_Display* o
-    { Fl_Button* o = new Fl_Button(250, 540, 145, 25, catgets(_catalog,1,154,"Close"));
+    { Fl_Button* o = new Fl_Button(250, 540, 145, 25, catgets(_catalog,1,155,"Close"));
       o->color((Fl_Color)31);
       o->labeltype(FL_EMBOSSED_LABEL);
       o->callback((Fl_Callback*)cb_Close6);
     } // Fl_Button* o
-    { Fl_Box* o = new Fl_Box(0, 520, 265, 20, catgets(_catalog,1,155,"(C) Dennis Katsonis   2014"));
+    { Fl_Box* o = new Fl_Box(0, 520, 265, 20, catgets(_catalog,1,156,"(C) Dennis Katsonis   2014"));
       o->labelfont(14);
     } // Fl_Box* o
     LicenseWindow->end();
@@ -1710,4 +1722,8 @@ void UserInterface::show_license_window() {
 
 void UserInterface::close_license_window() {
   this->LicenseWindow->hide();
+}
+
+void UserInterface::ensurePowerballButton() {
+  return;
 }
