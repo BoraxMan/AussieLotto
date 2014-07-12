@@ -23,8 +23,6 @@
 #include <FL/Fl_Box.H>
 #include <FL/Fl_Input.H>
 #include <FL/Fl_Float_Input.H>
-#include "AussieLottoGUI.h"
-#include "AussieLotto.h"
 #include <iostream>
 #include <sstream>
 #include <fstream>
@@ -32,6 +30,8 @@
 #include <bitset>
 #include <Fl/Fl_Choice.h>
 #include <FL/Fl_File_Chooser.H>
+#include "AussieLottoGUI.h"
+#include "AussieLotto.h"
 
 const int max_games = 1048576;
 const int highest_ball = 45;
@@ -109,7 +109,7 @@ void AusLotto::submitButtonNums()
   
   gt = this->getGameTab();  
  
-  for (int c = 0; c < highest_ball; c++)
+  for (int c = 0; c <= highest_ball; ++c)
   {
     if (NumberSelectorArray.test(c))
       values.push_back(c);
@@ -122,9 +122,7 @@ void AusLotto::submitButtonNums()
       case TATTSLOTTO:
 	if (values.size() != tattsBalls)
 	  throw(incorrectNumbers);
-	tatts->addGame(values[0], values[1], values[2],
-	  values[3], values[4], values[5]);
-	//tattslottoTextBuffer->text("");
+	tatts->addGame(values);
 	strout << *tatts;
 	tattslottoTextBuffer->append(strout.str().c_str()); 
 	this->num_games->value(tatts->getNumGames());
@@ -132,8 +130,7 @@ void AusLotto::submitButtonNums()
       case OZLOTTO:
 	if (values.size() != ozlottoBalls)
 	  throw(incorrectNumbers);
-	ozlotto->addGame(values[0], values[1], values[2],
-	  values[3], values[4], values[5], values[6]);
+	ozlotto->addGame(values);
 	strout << *ozlotto;
 	ozlottoTextBuffer->append(strout.str().c_str());   
 	this->num_games->value(tatts->getNumGames());
@@ -228,9 +225,9 @@ void AusLotto::createPowerballEntryWindows(void)
   int xx = X, yy = Y;
 
  // Create widgets
-  for ( int r = 0; r < 17; r++ )
+  for ( int r = 0; r < 17; ++r )
   {
-    for ( int c = 0; c < 7; c++ )
+    for ( int c = 0; c < 7; ++c )
     {
       if ( r == 0 )
       {
@@ -266,8 +263,8 @@ void AusLotto::createOzlottoEntryWindows(void)
         int xx = X, yy = Y;
 
         // Create widgets
-        for ( int r = 0; r < 17; r++ ) {
-            for ( int c = 0; c < ozlottoBalls; c++ ) {
+        for ( int r = 0; r < 17; ++r ) {
+            for ( int c = 0; c < ozlottoBalls; ++c ) {
                 if ( r == 0 ) {
                     Fl_Box *box = new Fl_Box(xx+c*5 ,yy+r*5,cellw,cellh,header[c]);
                     box->box(FL_BORDER_BOX);
@@ -299,8 +296,8 @@ void AusLotto::createTattsEntryWindows(void)
 	
 
         // Create widgets
-        for ( int r = 0; r < 17; r++ ) {
-            for ( int c = 0; c < tattsBalls; c++ ) {
+        for ( int r = 0; r < 17; ++r ) {
+            for ( int c = 0; c < tattsBalls; ++c ) {
                 if ( r == 0 ) {
                     Fl_Box *box = new Fl_Box(xx+c*5 ,yy+r*5,cellw,cellh,header[c]);
                     box->box(FL_BORDER_BOX);
@@ -332,8 +329,8 @@ void AusLotto::createLottostrikeEntryWindows(void)
 	
 
         // Create widgets
-        for ( int r = 0; r < 17; r++ ) {
-            for ( int c = 0; c < lottostrikeBalls; c++ ) {
+        for ( int r = 0; r < 17; ++r ) {
+            for ( int c = 0; c < lottostrikeBalls; ++c ) {
                 if ( r == 0 ) {
                     Fl_Box *box = new Fl_Box(xx+c*5 ,yy+r*5,cellw,cellh,header[c]);
                     box->box(FL_BORDER_BOX);
@@ -354,15 +351,16 @@ void AusLotto::createLottostrikeEntryWindows(void)
 
 void AusLotto::tattsEntry(void)
 {
-  int intValues[tattsBalls];
+  std::vector<int> intValues;
   std::string value;
   std::stringstream strout;
   
+  intValues.resize(tattsBalls);
   
-  for (int r = 0; r < 16; r++)
+  for (int r = 0; r < 16; ++r)
   {
 
-    for (int c = 0; c < tattsBalls; c++)
+    for (int c = 0; c < tattsBalls; ++c)
     {
       if (tew[r][c]->size())
       {
@@ -380,8 +378,7 @@ void AusLotto::tattsEntry(void)
     {
       try
       {
-	tatts->addGame(intValues[0], intValues[1], intValues[2],
-         intValues[3], intValues[4], intValues[5]);
+	tatts->addGame(intValues);
       }
       catch (std::string err)
       {
@@ -399,13 +396,15 @@ void AusLotto::tattsEntry(void)
 
 void AusLotto::ozlottoEntry(void)
 {
-  int intValues[ozlottoBalls];
+  std::vector<int> intValues;
   std::string value;
   std::stringstream strout;
   
-  for (int r = 0; r < 16; r++)
+  intValues.resize(ozlottoBalls);
+  
+  for (int r = 0; r < 16; ++r)
   {
-    for (int c = 0; c < ozlottoBalls; c++)
+    for (int c = 0; c < ozlottoBalls; ++c)
     {
       if (oew[r][c]->size())
       {
@@ -423,8 +422,7 @@ void AusLotto::ozlottoEntry(void)
     {
       try
       {
-	ozlotto->addGame(intValues[0], intValues[1], intValues[2],
-         intValues[3], intValues[4], intValues[5], intValues[6]);
+	ozlotto->addGame(intValues);
       }
       catch (std::string err)
       {
@@ -448,9 +446,9 @@ void AusLotto::powerballEntry(void)
   std::string value;
   std::stringstream strout;
   
-  for (int r = 0; r < 16; r++)
+  for (int r = 0; r < 16; ++r)
   {
-    for (int c = 0; c < powerballBalls; c++)
+    for (int c = 0; c < powerballBalls; ++c)
     {
       if (pew[r][c]->size())
       {
@@ -492,9 +490,9 @@ void AusLotto::lottostrikeEntry(void)
   std::string value;
   std::stringstream strout;
   
-  for (int r = 0; r < 16; r++)
+  for (int r = 0; r < 16; ++r)
   {
-    for (int c = 0; c < lottostrikeBalls; c++)
+    for (int c = 0; c < lottostrikeBalls; ++c)
     {
       if (lew[r][c]->size())
       {
@@ -530,9 +528,9 @@ void AusLotto::lottostrikeEntry(void)
 void AusLotto::show_tatts_entry_window(void)
 {
 
-  for ( int r = 0; r < 16; r++ )
+  for ( int r = 0; r < 16; ++r )
   {
-    for ( int c = 0; c < tattsBalls; c++ )
+    for ( int c = 0; c < tattsBalls; ++c )
     {
       tew[r][c]->value("");
     } 
@@ -543,9 +541,9 @@ void AusLotto::show_tatts_entry_window(void)
 void AusLotto::show_ozlotto_entry_window(void)
 {
 
-  for ( int r = 0; r < 16; r++ )
+  for ( int r = 0; r < 16; ++r )
   {
-    for ( int c = 0; c < ozlottoBalls; c++ )
+    for ( int c = 0; c < ozlottoBalls; ++c )
     {
       oew[r][c]->value("");
     } 
@@ -555,9 +553,9 @@ void AusLotto::show_ozlotto_entry_window(void)
 
 void AusLotto::show_powerball_entry_window(void)
 {
-  for ( int r = 0; r < 16; r++ )
+  for ( int r = 0; r < 16; ++r )
   {
-    for ( int c = 0; c < powerballBalls; c++ )
+    for ( int c = 0; c < powerballBalls; ++c )
     {
       pew[r][c]->value("");
     } 
@@ -567,9 +565,9 @@ void AusLotto::show_powerball_entry_window(void)
 
 void AusLotto::show_lottostrike_entry_window(void)
 {
-  for ( int r = 0; r < 16; r++ )
+  for ( int r = 0; r < 16; ++r )
   {
-    for ( int c = 0; c < lottostrikeBalls; c++ )
+    for ( int c = 0; c < lottostrikeBalls; ++c )
     {
       lew[r][c]->value("");
     } 
@@ -655,6 +653,7 @@ void AusLotto::check_lotto(void)
   gameType activeTab;
   textbuf_results->text("");
   activeTab = this->getGameTab();
+  std::vector<int> tmpResults;
   
   try
   {
@@ -663,9 +662,15 @@ void AusLotto::check_lotto(void)
       case TATTSLOTTO:
 	if (tatts->getNumGames() == 0)
 	  throw (nogames);
-	tatts->setResults(static_cast<int>(this->num1->value()), static_cast<int>(this->num2->value()), 
-	static_cast<int>(this->num3->value()), static_cast<int>(this->num4->value()),
-	static_cast<int>(this->num5->value()), static_cast<int>(this->num6->value()));
+
+	tmpResults.push_back(static_cast<int>(this->num1->value()));
+	tmpResults.push_back(static_cast<int>(this->num2->value()));
+	tmpResults.push_back(static_cast<int>(this->num3->value()));
+	tmpResults.push_back(static_cast<int>(this->num4->value()));
+	tmpResults.push_back(static_cast<int>(this->num5->value()));
+	tmpResults.push_back(static_cast<int>(this->num6->value()));
+	tatts->setResults(tmpResults);
+
 	tatts->setResultsSupps(static_cast<int>(this->supp1->value()),
 	static_cast<int>(this->supp2->value()));
 	s = tatts->checkResults();
@@ -673,10 +678,15 @@ void AusLotto::check_lotto(void)
       case OZLOTTO:
 	if (ozlotto->getNumGames() == 0)
 	  throw(nogames);
-	ozlotto->setResults(static_cast<int>(this->oz_num1->value()), static_cast<int>(this->oz_num2->value()), 
-	static_cast<int>(this->oz_num3->value()), static_cast<int>(this->oz_num4->value()),
-	static_cast<int>(this->oz_num5->value()), static_cast<int>(this->oz_num6->value()),
-	static_cast<int>(this->oz_num7->value())); 
+	
+	tmpResults.push_back(static_cast<int>(this->oz_num1->value()));
+	tmpResults.push_back(static_cast<int>(this->oz_num2->value()));
+	tmpResults.push_back(static_cast<int>(this->oz_num3->value()));
+	tmpResults.push_back(static_cast<int>(this->oz_num4->value()));
+	tmpResults.push_back(static_cast<int>(this->oz_num5->value()));
+	tmpResults.push_back(static_cast<int>(this->oz_num6->value()));
+	tmpResults.push_back(static_cast<int>(this->oz_num7->value()));
+	ozlotto->setResults(tmpResults);
 	ozlotto->setResultsSupps(static_cast<int>(this->oz_supp1->value()),
 	static_cast<int>(this->oz_supp2->value()));
 	s = ozlotto->checkResults();
@@ -693,9 +703,13 @@ void AusLotto::check_lotto(void)
       case LOTTOSTRIKE:
 	if (lottostrike->getNumGames() == 0)
 	  throw(nogames);
-	lottostrike->setResults(static_cast<int>(this->lsnum1->value()), static_cast<int>(this->lsnum2->value()), 
-	static_cast<int>(this->lsnum3->value()), static_cast<int>(this->lsnum4->value()),
-	static_cast<int>(this->lsnum5->value()), static_cast<int>(this->lsnum6->value()));
+	tmpResults.push_back(static_cast<int>(this->lsnum1->value()));
+	tmpResults.push_back(static_cast<int>(this->lsnum2->value()));
+	tmpResults.push_back(static_cast<int>(this->lsnum3->value()));
+	tmpResults.push_back(static_cast<int>(this->lsnum4->value()));
+	tmpResults.push_back(static_cast<int>(this->lsnum5->value()));
+	tmpResults.push_back(static_cast<int>(this->lsnum6->value()));
+	lottostrike->setResults(tmpResults);
 	s = lottostrike->checkResults();
 	break;
       default:
@@ -1057,7 +1071,7 @@ int AusLotto::generate()
  
  int main(void)
  { 
-  randomizeSeed();
+
   AusLotto tattslotto;
   fl_register_images();
 

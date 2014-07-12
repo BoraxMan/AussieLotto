@@ -36,7 +36,7 @@ class UserInterface {open
   Function {make_window()} {open
   } {
     Fl_Window lotto_gui {
-      label {Aussie Lotto} open
+      label {Aussie Lotto} open selected
       xywh {829 346 605 620} type Single color 14 selection_color 32 labelcolor 12 align 80 when 6 visible
     } {
       Fl_Box {} {
@@ -85,7 +85,7 @@ class UserInterface {open
       }
       Fl_Value_Input num_games {
         label {Number of Games}
-        xywh {460 85 55 30} color 0 textfont 1 textsize 16 textcolor 3
+        xywh {460 85 95 30} color 0 textfont 1 textsize 16 textcolor 3
       }
       Fl_Menu_Button {} {
         label Options open
@@ -122,7 +122,7 @@ class UserInterface {open
         xywh {0 125 565 605} box THIN_DOWN_BOX labeltype NO_LABEL align 37
       } {
         Fl_Group tattslotto_tab {
-          label {Tattslotto/Gold Lotto/X Lotto} open selected
+          label {Tattslotto/Gold Lotto/X Lotto} open
           xywh {0 150 565 470} box DOWN_BOX color 140 selection_color 29 labeltype EMBOSSED_LABEL
         } {
           Fl_Group {} {

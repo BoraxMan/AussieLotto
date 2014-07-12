@@ -1,10 +1,10 @@
 Summary: A tattslotto game player and checker
 Name: aussielotto
-Version: 1.0.0
+Version: 1.0.1
 Release: 1
 License: GPL
 Group: Applications
-Source: http://dennisk.customer.netspace.net.au/aussielotto/aussielotto-1.0.0.tar.gz
+Source: http://dennisk.customer.netspace.net.au/aussielotto/aussielotto-1.0.1.tar.gz
 URL: http://dennisk.customer.netspace.net.au/aussielotto.html
 Distribution: Fedora
 Vendor: DK Soft

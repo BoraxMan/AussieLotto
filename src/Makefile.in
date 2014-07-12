@@ -93,8 +93,9 @@ CONFIG_CLEAN_FILES =
 CONFIG_CLEAN_VPATH_FILES =
 am__installdirs = "$(DESTDIR)$(bindir)"
 PROGRAMS = $(bin_PROGRAMS)
-am_aussielotto_OBJECTS = AussieLotto.$(OBJEXT) \
-	AussieLottoGUI.$(OBJEXT) LottoGame.$(OBJEXT)
+am_aussielotto_OBJECTS = MersenneTwister.$(OBJEXT) \
+	AussieLotto.$(OBJEXT) AussieLottoGUI.$(OBJEXT) \
+	LottoGame.$(OBJEXT)
 aussielotto_OBJECTS = $(am_aussielotto_OBJECTS)
 aussielotto_LDADD = $(LDADD)
 AM_V_P = $(am__v_P_@AM_V@)
@@ -270,12 +271,13 @@ top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 AM_CXXFLAGS = -Wall -O2 `fltk-config --cxxflags --use-images` 
+AM_CFLAGS = -Wall -O2
 AM_LDFLAGS = `fltk-config --ldflags --use-images` -s
-aussielotto_SOURCES = AussieLotto.cxx AussieLottoGUI.cxx LottoGame.cxx types.h AussieLottoGUI.h AussieLotto.h LottoGame.h
+aussielotto_SOURCES = MersenneTwister.cpp AussieLotto.cxx AussieLottoGUI.cxx LottoGame.cxx types.h AussieLottoGUI.h AussieLotto.h LottoGame.h
 all: all-am
 
 .SUFFIXES:
-.SUFFIXES: .cxx .o .obj
+.SUFFIXES: .cpp .cxx .o .obj
 $(srcdir)/Makefile.in:  $(srcdir)/Makefile.am  $(am__configure_deps)
 	@for dep in $?; do \
 	  case '$(am__configure_deps)' in \
@@ -362,6 +364,21 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/AussieLotto.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/AussieLottoGUI.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/LottoGame.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/MersenneTwister.Po@am__quote@
+
+.cpp.o:
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXXCOMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/$*.Tpo $(DEPDIR)/$*.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='$<' object='$@' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXXCOMPILE) -c -o $@ $<
+
+.cpp.obj:
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXXCOMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ `$(CYGPATH_W) '$<'`
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/$*.Tpo $(DEPDIR)/$*.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='$<' object='$@' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXXCOMPILE) -c -o $@ `$(CYGPATH_W) '$<'`
 
 .cxx.o:
 @am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXXCOMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<

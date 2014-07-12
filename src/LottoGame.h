@@ -19,10 +19,11 @@
 #ifndef LOTTOGAME_H
 #define LOTTOGAME_H
 
-#include "types.h"
 #include <string>
 #include <sstream>
 #include <vector>
+#include "types.h"
+#include "MersenneTwister.h"
 
 gameType getFileGameType(char *fname);
 void randomizeSeed();
@@ -35,13 +36,11 @@ protected:
     int outputted;
     int results_supps[2];
     std::ostringstream strout;
-    /*std::string tatts_id;
-    std::string ozlotto_id;
-    std::string powerball_id;
-    std::string lottostrike_id;*/
     std::string id;
     std::vector<std::vector<int> > numbers;
     std::vector<int> results;
+    MersenneTwister *mt;
+    void printNoWinners();
     
   public:
   //  void setGameType(gameType x);
@@ -51,9 +50,10 @@ protected:
     int setResultsSupps(int x1, int x2) throw (std::string);
     virtual std::string checkResults();
     int getNumGames() const;
-    virtual int setResults(int x1, int x2, int x3, int x4, int x5, int x6) throw (std::string);
+    virtual int setResults(std::vector<int> passedResults) throw (std::string);
     virtual ~LottoGame();
     LottoGame();
+    virtual void addGame(std::vector<int>& enteredValues) throw (std::string);
 };
 
 class tattslottoGame : public LottoGame
@@ -66,8 +66,6 @@ class tattslottoGame : public LottoGame
     tattslottoGame();
     tattslottoGame(char *fname);
     tattslottoGame(int numgames);
-    void addGame(int x1, int x2, int x3, int x4, int x5, int x6) throw (std::string);
-    int loadGame(char *fname);
     friend std::ostream &operator<<(std::ostream &outstream, tattslottoGame & p);
   private:
 
@@ -78,13 +76,10 @@ class ozlottoGame : public LottoGame
   public:
     int saveGame(std::string fname);
     int generateGames(int numGames);
-    int setResults(int x1, int x2, int x3, int x4, int x5, int x6, int x7) throw (std::string);
     ~ozlottoGame();
     ozlottoGame();
     ozlottoGame(char *fname);
     ozlottoGame(int numgames);
-    int loadGame(char *fname);
-    void addGame(int x1, int x2, int x3, int x4, int x5, int x6, int x7) throw (std::string);
     std::string checkResults();
     friend std::ostream &operator<<(std::ostream &outstream, ozlottoGame & p);
   private:
@@ -123,7 +118,6 @@ class lottostrikeGame : public LottoGame
     lottostrikeGame();
     lottostrikeGame(char *fname);
     lottostrikeGame(int numgames);
-    int loadGame(char *fname);
     void addGame(int x1, int x2, int x3, int x4) throw (std::string);
     std::string checkResults();
     

@@ -705,7 +705,7 @@ Fl_Window* UserInterface::make_window() {
       o->callback((Fl_Callback*)cb_Check);
       o->align(Fl_Align(FL_ALIGN_WRAP));
     } // Fl_Button* o
-    { num_games = new Fl_Value_Input(460, 85, 55, 30, catgets(_catalog,1,11,"Number of Games"));
+    { num_games = new Fl_Value_Input(460, 85, 95, 30, catgets(_catalog,1,11,"Number of Games"));
       num_games->color(FL_FOREGROUND_COLOR);
       num_games->textfont(1);
       num_games->textsize(16);

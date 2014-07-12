@@ -1,0 +1,37 @@
+commit 3eba7d6cbf8507f7c7e41857f3f20ae4202e65b1 (HEAD, tag: v1.0.0, master)
+Author: Dennis Katsonis <dennisk@netspace.net.au>
+Date:   Mon Jul 7 20:04:06 2014 +1000
+
+    Added config.guess
+
+commit 676b513c3603c09aa9b0827d01535e7feb874d3c
+Author: Dennis Katsonis <dennisk@netspace.net.au>
+Date:   Mon Jul 7 20:03:23 2014 +1000
+
+    added commit.sub
+
+commit 821aad4725f7278fca153257590b9f18b088ce34
+Author: Dennis Katsonis <dennisk@netspace.net.au>
+Date:   Mon Jul 7 19:59:19 2014 +1000
+
+    Initial release v2.  Fixed README
+
+commit 0c917b8823f794ca8300edbc3609ae74d1806a26
+Author: Dennis Katsonis <dennisk@netspace.net.au>
+Date:   Mon Jul 7 19:46:41 2014 +1000
+
+    Version 1.0.0
+    
+    Initial release.
+
+commit 7049e7d95fa69db37ec12141a6fc2042f5402bd1
+Author: Dennis Katsonis <dennisk@netspace.net.au>
+Date:   Fri May 16 21:28:10 2014 +1000
+
+    Added makefiles
+
+commit b6cd2e9160a1049e69b8007c84fbae3764657b30
+Author: Dennis Katsonis <dennisk@netspace.net.au>
+Date:   Fri May 16 21:27:23 2014 +1000
+
+    Initial version

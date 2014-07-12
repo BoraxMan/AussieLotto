@@ -25,15 +25,11 @@
 #include "LottoGame.h"
 
 const int highest_ball = 45;
+const long long full32bit = 4294967296;  // 2^32
 const std::string tatts_id = "TATTS_GAME";
 const std::string ozlotto_id = "OZLOTTO_GAME";
 const std::string powerball_id = "POWERBALL_GAME";
 const std::string lottostrike_id = "LOTTOSTRIKE_GAME";
-
-void randomizeSeed()
-{
-    srandom(time(NULL));
-}
 
 gameType getFileGameType(char *fname)
 { 
@@ -65,11 +61,14 @@ gameType getFileGameType(char *fname)
 //*******************
 
 LottoGame::LottoGame() : memoryAllocated(false), games(0), outputted(0)
-{
+{  
+  mt = new MersenneTwister(static_cast<uint32_t>(time(NULL)));
 }
+
 
 LottoGame::~LottoGame()
 {
+  delete mt;
 }
 
 
@@ -87,6 +86,12 @@ int LottoGame::generateGames(int numgames)
   return 0;
 }
 
+void LottoGame::printNoWinners(void)
+{
+  strout << "You haven't won anything!" << std::endl;
+  strout << "Better luck next time..." << std::endl << std::ends;
+}
+
 std::string LottoGame::checkResults()
 {
   std::ostringstream test;
@@ -94,36 +99,88 @@ std::string LottoGame::checkResults()
   return test.str();
 }
 
-int LottoGame::setResults(int x1, int x2, int x3, int x4, int x5, int x6) throw (std::string)
+int LottoGame::setResults(std::vector<int> passedResults) throw (std::string)
 {
-  int c;
-  
-  results[0] = x1;
-  results[1] = x2;
-  results[2] = x3;
-  results[3] = x4;
-  results[4] = x5;
-  results[5] = x6;
-  for (c = 0; c < tattsBalls; c++)
+  size_t c;
+
+  for (c = 0; c < passedResults.size(); ++c)
   {
-    if (results[c] > highest_ball)
+
+    if (passedResults[c] > highest_ball)
       throw std::string("Can not have a lotto number greater than 45");  
-    if (results[c] == 0)
+    if (passedResults[c] == 0)
       throw std::string("Can not have a lottery number of zero");
   }
-  for (c = 0; c < (tattsBalls - 1); c++)
+  for (c = 0; c < (passedResults.size() - 1); ++c)
   {
-    for(int x = (c + 1); x < tattsBalls; x++)
-      if(results[c] == results[x])
+    for(int x = (c + 1); x < tattsBalls; ++x)
+      if(passedResults[c] == passedResults[x])
 	throw std::string("Can not have duplicate draw numbers");
   }
 
+  results = passedResults;
   return 0;
 }
 
 
 int LottoGame::loadGame(char *fname)
 {
+  std::ifstream fin;
+  std::string header;
+  int c;
+  int balls = 0;
+  fin.open(fname);
+  
+  if (!fin.is_open())
+    throw std::string("Could not open file");
+
+  fin >> header;
+  if (header == tatts_id)
+    balls = tattsBalls;
+  else if (header == ozlotto_id)
+    balls = ozlottoBalls;
+  else if (header == lottostrike_id)
+    balls = lottostrikeBalls;
+  
+  if (!balls)
+  {
+    fin.close();
+    return 1;
+  }
+  
+  fin >> games;
+  numbers.resize(games);
+
+  for (c = 0; c < games; ++c)
+  {
+    int temp;
+    for (int x = 0; x < balls; ++x)
+    {
+      fin >> temp;
+      numbers[c].push_back(temp);
+    }
+    
+    memoryAllocated = true;
+
+    strout.seekp(0, std::ios::beg);
+    // Go to the beginning of the buffer, to overwrite the last game.
+    // If we don't do this, it will try to add to the end of the last string we wrote.
+    // We want a brand new string here.
+    strout << "Game  " << c + 1 << std::endl;
+
+    for (int x = 0; x < balls ; ++x)
+    {
+      strout << numbers[c][x];
+      
+      if (x == (balls - 1))
+	strout << "\n";
+      else
+	strout << "\t";
+    }
+
+    strout << "\n\n";
+  }
+  strout << std::ends;
   return 0;
 }
 
@@ -132,7 +189,7 @@ int LottoGame::setResultsSupps(int x1, int x2) throw (std::string)
   int c;
   results_supps[0] = x1;
   results_supps[1] = x2;
-  for (c = 0; c <= 1; c++)
+  for (c = 0; c <= 1; ++c)
   {
     if (results_supps[c] > highest_ball)
       throw std::string("Can not have a supplementary number greater than 45");
@@ -144,6 +201,33 @@ int LottoGame::setResultsSupps(int x1, int x2) throw (std::string)
 }
 
 
+void LottoGame::addGame(std::vector<int>& enteredValues) throw (std::string)
+{
+  
+  for (size_t x = 0; x < enteredValues.size(); ++x)
+  {
+    if (enteredValues[x] == 0)
+      throw std::string("Not enough numbers entered");
+    else if (enteredValues[x] > highest_ball)
+      throw std::string("Can not have a number greater than 45"); 
+  }
+  
+  std::sort(enteredValues.begin(), enteredValues.end());
+  for (size_t c = 0; c < (enteredValues.size() - 1); ++c)
+  {
+    if (enteredValues[c] == enteredValues[c + 1])
+      throw std::string("Can not have duplicate numbers");
+  }
+  numbers.push_back(enteredValues);
+  ++games;
+  
+  return;
+
+} 
+
+
+
+
 //***********************
 // Tattsotto Game methods
 //***********************
@@ -151,7 +235,7 @@ int LottoGame::setResultsSupps(int x1, int x2) throw (std::string)
 std::ostream &operator<<(std::ostream &outstream, tattslottoGame & p)
 {
   int gamecounter;
-  for (gamecounter = p.outputted; gamecounter < p.games; gamecounter++)
+  for (gamecounter = p.outputted; gamecounter < p.games; ++gamecounter)
   {
     outstream << "Game  " << gamecounter + 1 << "\n";
     outstream << p.numbers[gamecounter][0] << "\t" << p.numbers[gamecounter][1] << "\t" << p.numbers[gamecounter][2] << "\t";
@@ -164,57 +248,27 @@ std::ostream &operator<<(std::ostream &outstream, tattslottoGame & p)
   return outstream;
 }
 
-void tattslottoGame::addGame(int x1, int x2, int x3, int x4, int x5, int x6) throw (std::string)
-{
-  std::vector<int> data;  // Vectors are cool.
-  
-  if (!x1 || !x2 || !x3 || !x4 || !x5 || !x6)
-    throw std::string("Not enough numbers entered");
-  else if((x1 > highest_ball) || (x2 > highest_ball) || (x3  > highest_ball) ||
-	  (x4 > highest_ball) || (x5 > highest_ball) || (x6 > highest_ball))
-    throw std::string("Can not have a number greater than 45");
-    
-  data.push_back(x1);
-  data.push_back(x2);
-  data.push_back(x3);
-  data.push_back(x4);
-  data.push_back(x5);
-  data.push_back(x6);
-  std::sort(data.begin(), data.end());
-  for (unsigned int c = 0; c < (data.size() - 1); c++)
-  {
-    if (data[c] == data[c + 1])
-      throw std::string("Can not have duplicate numbers");
-  }
-  
-  numbers.push_back(data);
-  games++;
-  
-  return;
-}  
-
 int tattslottoGame::generateGames(int numGames)
 {
   int i;  //  The number ball
-  int c;  // General counter
   int gamecounter; // To count which game
   games = numGames;
   if (!memoryAllocated)
   {
     numbers.resize(games);
     //numbers = new int[games][6];
-    for (gamecounter = 0; gamecounter < games; gamecounter++)
+    for (gamecounter = 0; gamecounter < games; ++gamecounter)
       numbers[gamecounter].resize(tattsBalls);
     
     memoryAllocated = true;
   }
 
-  for (gamecounter = 0; gamecounter < games ; gamecounter++)
+  for (gamecounter = 0; gamecounter < games ; ++gamecounter)
   {
-    for (i = 0 ; i < tattsBalls; i++)
+    for (i = 0 ; i < tattsBalls; ++i)
     {
-      numbers[gamecounter][i] = (static_cast<int>(highest_ball * (rand()/(RAND_MAX+1.0)))+1);
-      for (c = 0; c < i; c++)
+      numbers[gamecounter][i] = (static_cast<int>(mt->genrand_uint32()/(full32bit/highest_ball))+1);
+      for (int c = 0; c < i; ++c)
       {
 	if (numbers[gamecounter][i] == numbers[gamecounter][c])
 	  i--;
@@ -226,48 +280,6 @@ int tattslottoGame::generateGames(int numGames)
   
   return 0;
   }
-
-int tattslottoGame::loadGame(char *fname)
-{
-  
-  std::ifstream fin;
-  std::string header;
-  int c;
-  fin.open(fname);
-  
-  if (!fin.is_open())
-    throw std::string("Could not open file");
-
-  fin >> header;
-  fin >> games;
-
-  numbers.resize(games);
-  for (c = 0; c < games; c++)
-    numbers[c].resize(tattsBalls);
-    
-  memoryAllocated = true;
-  
-  for (c = 0; c < games; c++)
-  {
-    fin >> numbers[c][0];
-    fin >> numbers[c][1];
-    fin >> numbers[c][2];
-    fin >> numbers[c][3];
-    fin >> numbers[c][4];
-    fin >> numbers[c][5];
-
-    strout.seekp(0, std::ios::beg);
-    // Go to the beginning of the buffer, to overwrite the last game.
-    // If we don't do this, it will try to add to the end of the last string we wrote.
-    // We want a brand new string here.
-    strout << "Game  " << c + 1 << std::endl;
-    strout << numbers[c][0] << "\t" << numbers[c][1] << "\t" << numbers[c][2] << "\t";
-    strout << numbers[c][3] << "\t" << numbers[c][4] << "\t" << numbers[c][5] << "\n";
-    strout << "\n\n";
-  }
-  strout << std::ends;
-  return 0;
-}	
 
 int tattslottoGame::saveGame(std::string fname)
 {
@@ -282,7 +294,7 @@ int tattslottoGame::saveGame(std::string fname)
   file_out << tatts_id << "\n";
   file_out << games << "\n";
   
-  for (c = 0; c < games; c++)
+  for (c = 0; c < games; ++c)
   {	
     file_out << numbers[c][0] << "\t" << numbers[c][1] << "\t" << numbers[c][2] <<  "\t";
     file_out << numbers[c][3] << "\t" << numbers[c][4] << "\t" << numbers[c][5] << "\n";
@@ -335,41 +347,38 @@ std::string tattslottoGame::checkResults()
       !results[3] || !results[4] || !results[5] ||
       !results_supps[0] || !results_supps[1])
       throw std::string("Can't have zero as a lottery number.");
-  
-  
+
   if (results[0] > highest_ball || results[1] > highest_ball || 
       results[2] > highest_ball || results[3] > highest_ball ||
       results[4] > highest_ball || results[5] > highest_ball ||
       results_supps[0] > highest_ball || results_supps[1] > highest_ball)
       throw std::string("You have entered a number greater than the maximum possible.");
- 
   
-  for (c = 0; c < games; c++)
+  for (c = 0; c < games; ++c)
   {
-    if (results_tally.size() == static_cast<unsigned int>(winners))
-      
+    if (results_tally.size() == static_cast<size_t>(winners))
       results_tally.resize(results_tally.size() + 10);
 
     tat = 0;
     sup = 0;
-    for (int i = 0; i < tattsBalls; i++)
+    for (int i = 0; i < tattsBalls; ++i)
     {
     if (numbers[c][i] == results[0])
-      tat++;
+      ++tat;
     else if (numbers[c][i] == results[1])
-      tat++;
+      ++tat;
     else if (numbers[c][i] == results[2])
-      tat++;
+      ++tat;
     else if (numbers[c][i] == results[3])
-      tat++;
+      ++tat;
     else if (numbers[c][i] == results[4])
-      tat++;
+      ++tat;
     else if (numbers[c][i] == results[5])
-      tat++;
+      ++tat;
     if (numbers[c][i] == results_supps[0])
-      sup++;
+      ++sup;
     if (numbers[c][i] == results_supps[1])
-      sup++;
+      ++sup;
     // Because it makes no difference if there are one or two supps
     // in regard to which division you are in, we don't need to differentiate between
     // whether you got one or two.  Here we just test for the enumbersistance of a supplementary
@@ -411,12 +420,11 @@ std::string tattslottoGame::checkResults()
   std::sort(results_tally.begin(), results_tally.end());
   if (!winners)
   {
-    strout << "You haven't won anything!" << std::endl;
-    strout << "Better luck next time..." << std::endl << std::ends;
+    printNoWinners();
     return strout.str();
   }
   
-  for (c = 0; c < winners; c++)
+  for (c = 0; c < winners; ++c)
   {
     strout << "Division " << results_tally[c][0] << ":\n";
     strout << "  Game  " << (results_tally[c][1] + 1) << std::endl;
@@ -426,11 +434,11 @@ std::string tattslottoGame::checkResults()
     strout << "\n\n";
   }
  
-//strout.seekp(0, std::ios::beg);
-if (winners == 1)
-  strout << "You've won a single game." << std::endl;
-else
-  strout << "You've won " << winners << " games." << std::endl << std::ends;
+
+  if (winners == 1)
+    strout << "You've won a single game." << std::endl;
+  else
+    strout << "You've won " << winners << " games." << std::endl << std::ends;
 
 return strout.str();
   
@@ -443,7 +451,7 @@ return strout.str();
 std::ostream &operator<<(std::ostream &outstream, ozlottoGame & p)
 {
   int gamecounter;
-  for (gamecounter = p.outputted; gamecounter < p.games; gamecounter++)
+  for (gamecounter = p.outputted; gamecounter < p.games; ++gamecounter)
   {
     outstream << "Game  " << gamecounter + 1 << "\n";
     outstream << p.numbers[gamecounter][0] << "\t" << p.numbers[gamecounter][1] << "\t" << p.numbers[gamecounter][2] << "\t";
@@ -456,44 +464,9 @@ std::ostream &operator<<(std::ostream &outstream, ozlottoGame & p)
   return outstream;
 }
 
-void ozlottoGame::addGame(int x1, int x2, int x3, int x4, int x5, int x6, int x7) throw (std::string)
-{
-  std::vector<int> data;
-  
-  if (!x1 || !x2 || !x3 || !x4 || !x5 || !x6 || !x7)
-    throw std::string("Not enough numbers entered");
-  if((x1 > highest_ball) || (x2 > highest_ball) || (x3 > highest_ball) ||
-	  (x4 > highest_ball) || (x5 > highest_ball) || (x6 > highest_ball) ||
-	  (x7 > highest_ball))
-    throw std::string("Can not have a number greater than 45");
-    
-  data.push_back(x1);
-  data.push_back(x2);
-  data.push_back(x3);
-  data.push_back(x4);
-  data.push_back(x5);
-  data.push_back(x6);
-  data.push_back(x7);
-  std::sort(data.begin(), data.end());
-  for (unsigned c = 0; c < data.size() - 1; c++)
-  {
-    if (data[c] == data[c + 1])
-      throw std::string("Can not have duplicate numbers");
-  }
-  
-  numbers.push_back(data);
-  games++;
-  
-  return;
-  
-} 
-
-
 
 int ozlottoGame::generateGames(int numGames)
 {
-
-  int c;  // General counter
   int gamecounter; // To count which game
 
   games = numGames;
@@ -501,22 +474,22 @@ int ozlottoGame::generateGames(int numGames)
   if (!memoryAllocated)
   {
     numbers.resize(games);
-    //numbers = new int[games][6];
-    for (c = 0; c < games; c++)
+
+    for (int c = 0; c < games; ++c)
       numbers[c].resize(ozlottoBalls);
     
     memoryAllocated = true;
   }
 
-  for (gamecounter = 0; gamecounter < games ; gamecounter++)
+  for (gamecounter = 0; gamecounter < games ; ++gamecounter)
   {
-    for (int i = 0 ; i < ozlottoBalls; i++)
+    for (int i = 0 ; i < ozlottoBalls; ++i)
     {
-      numbers[gamecounter][i] = (static_cast<int>(highest_ball * (rand()/(RAND_MAX+1.0)))+1);
-      for (c = 0; c < i; c++)
+      numbers[gamecounter][i] = (static_cast<int>(mt->genrand_uint32()/(full32bit/highest_ball))+1);
+      for (int c = 0; c < i; ++c)
       {
 	if (numbers[gamecounter][i] == numbers[gamecounter][c])
-	  i--;
+	  --i;
       }// Redo if we have already chosen that number.
       // We don't want the same number twice. 
     }
@@ -541,7 +514,7 @@ int ozlottoGame::saveGame(std::string fname)
 
   file_out << games << "\n";
   
-  for (int c = 0; c < games; c++)
+  for (int c = 0; c < games; ++c)
   {
     file_out << numbers[c][0] << "\t" << numbers[c][1] << "\t" << numbers[c][2] << "\t";
     file_out << numbers[c][3] << "\t" << numbers[c][4] << "\t" << numbers[c][5] << "\t";
@@ -553,78 +526,6 @@ int ozlottoGame::saveGame(std::string fname)
   return 0;
 }
 
-int ozlottoGame::loadGame(char *fname)
-{
-  
-  std::ifstream fin;
-  std::string header;
-  int c;
-  
-  fin.open(fname);
-  
-  if (!fin.is_open())
-    throw std::string("Could not open file");
- //    return ERROR_FILE_OPEN;
-  
-  fin >> header;
-  fin >> games;
-  numbers.resize(games);
-  //numbers = new int[games][6];
-  for (c = 0; c < games; c++)
-    numbers[c].resize(ozlottoBalls);
-    
-  memoryAllocated = true;
-  
-  for (c = 0; c < games; c++)
-  {
-    fin >> numbers[c][0];
-    fin >> numbers[c][1];
-    fin >> numbers[c][2];
-    fin >> numbers[c][3];
-    fin >> numbers[c][4];
-    fin >> numbers[c][5];
-    fin >> numbers[c][6];
-  
-  
-    strout.seekp(0, std::ios::beg);
-    // Go to the beginning of the tenumberst buffer, to overwrite the last game.
-    // If we don't do this, it will try to add to the end of the last string we wrote.
-    // We want a brand new string here.
-    strout << "Game  " << c + 1 << "\n";
-    strout << numbers[c][0] << "\t" << numbers[c][1] << "\t" << numbers[c][2] << "\t";
-    strout << numbers[c][3] << "\t" << numbers[c][4] << "\t" << numbers[c][5] << "\t";
-    strout << numbers[c][6] << "\t";
-    strout << "\n\n";
-  }
-  strout << std::ends;
-  return 0;
-}
-
-int ozlottoGame::setResults(int x1, int x2, int x3, int x4, int x5, int x6, int x7) throw (std::string)
-{
-  int c;
-  results[0] = x1;
-  results[1] = x2;
-  results[2] = x3;
-  results[3] = x4;
-  results[4] = x5;
-  results[5] = x6;
-  results[6] = x7;
-  for (c = 0; c < ozlottoBalls; c++)
-  {
-    if (results[c] > highest_ball)
-      throw std::string("Can not have a lotto number greater than 45");
-    if (results[c] == 0)
-      throw std::string("Can not have a lottery number of zero");
-  }
-  for (c = 0; c < (ozlottoBalls - 1); c++)
-  {
-    for(int x = (c + 1); x < ozlottoBalls; x++)
-      if(results[c] == results[x])
-	throw std::string("Can not have duplicate draw numbers");
-  }  
-  return 0;
-}
 
 ozlottoGame::~ozlottoGame()
 {
@@ -654,31 +555,31 @@ std::string ozlottoGame::checkResults()
      //If any numbers are higher than the highest ball number, warn the user.
     throw std::string("You have entered a number greater than the maximum possible.");
  
-  for (c = 0; c < games; c++)
+  for (c = 0; c < games; ++c)
   {
     tat = 0;
     sup = 0;
-    if (results_tally.size() == static_cast<unsigned int>(winners))
+    if (results_tally.size() == static_cast<size_t>(winners))
       results_tally.resize(results_tally.size() + 10);
 
-    for (int i = 0; i < ozlottoBalls; i++)
+    for (int i = 0; i < ozlottoBalls; ++i)
     {
       if (numbers[c][i] == results[0])
-	tat++;
+	++tat;
       else if (numbers[c][i] == results[1])
-	tat++;
+	++tat;
       else if (numbers[c][i] == results[2])
-	tat++;
+	++tat;
       else if (numbers[c][i] == results[3])
-	tat++;
+	++tat;
       else if (numbers[c][i] == results[4])
-	tat++;
+	++tat;
       else if (numbers[c][i] == results[5])
-	tat++;
+	++tat;
       else if (numbers[c][i] == results[6])
-	tat++;
+	++tat;
       if (numbers[c][i] == results_supps[0] || numbers[c][i] == results_supps[1])
-	sup++;
+	++sup;
       // Because it makes no difference if there are one or two supps
       // in regard to which division you are in, we don't need to differentiate between
       // whether you got one or two.  Here we just test for the enumbersistance of a supplementary
@@ -725,12 +626,11 @@ std::string ozlottoGame::checkResults()
   std::sort(results_tally.begin(), results_tally.end());
   if (!winners)
   {
-    strout << "You haven't won anything!" << std::endl;
-    strout << "Better luck next time..." << std::endl << std::ends;
+    printNoWinners();
     return strout.str();
   }
    
-  for (c = 0; c < winners; c++)
+  for (c = 0; c < winners; ++c)
   {
     strout << "Division " << results_tally[c][0] << ":"  << "\n";
     strout << "  Game  " << (results_tally[c][1] + 1) << "\n";
@@ -741,7 +641,6 @@ std::string ozlottoGame::checkResults()
     strout << "\n\n";
   }
  
-//strout.seekp(0, std::ios::beg);
 if (winners == 1)
   strout << "You've won a single game." << std::endl;
 else
@@ -779,7 +678,7 @@ ozlottoGame::ozlottoGame(int numgames) : LottoGame()
 std::ostream &operator<<(std::ostream &outstream, powerballGame & p)
 {
   int gamecounter;
-  for (gamecounter = p.outputted; gamecounter < p.games; gamecounter++)
+  for (gamecounter = p.outputted; gamecounter < p.games; ++gamecounter)
   {
     outstream << "Game  " << gamecounter + 1 << "\n";
     outstream << p.numbers[gamecounter][0] << "\t" << p.numbers[gamecounter][1] << "\t" << p.numbers[gamecounter][2] << "\t";
@@ -796,7 +695,7 @@ std::ostream &operator<<(std::ostream &outstream, powerballGame & p)
 void powerballGame::resetPowerballRandomPool(void)
 {
  
-  for (int c = 0; c < highest_ball; c++)
+  for (int c = 0; c < highest_ball; ++c)
   {
     powerballPool[c] = (c + 1);
   }
@@ -819,19 +718,19 @@ int powerballGame::generateGames(int numGames, bool ensp)
   {
     numbers.resize(games);
     //numbers = new int[games][6];
-    for (c = 0; c < games; c++)
+    for (c = 0; c < games; ++c)
       numbers[c].resize((powerballBalls - 1)); // Its -1 because we don't include powerball
     
     pb.resize(games);
     memoryAllocated = true;
   }
 
-  for (gamecounter = 0; gamecounter < games ; gamecounter++)
+  for (gamecounter = 0; gamecounter < games ; ++gamecounter)
   {
-    for (int i = 0 ; i < (powerballBalls - 1); i++)
+    for (int i = 0 ; i < (powerballBalls - 1); ++i)
     {
-      numbers[gamecounter][i] = (static_cast<int>(highest_ball * (rand()/(RAND_MAX+1.0)))+1);
-      for (c = 0; c < i; c++)
+      numbers[gamecounter][i] = (static_cast<int>(mt->genrand_uint32()/(full32bit/highest_ball))+1);
+      for (c = 0; c < i; ++c)
       {
 	if (numbers[gamecounter][i] == numbers[gamecounter][c])
 	  i--;
@@ -847,7 +746,7 @@ int powerballGame::generateGames(int numGames, bool ensp)
     
     
     if (ensp == false)
-      pb[gamecounter] = (static_cast<int>(highest_ball * (rand()/(RAND_MAX+1.0)))+1); //Any random number
+      pb[gamecounter] = (static_cast<int>(mt->genrand_uint32()/(full32bit/highest_ball))+1); //Any random number
     else // If we are ensuring the powerball, we use a different method.
     {
       if (powerballsRemaining <= 0)
@@ -875,7 +774,7 @@ int powerballGame::setResults(int x1, int x2, int x3, int x4, int x5, int x6, in
   results[3] = x4;
   results[4] = x5;
   results[5] = x6;
-  for (c = 0; c < (powerballBalls - 1); c++)
+  for (c = 0; c < (powerballBalls - 1); ++c)
   {
     if (results[c] > highest_ball)
       throw std::string("Can not have a lotto number greater than 45");
@@ -888,9 +787,9 @@ int powerballGame::setResults(int x1, int x2, int x3, int x4, int x5, int x6, in
   if (!result_pb)
     throw std::string("Cannot have a powerball number of zero");
   
-  for (c = 0; c < (powerballBalls - 1); c++)
+  for (c = 0; c < (powerballBalls - 1); ++c)
   {
-    for(int x = (c + 1); x < powerballBalls; x++)
+    for(int x = (c + 1); x < powerballBalls; ++x)
       if(results[c] == results[x])
 	throw std::string("Can not have duplicate draw numbers");
   }
@@ -910,7 +809,7 @@ int powerballGame::saveGame(std::string fname)
   file_out << powerball_id << "\n";
   file_out << games << "\n";
   
-  for (c = 0; c < games; c++)
+  for (c = 0; c < games; ++c)
   {
     file_out << numbers[c][0] << "\t" << numbers[c][1] << "\t" << numbers[c][2] << "\t";
     file_out << numbers[c][3] << "\t" << numbers[c][4] << "\t" << numbers[c][5] << "\t";
@@ -939,13 +838,13 @@ int powerballGame::loadGame(char *fname)
   
   numbers.resize(games);
 
-  for (c = 0; c < games; c++)
+  for (c = 0; c < games; ++c)
     numbers[c].resize((powerballBalls - 1));
     
   pb.resize(games);
   memoryAllocated = true;
   
-  for (c = 0; c < games; c++)
+  for (c = 0; c < games; ++c)
   {
     fin >> numbers[c][0];
     fin >> numbers[c][1];
@@ -992,31 +891,31 @@ std::string powerballGame::checkResults()
   results[4] > highest_ball || result_pb > highest_ball)
       throw std::string("Cannot have a ball higher than the maximum allowed");
       
-  for (c = 0; c < games; c++)
+  for (c = 0; c < games; ++c)
   {
-    if (results_tally.size() == static_cast<unsigned int>(winners))
+    if (results_tally.size() == static_cast<size_t>(winners))
     {
       results_tally.resize(results_tally.size() + 10);
     }
     tat = 0;
     sup = 0;
     pow = 0;
-    for (int i = 0; i < powerballBalls; i++)
+    for (int i = 0; i < powerballBalls; ++i)
     {
     if (numbers[c][i] == results[0])
-      tat++;
+      ++tat;
     else if (numbers[c][i] == results[1])
-      tat++;
+      ++tat;
     else if (numbers[c][i] == results[2])
-      tat++;
+      ++tat;
     else if (numbers[c][i] == results[3])
-      tat++;
+      ++tat;
     else if (numbers[c][i] == results[4])
-      tat++;
+      ++tat;
     else if (numbers[c][i] == results[5])
-      tat++;
+      ++tat;
     if (pb[c] == result_pb)
-      pow++; // Check for powerball
+      ++pow; // Check for powerball
     }
     
     if (tat == 6 && pow)
@@ -1066,12 +965,11 @@ std::string powerballGame::checkResults()
   std::sort(results_tally.begin(), results_tally.end());
   if (!winners)
   {
-    strout << "You haven't won anything!" << std::endl;
-    strout << "Better luck next time..." << std::endl << std::ends;
+    printNoWinners();
     return strout.str();
   }
   
-  for (c = 0; c < winners; c++)
+  for (c = 0; c < winners; ++c)
   {
     strout << "Division : " << results_tally[c][0] << "\n";
     strout << "  Game  " << (results_tally[c][1] + 1) << "\n";
@@ -1083,11 +981,10 @@ std::string powerballGame::checkResults()
     strout << "\n\n";
   }
  
-//strout.seekp(0, std::ios::beg);
-if (winners == 1)
-  strout << "You've won a single game." << std::endl;
-else
-  strout << "You've won " << winners << " games." << std::endl << std::ends;
+  if (winners == 1)
+    strout << "You've won a single game." << std::endl;
+  else
+    strout << "You've won " << winners << " games." << std::endl << std::ends;
 
 return strout.str();
 }
@@ -1134,7 +1031,7 @@ void powerballGame::addGame(int x1, int x2, int x3, int x4, int x5, int x6, int 
   data.push_back(x5);
   data.push_back(x6);
   std::sort(data.begin(), data.end());
-  for (unsigned int c = 0; c < data.size() - 1; c++)
+  for (size_t c = 0; c < data.size() - 1; ++c)
   {
     if (data[c] == data[c + 1])
       throw std::string("Can not have duplicate numbers");
@@ -1143,7 +1040,7 @@ void powerballGame::addGame(int x1, int x2, int x3, int x4, int x5, int x6, int 
   numbers.push_back(data);
 
   pb.push_back(x7);
-  games++;
+  ++games;
   
   return;  
 } 
@@ -1155,7 +1052,7 @@ void powerballGame::addGame(int x1, int x2, int x3, int x4, int x5, int x6, int 
 std::ostream &operator<<(std::ostream &outstream, lottostrikeGame & p)
 {
   int gamecounter;
-  for (gamecounter = p.outputted; gamecounter < p.games; gamecounter++)
+  for (gamecounter = p.outputted; gamecounter < p.games; ++gamecounter)
   {
     outstream << "Game  " << gamecounter + 1 << "\n";
     outstream << p.numbers[gamecounter][0] << "\t" << p.numbers[gamecounter][1] << "\t";
@@ -1170,7 +1067,7 @@ std::ostream &operator<<(std::ostream &outstream, lottostrikeGame & p)
 
 void lottostrikeGame::addGame(int x1, int x2, int x3, int x4) throw (std::string)
 {
-  std::vector<int> data;  // Vectors are cool.
+  std::vector<int> data;
   
   if (!x1 || !x2 || !x3 || !x4)
     throw std::string("Not enough numbers entered");
@@ -1183,41 +1080,40 @@ void lottostrikeGame::addGame(int x1, int x2, int x3, int x4) throw (std::string
   data.push_back(x3);
   data.push_back(x4);
 
-  // We DONT sort here, as order is important.
-  for (unsigned int c = 0; c < (data.size() - 1); c++)
+  // We DON'T sort here, as order is important.
+  for (size_t c = 0; c < (data.size() - 1); ++c)
   {
-    for(unsigned int x = (c + 1); x < data.size(); x++)
+    for(size_t x = (c + 1); x < data.size(); ++x)
       if(data[c] == data [x])
 	throw std::string("Can not have duplicate numbers");
   }
   
   numbers.push_back(data);
-  games++;
+  ++games;
   
   return;
 }  
 
 int lottostrikeGame::generateGames(int numGames)
 {
-  int c;  // General counter
   int gamecounter; // To count which game
   games = numGames;
   if (!memoryAllocated)
   {
     numbers.resize(games);
     //numbers = new int[games][6];
-    for (gamecounter = 0; gamecounter < games; gamecounter++)
+    for (gamecounter = 0; gamecounter < games; ++gamecounter)
       numbers[gamecounter].resize(lottostrikeBalls);
     
     memoryAllocated = true;
   }
 
-  for (gamecounter = 0; gamecounter < games ; gamecounter++)
+  for (gamecounter = 0; gamecounter < games ; ++gamecounter)
   {
-    for (int i = 0 ; i < lottostrikeBalls; i++)
+    for (int i = 0 ; i < lottostrikeBalls; ++i)
     {
-      numbers[gamecounter][i] = (static_cast<int>(highest_ball * (rand()/(RAND_MAX+1.0)))+1);
-      for (c = 0; c < i; c++)
+      numbers[gamecounter][i] = (static_cast<int>(mt->genrand_uint32()/(full32bit/45))+1);
+      for (int c = 0; c < i; ++c)
       {
 	if (numbers[gamecounter][i] == numbers[gamecounter][c])
 	  i--;
@@ -1230,44 +1126,6 @@ int lottostrikeGame::generateGames(int numGames)
   return 0;
 }
 
- int lottostrikeGame::loadGame(char *fname)
-{
-  std::ifstream fin;
-  std::string header;
-  int c;
-  fin.open(fname);
-  
-  if (!fin.is_open())
-    throw std::string("Could not open file");
-
-  fin >> header;
-  fin >> games;
-
-  numbers.resize(games);
-  for (c = 0; c < games; c++)
-    numbers[c].resize(lottostrikeBalls);
-    
-  memoryAllocated = true;
-  
-  for (c = 0; c < games; c++)
-  {
-    fin >> numbers[c][0];
-    fin >> numbers[c][1];
-    fin >> numbers[c][2];
-    fin >> numbers[c][3];
-
-    //strout.seekp(0, std::ios::beg);
-    // Go to the beginning of the buffer, to overwrite the last game.
-    // If we don't do this, it will try to add to the end of the last string we wrote.
-    // We want a brand new string here.
-    strout << "Game  " << c + 1 << std::endl;
-    strout << numbers[c][0] << "\t" << numbers[c][1] << "\t";
-    strout << numbers[c][2] << "\t" << numbers[c][3] << "\n";
-    strout << "\n\n";
-  }
-  strout << std::ends;
-  return 0;
-}	
 
 int lottostrikeGame::saveGame(std::string fname)
 {
@@ -1282,7 +1140,7 @@ int lottostrikeGame::saveGame(std::string fname)
   file_out << lottostrike_id << "\n";
   file_out << games << "\n";
   
-  for (c = 0; c < games; c++)
+  for (c = 0; c < games; ++c)
   {	
     file_out << numbers[c][0] << "\t" << numbers[c][1] << "\t";
     file_out << numbers[c][2] << "\t" << numbers[c][3] << "\n";
@@ -1337,33 +1195,33 @@ std::string lottostrikeGame::checkResults()
       results[2] > highest_ball || results[3] > highest_ball)
       throw std::string("You have entered a number greater than the maximum possible.");
   
-  for (c = 0; c < games; c++)
+  for (c = 0; c < games; ++c)
   {
     index2 = 0;
     oldmatches = 0;
     index = 0;
     matches = 0;
     
-    if (results_tally.size() == static_cast<unsigned int>(winners))  
+    if (results_tally.size() == static_cast<size_t>(winners))  
       results_tally.resize(results_tally.size() + 10);
       
     while(index < lottostrikeBalls)
     {
       if((numbers[c][index] == results[index2]) && (index2 < lottostrikeBalls))
       {
-	matches++; 
-	index++;
-	index2++;
+	++matches; 
+	++index;
+	++index2;
       }
       else if (matches == 0 && (index2 < lottostrikeBalls))
       {
-	index2++;
+	++index2;
       }
 
       else if (index2 >= lottostrikeBalls)
       {
 	index2 = 0;
-	index++;
+	++index;
 	oldmatches = matches;
 	matches = 0;
       }
@@ -1406,12 +1264,11 @@ std::string lottostrikeGame::checkResults()
   std::sort(results_tally.begin(), results_tally.end());
   if (!winners)
   {
-    strout << "You haven't won anything!" << std::endl;
-    strout << "Better luck next time..." << std::endl << std::ends;
+    printNoWinners();
     return strout.str();
   }
   
-  for (c = 0; c < winners; c++)
+  for (c = 0; c < winners; ++c)
   {
     strout << "Division " << results_tally[c][0] << ":\n";
     strout << "  Game  " << (results_tally[c][1] + 1) << std::endl;
@@ -1420,7 +1277,6 @@ std::string lottostrikeGame::checkResults()
     strout << "\n\n";
   }
  
-//strout.seekp(0, std::ios::beg);
 if (winners == 1)
   strout << "You've won a single game." << std::endl;
 else
