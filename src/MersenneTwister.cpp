@@ -7,6 +7,8 @@
  * 
  */
 #include <sys/types.h>
+#include <ctime>
+
 
 #include "MersenneTwister.h"
 
@@ -60,3 +62,4 @@ MersenneTwister::init_by_array(uint32_t init_key[], int key_length) {
 	mt[0] = 0x80000000UL; /* MSB is 1; assuring non-zero initial array */ 
 }
 
+MersenneTwister   mt(static_cast<uint32_t>(time(0)));

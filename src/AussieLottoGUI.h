@@ -31,7 +31,6 @@ public:
 private:
   inline void cb_Quit_i(Fl_Button*, void*);
   static void cb_Quit(Fl_Button*, void*);
-  static unsigned char menu_File_i18n_done;
   static Fl_Menu_Item menu_File[];
   inline void cb_Open_i(Fl_Menu_*, void*);
   static void cb_Open(Fl_Menu_*, void*);
@@ -47,7 +46,6 @@ private:
   static void cb_Check(Fl_Button*, void*);
 public:
   Fl_Value_Input *num_games;
-  static unsigned char menu_Options_i18n_done;
   static Fl_Menu_Item menu_Options[];
 private:
   inline void cb_Check1_i(Fl_Menu_*, void*);
@@ -132,7 +130,6 @@ public:
 private:
   inline void cb_ShowLottostrikeEntryWidget_i(Fl_Button*, void*);
   static void cb_ShowLottostrikeEntryWidget(Fl_Button*, void*);
-  static unsigned char menu_Winning_i18n_done;
   static Fl_Menu_Item menu_Winning[];
   inline void cb_Tattslotto_i(Fl_Menu_*, void*);
   static void cb_Tattslotto(Fl_Menu_*, void*);

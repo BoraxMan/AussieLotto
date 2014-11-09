@@ -18,7 +18,7 @@
 
 #ifndef AUSSIELOTTO_H
 #define AUSSIELOTTO_H
-
+#include <stdint.h>
 #include "AussieLottoGUI.h"
 #include "LottoGame.h"
 #include <string>

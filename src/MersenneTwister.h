@@ -54,13 +54,8 @@ class MersenneTwister;
 
 #ifndef _MERSENNETWISTER_H_
 #define _MERSENNETWISTER_H_
+#include <stdint.h>
 
-#ifndef WIN32
-#include <inttypes.h>
-#else
-typdef uint8_t unsigned __int8;
-typdef uint32_t unsigned __int32;
-#endif
 
 /* Period parameters */  
 #define N 624
@@ -165,4 +160,5 @@ public:
 
 };
 
+extern MersenneTwister mt;
 #endif // _MERSENNETWISTER_H_

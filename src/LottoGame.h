@@ -18,7 +18,7 @@
 
 #ifndef LOTTOGAME_H
 #define LOTTOGAME_H
-
+#include <stdint.h>
 #include <string>
 #include <sstream>
 #include <vector>
@@ -35,11 +35,11 @@ protected:
     int games;
     int outputted;
     int results_supps[2];
+    int balls;
     std::ostringstream strout;
     std::string id;
     std::vector<std::vector<int> > numbers;
     std::vector<int> results;
-    MersenneTwister *mt;
     void printNoWinners();
     
   public:
@@ -91,14 +91,14 @@ class powerballGame : public LottoGame
   public:
     int saveGame(std::string fname);
     void addGame(int x1, int x2, int x3, int x4, int x5, int x6, int pb) throw (std::string);
-    int generateGames(int numGames, bool ensp);
+    int generateGames(int numGames, bool ensurePowerball);
     int setResults(int x1, int x2, int x3, int x4, int x5, int x6, int pb) throw (std::string);
     std::string checkResults();
     int loadGame(char *fname);
     ~powerballGame();
     powerballGame();
     powerballGame(char *fname);
-    powerballGame(int numgames, bool ensp);
+    powerballGame(int numgames, bool ensurePowerball);
     friend std::ostream &operator<<(std::ostream &outstream, powerballGame & p);
 
   private:

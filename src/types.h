@@ -19,7 +19,7 @@
 #ifndef TYPES_H
 #define TYPES_H
 
-#define PROG_VERSION "1.0.1"
+#define PROG_VERSION "1.0.2"
 
 const int tattsBalls = 6;
 const int ozlottoBalls = 7;

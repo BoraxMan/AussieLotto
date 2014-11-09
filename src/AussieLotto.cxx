@@ -33,6 +33,7 @@
 #include "AussieLottoGUI.h"
 #include "AussieLotto.h"
 
+
 const int max_games = 1048576;
 const int highest_ball = 45;
 
@@ -670,7 +671,6 @@ void AusLotto::check_lotto(void)
 	tmpResults.push_back(static_cast<int>(this->num5->value()));
 	tmpResults.push_back(static_cast<int>(this->num6->value()));
 	tatts->setResults(tmpResults);
-
 	tatts->setResultsSupps(static_cast<int>(this->supp1->value()),
 	static_cast<int>(this->supp2->value()));
 	s = tatts->checkResults();
@@ -1072,14 +1072,14 @@ int AusLotto::generate()
  int main(void)
  { 
 
-  AusLotto tattslotto;
   fl_register_images();
+  AusLotto x;
 
-  tattslotto.make_window();
-  tattslotto.lotto_gui->show();
-  tattslotto.createOzlottoEntryWindows();
-  tattslotto.createTattsEntryWindows();
-  tattslotto.createPowerballEntryWindows();
-  tattslotto.createLottostrikeEntryWindows();
+  x.make_window();
+  x.lotto_gui->show();
+  x.createOzlottoEntryWindows();
+  x.createTattsEntryWindows();
+  x.createPowerballEntryWindows();
+  x.createLottostrikeEntryWindows();
   return Fl::run();
 }

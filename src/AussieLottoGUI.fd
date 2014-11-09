@@ -1,8 +1,5 @@
 # data file for the Fltk User Interface Designer (fluid)
 version 1.0302 
-i18n_type 2 
-i18n_include <nl_types.h> 
-i18n_set 1 
 header_name {.h} 
 code_name {.cxx}
 decl {/* Aussie Lotto */} {private local
@@ -36,7 +33,7 @@ class UserInterface {open
   Function {make_window()} {open
   } {
     Fl_Window lotto_gui {
-      label {Aussie Lotto} open selected
+      label {Aussie Lotto} open
       xywh {829 346 605 620} type Single color 14 selection_color 32 labelcolor 12 align 80 when 6 visible
     } {
       Fl_Box {} {
@@ -64,7 +61,7 @@ class UserInterface {open
         }
         MenuItem {} {
           label Exit
-          callback {quit()}
+          callback {quit()} selected
           xywh {0 0 100 20}
         }
       }
