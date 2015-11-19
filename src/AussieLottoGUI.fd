@@ -30,8 +30,7 @@ class UserInterface {open
   }
   decl {Fl_Text_Buffer *help_text;} {public local
   }
-  Function {make_window()} {open
-  } {
+  Function {make_window()} {} {
     Fl_Window lotto_gui {
       label {Aussie Lotto} open
       xywh {829 346 605 620} type Single color 14 selection_color 32 labelcolor 12 align 80 when 6 visible
@@ -61,7 +60,7 @@ class UserInterface {open
         }
         MenuItem {} {
           label Exit
-          callback {quit()} selected
+          callback {quit()}
           xywh {0 0 100 20}
         }
       }
@@ -926,35 +925,23 @@ return 0;
   Function {close_powerball_divisions_window()} {} {
     code {this->powerball_divisions_window->hide();} {}
   }
-  Function {open_file()} {return_type {virtual int}
-  } {
-    code {return 0;} {}
-  }
-  Function {save_file()} {return_type {virtual int}
-  } {
-    code {return 0;} {}
-  }
+  Function {open_file() = 0} {open return_type {virtual int}
+  } {}
+  Function {save_file() = 0} {open return_type {virtual int}
+  } {}
   Function {clear_results()} {return_type {virtual void}
   } {
     code {} {}
   }
-  Function {check_lotto()} {return_type {virtual void}
-  } {
-    code {} {}
-  }
-  Function {generate()} {return_type {virtual int}
-  } {
-    code {return 0;} {}
-  }
-  Function {clear_lotto()} {return_type {virtual void}
-  } {
-    code {} {}
-  }
-  Function {changeTab()} {return_type {virtual void}
-  } {
-    code {} {}
-  }
-  Function {show_tatts_entry_window()} {return_type virtual
+  Function {check_lotto() = 0} {open return_type {virtual void}
+  } {}
+  Function {generate() = 0} {open return_type {virtual int}
+  } {}
+  Function {clear_lotto() = 0} {open return_type {virtual void}
+  } {}
+  Function {changeTab() = 0} {open return_type {virtual void}
+  } {}
+  Function {show_tatts_entry_window()} {open return_type virtual
   } {
     code {this->TattsNumberEntryWindow->show();} {}
   }
@@ -968,18 +955,12 @@ return 0;
   Function {hide_ozlotto_entry_window()} {} {
     code {this->OzlottoNumberEntryWindow->hide();} {}
   }
-  Function {tattsEntry()} {return_type {virtual void}
-  } {
-    code {return;} {}
-  }
-  Function {ozlottoEntry()} {return_type {virtual void}
-  } {
-    code {return;} {}
-  }
-  Function {powerballEntry()} {return_type {virtual void}
-  } {
-    code {return;} {}
-  }
+  Function {tattsEntry() = 0} {open return_type {virtual void}
+  } {}
+  Function {ozlottoEntry() = 0} {open return_type {virtual void}
+  } {}
+  Function {powerballEntry() = 0} {open return_type {virtual void}
+  } {}
   Function {show_powerball_entry_window()} {return_type virtual
   } {
     code {this->PowerballNumberEntryWindow->show();} {}
@@ -991,10 +972,8 @@ return 0;
   } {
     code {return;} {}
   }
-  Function {NumberSelectorUpdate(int x)} {return_type {virtual void}
-  } {
-    code {} {}
-  }
+  Function {NumberSelectorUpdate(int x) = 0} {open return_type {virtual void}
+  } {}
   Function {show_Numberentry_window()} {return_type virtual
   } {
     code {this->Numberentry->show();} {}
@@ -1003,38 +982,28 @@ return 0;
   } {
     code {this->Numberentry->hide();} {}
   }
-  Function {submitButtonNums()} {return_type {virtual void}
-  } {
-    code {return;} {}
-  }
-  Function {clearNumberSelector()} {return_type {virtual void}
-  } {
-    code {return;} {}
-  }
-  Function {loadHelp()} {return_type {virtual void}
-  } {
-    code {return;} {}
-  }
-  Function {show_lottostrike_entry_window()} {open return_type virtual
+  Function {submitButtonNums() = 0} {open return_type {virtual void}
+  } {}
+  Function {clearNumberSelector() = 0} {open return_type {virtual void}
+  } {}
+  Function {loadHelp() = 0} {open return_type {virtual void}
+  } {}
+  Function {show_lottostrike_entry_window()} {return_type virtual
   } {
     code {this->LottostrikeNumberEntryWindow->show();} {}
   }
   Function {hide_lottostrike_entry_window()} {} {
     code {this->LottostrikeNumberEntryWindow->hide();} {}
   }
-  Function {lottostrikeEntry()} {open return_type {virtual void}
-  } {
-    code {return;} {}
-  }
-  Function {show_lottostrike_divisions_window()} {open
-  } {
+  Function {lottostrikeEntry() = 0} {open selected return_type {virtual void}
+  } {}
+  Function {show_lottostrike_divisions_window()} {} {
     code {this->lottostrike_divisions_window->show();} {}
   }
-  Function {close_lottostrike_divisions_window()} {open
-  } {
+  Function {close_lottostrike_divisions_window()} {} {
     code {this->lottostrike_divisions_window->hide();} {}
   }
-  Function {show_license_window()} {open return_type {virtual void}
+  Function {show_license_window()} {return_type {virtual void}
   } {
     code {this->LicenseWindow->show();} {}
   }
@@ -1042,8 +1011,6 @@ return 0;
   } {
     code {this->LicenseWindow->hide();} {}
   }
-  Function {ensurePowerballButton()} {open return_type {virtual void}
-  } {
-    code {return;} {}
-  }
+  Function {ensurePowerballButton() = 0} {open return_type {virtual void}
+  } {}
 } 

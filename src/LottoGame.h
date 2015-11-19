@@ -22,6 +22,7 @@
 #include <string>
 #include <sstream>
 #include <vector>
+
 #include "types.h"
 #include "MersenneTwister.h"
 

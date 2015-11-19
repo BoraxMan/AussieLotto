@@ -63,3 +63,4 @@ MersenneTwister::init_by_array(uint32_t init_key[], int key_length) {
 }
 
 MersenneTwister   mt(static_cast<uint32_t>(time(0)));
+//RandomNumber randy;

@@ -63,6 +63,24 @@ class MersenneTwister;
 #define MATRIX_A 0x9908b0dfUL   /* constant vector a */
 #define UPPER_MASK 0x80000000UL /* most significant w-r bits */
 #define LOWER_MASK 0x7fffffffUL /* least significant r bits */
+//#include <random>
+
+//typedef std::mt19937 MyRNG;
+
+/*
+class RandomNumber {
+public:
+  RandomNumber() = default;
+  RandomNumber(std::mt19937::result_type seed) : mt{seed} {}
+  int rnd(void) { return dist1(mt);}
+private:
+  MyRNG mt {std::random_device{}()};
+  std::uniform_int_distribution<int> dist1 {1, 45};
+  
+  
+};
+
+*/
 
 // mag01[x] = x * MATRIX_A  for x=0,1
 static uint32_t	mag01[2] = {0x0UL, MATRIX_A};

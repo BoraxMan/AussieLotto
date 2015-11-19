@@ -1580,28 +1580,7 @@ void UserInterface::close_powerball_divisions_window() {
   this->powerball_divisions_window->hide();
 }
 
-int UserInterface::open_file() {
-  return 0;
-}
-
-int UserInterface::save_file() {
-  return 0;
-}
-
 void UserInterface::clear_results() {
-}
-
-void UserInterface::check_lotto() {
-}
-
-int UserInterface::generate() {
-  return 0;
-}
-
-void UserInterface::clear_lotto() {
-}
-
-void UserInterface::changeTab() {
 }
 
 void UserInterface::show_tatts_entry_window() {
@@ -1620,18 +1599,6 @@ void UserInterface::hide_ozlotto_entry_window() {
   this->OzlottoNumberEntryWindow->hide();
 }
 
-void UserInterface::tattsEntry() {
-  return;
-}
-
-void UserInterface::ozlottoEntry() {
-  return;
-}
-
-void UserInterface::powerballEntry() {
-  return;
-}
-
 void UserInterface::show_powerball_entry_window() {
   this->PowerballNumberEntryWindow->show();
 }
@@ -1644,9 +1611,6 @@ void UserInterface::saveResults() {
   return;
 }
 
-void UserInterface::NumberSelectorUpdate(int x) {
-}
-
 void UserInterface::show_Numberentry_window() {
   this->Numberentry->show();
 }
@@ -1655,28 +1619,12 @@ void UserInterface::hide_Numberentry_window() {
   this->Numberentry->hide();
 }
 
-void UserInterface::submitButtonNums() {
-  return;
-}
-
-void UserInterface::clearNumberSelector() {
-  return;
-}
-
-void UserInterface::loadHelp() {
-  return;
-}
-
 void UserInterface::show_lottostrike_entry_window() {
   this->LottostrikeNumberEntryWindow->show();
 }
 
 void UserInterface::hide_lottostrike_entry_window() {
   this->LottostrikeNumberEntryWindow->hide();
-}
-
-void UserInterface::lottostrikeEntry() {
-  return;
 }
 
 void UserInterface::show_lottostrike_divisions_window() {
@@ -1693,8 +1641,4 @@ void UserInterface::show_license_window() {
 
 void UserInterface::close_license_window() {
   this->LicenseWindow->hide();
-}
-
-void UserInterface::ensurePowerballButton() {
-  return;
 }
