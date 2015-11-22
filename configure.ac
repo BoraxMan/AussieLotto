@@ -1,9 +1,9 @@
-#                                               -*- Autoconf -*-
+uto#                                               -*- Autoconf -*-
 # Process this file with autoconf to produce a configure script.
-
+AC_CONFIG_MACRO_DIR([.])
 AC_PREREQ([2.69])
-AC_INIT(AussieLotto, 0.5, dennisk@netspace.net.au)
-AM_INIT_AUTOMAKE(AussieLotto, 0.5)
+AC_INIT(AussieLotto, 1.0.3, dennisk@netspace.net.au)
+AM_INIT_AUTOMAKE()
 AC_OUTPUT(Makefile src/Makefile doc/Makefile)
 
 AC_CONFIG_SRCDIR([src/AussieLotto.cxx])
@@ -14,9 +14,9 @@ AM_PATH_FLTK($FLTK_VERSION,
          AC_MSG_ERROR([*** FLTK version >= $FLTK_VERSION not found!])
 )
 CXXFLAGS="$CXXFLAGS $FLTK_CXXFLAGS"
+
 LIBS="$LIBS $FLTK_LIBS"
 LDFLAGS="$LDFLAGS $FLTK_LDFLAGS"
-
 AC_CONFIG_HEADERS([config.h])
 
 # Checks for programs.
@@ -35,4 +35,5 @@ AC_C_INLINE
 # Checks for library functions.
 AC_CHECK_FUNCS([setlocale])
 
+AC_OUTPUT(src/types.h)
 AC_OUTPUT

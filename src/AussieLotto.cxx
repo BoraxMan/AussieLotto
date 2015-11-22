@@ -67,25 +67,15 @@ void AusLotto::NumberSelectorUpdate(int x)
 void AusLotto::show_license_window(void)
 {
   static int licenseLoaded = 0;
-  std::string fname="/usr/share/doc/AussieLotto/LICENSE";
-  
-  if (!licenseLoaded)
-  {   
-    if (fexists(fname))
+  std::string fname= DATADIR;
+  fname+="/doc/AussieLotto/LICENSE";
+  if (fexists(fname))
     {
       this->licenseTextBuffer->loadfile(fname.c_str());
       licenseLoaded = 1;
       this->LicenseWindow->show();
       return;
-    }
-    fname = "/usr/local/share/doc/AussieLotto/LICENSE";
-    if (fexists(fname))
-    {
-      this->licenseTextBuffer->loadfile(fname.c_str());
-      licenseLoaded = 1;
-      this->LicenseWindow->show();
-      return;
-    }
+    } else {
     fname = "LICENSE";
     if (fexists(fname))
     {
@@ -869,20 +859,16 @@ int AusLotto::save_file(void)
 
 void AusLotto::loadHelp(void)
 {
-  std::string fname="/usr/share/doc/AussieLotto/help.html";
+  std::string fname= DATADIR;
+  fname += "/doc/AussieLotto/help.html";
+      std::cout << fname << std::endl;
   if (fexists(fname))
   {
+
     this->helpView->load(fname.c_str());
     return;
   }
 
-  fname = "/usr/local/share/doc/AussieLotto/help.html";
-  if (fexists(fname))
-  {
-    this->helpView->load(fname.c_str());
-    return;
-  }
- fname = "help.html";
  if (fexists(fname))
  {
    this->helpView->load(fname.c_str());
@@ -1071,7 +1057,6 @@ int AusLotto::generate()
  
  int main(void)
  { 
-
   fl_register_images();
   AusLotto x;
 

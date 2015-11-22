@@ -41,7 +41,7 @@
 #define HAVE__BOOL 1
 
 /* Name of package */
-#define PACKAGE "AussieLotto"
+#define PACKAGE "aussielotto"
 
 /* Define to the address where bug reports for this package should be sent. */
 #define PACKAGE_BUGREPORT "dennisk@netspace.net.au"
@@ -50,7 +50,7 @@
 #define PACKAGE_NAME "AussieLotto"
 
 /* Define to the full name and version of this package. */
-#define PACKAGE_STRING "AussieLotto 0.5"
+#define PACKAGE_STRING "AussieLotto 1.0.2"
 
 /* Define to the one symbol short name of this package. */
 #define PACKAGE_TARNAME "aussielotto"
@@ -59,13 +59,13 @@
 #define PACKAGE_URL ""
 
 /* Define to the version of this package. */
-#define PACKAGE_VERSION "0.5"
+#define PACKAGE_VERSION "1.0.2"
 
 /* Define to 1 if you have the ANSI C header files. */
 #define STDC_HEADERS 1
 
 /* Version number of package */
-#define VERSION "0.5"
+#define VERSION "1.0.2"
 
 /* Define to `__inline__' or `__inline' if that's what the C compiler
    calls it, or to nothing if 'inline' is not supported under any name.  */
