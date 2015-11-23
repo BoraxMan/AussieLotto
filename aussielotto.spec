@@ -1,8 +1,8 @@
 Summary: A tattslotto game player and checker
 Name: aussielotto
-Version: 1.0.3
-Release: 1
-License: GPL
+VERSION: 1.0.3
+RELEASE: 1
+LICENSE: GPL
 Group: Applications
 Source: http://dennisk.customer.netspace.net.au/aussielotto/aussielotto-1.0.3.tar.gz
 URL: http://dennisk.customer.netspace.net.au/aussielotto.html
@@ -35,6 +35,9 @@ make install DESTDIR=$RPM_BUILD_ROOT
 %defattr(-,root,root,-)
 %{_docdir}/*
 %{_bindir}/*
+%{_datadir}/applications/*
+%{_datadir}/icons/hicolor/64x64/apps/*
+
 
 
 %clean

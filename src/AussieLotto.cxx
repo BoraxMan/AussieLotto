@@ -68,7 +68,7 @@ void AusLotto::show_license_window(void)
 {
   static int licenseLoaded = 0;
   std::string fname= DATADIR;
-  fname+="/doc/AussieLotto/LICENSE";
+  fname+="/doc/aussielotto/LICENSE";
   if (fexists(fname))
     {
       this->licenseTextBuffer->loadfile(fname.c_str());
@@ -860,7 +860,7 @@ int AusLotto::save_file(void)
 void AusLotto::loadHelp(void)
 {
   std::string fname= DATADIR;
-  fname += "/doc/AussieLotto/help.html";
+  fname += "/doc/aussielotto/help.html";
   if (fexists(fname))
   {
 
