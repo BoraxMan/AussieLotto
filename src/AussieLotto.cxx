@@ -23,7 +23,7 @@
 #include <FL/Fl_Box.H>
 #include <FL/Fl_Input.H>
 #include <FL/Fl_Float_Input.H>
-#include <iostream>
+//#include <iostream>
 #include <sstream>
 #include <fstream>
 #include <string>
@@ -861,7 +861,6 @@ void AusLotto::loadHelp(void)
 {
   std::string fname= DATADIR;
   fname += "/doc/AussieLotto/help.html";
-      std::cout << fname << std::endl;
   if (fexists(fname))
   {
 

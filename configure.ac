@@ -35,5 +35,4 @@ AC_C_INLINE
 # Checks for library functions.
 AC_CHECK_FUNCS([setlocale])
 
-AC_OUTPUT(src/types.h)
 AC_OUTPUT

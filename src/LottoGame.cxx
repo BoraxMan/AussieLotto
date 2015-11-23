@@ -16,7 +16,7 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <iostream>
+//#include <iostream>
 #include <fstream>
 #include <string>
 #include <cstdlib>
@@ -303,7 +303,6 @@ tattslottoGame::tattslottoGame()
 {
   balls = tattsBalls;
   results.resize(balls);
-      std::cout << "Balls " << balls << std::endl;
 }
 
 tattslottoGame::tattslottoGame(char *fname)
@@ -311,7 +310,6 @@ tattslottoGame::tattslottoGame(char *fname)
   balls = tattsBalls;
   loadGame(fname); 
   results.resize(balls);
-      std::cout << "Balls " << balls << std::endl;
 }
 
 tattslottoGame::tattslottoGame(int numgames)
@@ -319,7 +317,8 @@ tattslottoGame::tattslottoGame(int numgames)
   balls = tattsBalls;
   if (numgames)
     generateGames(numgames);
-  results.resize(balls);    std::cout << "Balls " << balls << std::endl;}
+  results.resize(balls);
+}
 
 
 std::string tattslottoGame::checkResults()
