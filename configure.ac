@@ -1,4 +1,4 @@
-uto#                                               -*- Autoconf -*-
+#                                               -*- Autoconf -*-
 # Process this file with autoconf to produce a configure script.
 AC_CONFIG_MACRO_DIR([.])
 AC_PREREQ([2.69])
@@ -13,7 +13,7 @@ AM_PATH_FLTK($FLTK_VERSION,
          :,
          AC_MSG_ERROR([*** FLTK version >= $FLTK_VERSION not found!])
 )
-CXXFLAGS="$CXXFLAGS $FLTK_CXXFLAGS"
+
 
 LIBS="$LIBS $FLTK_LIBS"
 LDFLAGS="$LDFLAGS $FLTK_LDFLAGS"
@@ -34,5 +34,10 @@ AC_C_INLINE
 
 # Checks for library functions.
 AC_CHECK_FUNCS([setlocale])
+AC_PROG_RANLIB
+AX_CHECK_COMPILE_FLAG
+AX_GCC_X86_CPUID
+AX_GCC_ARCHFLAG([no])
+CXXFLAGS="$CXXFLAGS $FLTK_CXXFLAGS $CFLAGS"
 AC_OUTPUT(aussielotto.spec)
 AC_OUTPUT

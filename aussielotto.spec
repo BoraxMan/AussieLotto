@@ -4,7 +4,9 @@ VERSION: 1.0.3
 RELEASE: 1
 LICENSE: GPL
 Group: Applications
-Source: http://dennisk.customer.netspace.net.au/aussielotto/aussielotto-1.0.3.tar.gz
+Source: aussielotto-1.0.3.tar.gz
+#Source0: http://dennisk.customer.netspace.net.au/aussielotto/aussielotto-1.0.3.tar.gz
+
 URL: http://dennisk.customer.netspace.net.au/aussielotto.html
 Distribution: Fedora
 Vendor: DK Soft
@@ -24,12 +26,12 @@ Powerball and Lotto X.
 %setup
 
 %build
-%_configure --prefix=/usr
+%_configure --prefix=/usr CFLAGS="" CXXFLAGS="-O3 -DNDEBUG" --without-gcc-arch 
 make
 
 %install
 rm -rf $RPM_BUILD_ROOT
-make install DESTDIR=$RPM_BUILD_ROOT
+make install-strip DESTDIR=$RPM_BUILD_ROOT
 
 %files
 %defattr(-,root,root,-)
