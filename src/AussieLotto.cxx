@@ -67,8 +67,12 @@ void AusLotto::NumberSelectorUpdate(int x)
 void AusLotto::show_license_window(void)
 {
   static int licenseLoaded = 0;
+#ifdef __linux
   std::string fname= DATADIR;
   fname+="/doc/aussielotto/LICENSE";
+#else
+  std::string fname;
+#endif
   if (fexists(fname))
     {
       this->licenseTextBuffer->loadfile(fname.c_str());
@@ -859,8 +863,12 @@ int AusLotto::save_file(void)
 
 void AusLotto::loadHelp(void)
 {
+#ifdef __linux
   std::string fname= DATADIR;
   fname += "/doc/aussielotto/help.html";
+#else
+  std::string fname;
+#endif
   if (fexists(fname))
   {
 

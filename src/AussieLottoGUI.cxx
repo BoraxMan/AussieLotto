@@ -517,7 +517,7 @@ Fl_Window* UserInterface::make_window() {
       o->color((Fl_Color)4);
       o->selection_color(FL_BACKGROUND2_COLOR);
       o->labeltype(FL_SHADOW_LABEL);
-      o->labelfont(14);
+      o->labelfont(1);
       o->labelsize(26);
       o->labelcolor((Fl_Color)1);
     } // Fl_Box* o
@@ -916,7 +916,7 @@ Fl_Window* UserInterface::make_window() {
       o->box(FL_DOWN_BOX);
       o->color((Fl_Color)137);
       o->labeltype(FL_SHADOW_LABEL);
-      o->labelfont(14);
+      o->labelfont(1);
       o->labelsize(28);
       o->labelcolor((Fl_Color)3);
     } // Fl_Box* o
@@ -992,7 +992,7 @@ Fl_Window* UserInterface::make_window() {
       o->box(FL_DOWN_BOX);
       o->color((Fl_Color)4);
       o->labeltype(FL_SHADOW_LABEL);
-      o->labelfont(14);
+      o->labelfont(1);
       o->labelsize(26);
       o->labelcolor((Fl_Color)3);
     } // Fl_Box* o

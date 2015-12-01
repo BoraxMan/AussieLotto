@@ -2,7 +2,7 @@
 # Process this file with autoconf to produce a configure script.
 AC_CONFIG_MACRO_DIR([.])
 AC_PREREQ([2.69])
-AC_INIT(aussielotto, 1.0.3, dennisk@netspace.net.au)
+AC_INIT(aussielotto, 1.0.4, dennisk@netspace.net.au)
 AM_INIT_AUTOMAKE()
 AC_OUTPUT(Makefile src/Makefile doc/Makefile)
 
