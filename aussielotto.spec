@@ -11,6 +11,7 @@ URL: http://dennisk.customer.netspace.net.au/aussielotto.html
 Distribution: Fedora
 Vendor: DK Soft
 Packager: Dennis Katsonis <dennisk@netspace.net.au>
+requires: fltk >=1.1
 
 %description
 Tattslotto number generator and game player for
@@ -39,6 +40,18 @@ make install-strip DESTDIR=$RPM_BUILD_ROOT
 %{_bindir}/*
 %{_datadir}/applications/*
 %{_datadir}/icons/hicolor/64x64/apps/*
+
+%post
+/bin/touch --no-create %{_datadir}/icons/hicolor &>/dev/null || :
+
+%postun
+if [ $1 -eq 0 ] ; then
+    /bin/touch --no-create %{_datadir}/icons/hicolor &>/dev/null
+    /usr/bin/gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
+fi
+
+%posttrans
+/usr/bin/gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 
 
 
