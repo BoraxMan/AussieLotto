@@ -34,4 +34,11 @@ typedef enum gameType
   LOTTOSTRIKE
 } gameType;
 
+
+typedef enum helpFunctions
+{
+  SHOW_LICENSE,
+  SHOW_HELP
+} helpType;
+
 #endif

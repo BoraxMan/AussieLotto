@@ -1,14 +1,14 @@
 # data file for the Fltk User Interface Designer (fluid)
-version 1.0302 
+version 1.0303 
 header_name {.h} 
 code_name {.cxx}
 decl {/* Aussie Lotto */} {private local
 } 
 
-decl {\#include <iostream>} {private local
+decl {\#include <Fl/fl_ask.h>} {private local
 } 
 
-decl {\#include <Fl/fl_ask.h>} {private local
+decl {\#include "defs.h"} {private local
 } 
 
 decl {\#include "types.h"} {public global
@@ -162,7 +162,8 @@ class UserInterface {open
           }
           Fl_Button ShowTattsEntryWidget {
             label {Enter numbers with form}
-            callback {show_tatts_entry_window()}
+            user_data TATTSLOTTO
+            callback show_entry_window
             xywh {440 235 120 60} color 14 align 128
           }
           Fl_Button {} {
@@ -172,7 +173,7 @@ class UserInterface {open
           }
         }
         Fl_Group ozlotto_tab {
-          label OzLotto
+          label OzLotto open
           xywh {0 150 565 470} box DOWN_BOX color 60 labeltype EMBOSSED_LABEL hide
         } {
           Fl_Group {} {
@@ -219,7 +220,8 @@ class UserInterface {open
           }
           Fl_Button ShowOzlottoEntryWidget {
             label {Enter numbers with form}
-            callback {show_ozlotto_entry_window()}
+            user_data OZLOTTO
+            callback show_entry_window
             xywh {440 235 120 60} color 10 align 128
           }
           Fl_Button {} {
@@ -270,7 +272,8 @@ class UserInterface {open
           }
           Fl_Button ShowPowerballEntryWidget {
             label {Enter Powerball Numbers to play}
-            callback {show_powerball_entry_window()}
+            user_data POWERBALL
+            callback show_entry_window
             xywh {440 235 120 60} color 12 align 128
           }
           Fl_Check_Button ensurePowerball {
@@ -313,7 +316,8 @@ class UserInterface {open
           }
           Fl_Button ShowLottostrikeEntryWidget {
             label {Enter numbers with form}
-            callback {show_lottostrike_entry_window()}
+            user_data LOTTOSTRIKE
+            callback show_entry_window
             xywh {440 235 120 60} color 3 align 128
           }
         }
@@ -324,22 +328,26 @@ class UserInterface {open
       } {
         MenuItem {} {
           label Tattslotto
-          callback {show_tatts_divisions_window()}
+          user_data TATTSLOTTO
+          callback show_divisions
           xywh {0 0 34 20}
         }
         MenuItem {} {
           label {Oz Lotto}
-          callback {show_oz_divisions_window()}
+          user_data OZLOTTO
+          callback show_divisions
           xywh {10 10 34 20}
         }
         MenuItem {} {
           label Powerball
-          callback {show_powerball_divisions_window()}
+          user_data POWERBALL
+          callback show_divisions
           xywh {20 20 34 20}
         }
         MenuItem {} {
           label {Lotto Strike}
-          callback {show_lottostrike_divisions_window()}
+          user_data LOTTOSTRIKE
+          callback show_divisions
           xywh {30 30 34 20}
         }
       }
@@ -353,12 +361,12 @@ class UserInterface {open
       }
     }
     Fl_Window results_window {
-      label Results
+      label Results open
       xywh {512 211 415 380} type Double color 14 align 80 modal visible
     } {
       Fl_Button {} {
         label Close
-        callback {close_results_window()}
+        callback hide_parent
         xywh {315 350 85 25} color 22 labeltype ENGRAVED_LABEL labelsize 16 labelcolor 1
       }
       Fl_Box {} {
@@ -376,7 +384,7 @@ class UserInterface {open
       }
     }
     Fl_Window divisions_window {
-      label {Tattslotto Divisions}
+      label {Tattslotto Divisions} open
       xywh {330 218 505 295} type Double color 14 align 80 modal visible
     } {
       Fl_Text_Display {} {
@@ -409,13 +417,13 @@ class UserInterface {open
       }
       Fl_Button {} {
         label Close
-        callback {close_tatts_divisions_window()}
+        callback hide_parent
         xywh {400 255 95 30}
       }
     }
     Fl_Window help_window {
       label {HELP / MANUAL} open
-      xywh {31 77 555 440} type Double color 14 align 80 visible
+      xywh {31 77 555 440} type Double color 14 align 80 hide
     } {
       Fl_Box {} {
         label {HELP / MANUAL}
@@ -423,7 +431,7 @@ class UserInterface {open
       }
       Fl_Button {} {
         label Close
-        callback {close_help_window()}
+        callback hide_parent
         xywh {230 405 85 25} color 22 labeltype ENGRAVED_LABEL labelsize 16 labelcolor 1
       }
       Fl_Help_View helpView {
@@ -432,7 +440,7 @@ class UserInterface {open
       }
     }
     Fl_Window oz_divisions_window {
-      label {OzLotto Divisions}
+      label {OzLotto Divisions} open
       xywh {255 167 495 355} type Double color 14 align 80 hide modal
     } {
       Fl_Text_Display {} {
@@ -469,12 +477,12 @@ class UserInterface {open
       }
       Fl_Button {} {
         label Close
-        callback {close_oz_divisions_window()}
+        callback hide_parent
         xywh {385 295 95 30}
       }
     }
     Fl_Window powerball_divisions_window {
-      label Divisions
+      label Divisions open
       xywh {350 238 555 330} type Double color 14 align 80 hide modal
     } {
       Fl_Text_Display {} {
@@ -511,73 +519,70 @@ class UserInterface {open
       }
       Fl_Button {} {
         label Close
-        callback {close_powerball_divisions_window()}
+        callback hide_parent
         xywh {395 280 95 30}
       }
     }
     Fl_Window TattsNumberEntryWindow {
-      label {Tattslotto Number}
+      label {Tattslotto Number} open
       xywh {67 45 430 565} type Double color 14 hide
     } {
       Fl_Group TattsEntryGroup {
         label {Enter Tattslotto Numbers} open
-        xywh {10 20 405 530}
-      } {
-        Fl_Button {} {
-          label OK
-          callback {tattsEntry()}
-          xywh {20 530 105 20} color 14
-        }
-        Fl_Button {} {
-          label Cancel
-          callback {hide_tatts_entry_window()}
-          xywh {300 530 105 20} color 14
-        }
+        xywh {10 20 405 510}
+      } {}
+      Fl_Button {} {
+        label OK
+        callback {tattsEntry()}
+        xywh {40 535 105 20} color 14
+      }
+      Fl_Button {} {
+        label Cancel
+        callback hide_parent
+        xywh {305 535 105 20} color 14
       }
     }
     Fl_Window OzlottoNumberEntryWindow {
-      label {Ozlotto Number}
+      label {Ozlotto Number} open
       xywh {455 60 430 565} type Double color 14 hide
     } {
       Fl_Group OzlottoEntryGroup {
         label {Enter Ozlotto Numbers} open
-        xywh {10 20 405 530}
-      } {
-        Fl_Button {} {
-          label OK
-          callback {ozlottoEntry()}
-          xywh {20 530 105 20} color 14
-        }
-        Fl_Button {} {
-          label Cancel
-          callback {hide_ozlotto_entry_window()}
-          xywh {300 530 105 20} color 14
-        }
+        xywh {10 20 410 510}
+      } {}
+      Fl_Button {} {
+        label OK
+        callback {ozlottoEntry()}
+        xywh {25 535 105 20} color 14
+      }
+      Fl_Button {} {
+        label Cancel
+        callback hide_parent
+        xywh {305 535 105 20} color 14
       }
     }
     Fl_Window LottostrikeNumberEntryWindow {
       label {Lotto Strike Number} open
-      xywh {77 56 430 565} type Double color 14 visible
+      xywh {77 56 430 565} type Double color 14 hide
     } {
       Fl_Group LottostrikeEntryGroup {
         label {Enter Lotto Strike Numbers} open
-        xywh {10 20 405 530}
-      } {
-        Fl_Button {} {
-          label OK
-          callback {lottostrikeEntry()}
-          xywh {20 530 105 20} color 14
-        }
-        Fl_Button {} {
-          label Cancel
-          callback {hide_lottostrike_entry_window()}
-          xywh {300 530 105 20} color 14
-        }
+        xywh {10 20 410 510}
+      } {}
+      Fl_Button {} {
+        label OK
+        callback {lottostrikeEntry()}
+        xywh {25 535 105 20} color 14
+      }
+      Fl_Button {} {
+        label Cancel
+        callback hide_parent
+        xywh {305 535 105 20} color 14
       }
     }
     Fl_Window Numberentry {
       label {Number Entry} open
-      xywh {90 376 350 250} type Double align 80 hide
+      xywh {90 376 350 250} type Double align 80 visible
     } {
       Fl_Light_Button button_1 {
         label 1
@@ -811,7 +816,7 @@ class UserInterface {open
       }
       Fl_Button {} {
         label Cancel
-        callback {hide_Numberentry_window()}
+        callback hide_parent
         xywh {255 210 60 30} labeltype EMBOSSED_LABEL
       }
     }
@@ -821,18 +826,17 @@ class UserInterface {open
     } {
       Fl_Group PowerballEntryGroup {
         label {Enter Powerball Numbers} open
-        xywh {10 20 405 530}
-      } {
-        Fl_Button {} {
-          label OK
-          callback {powerballEntry()}
-          xywh {20 530 105 20} color 14
-        }
-        Fl_Button {} {
-          label Cancel
-          callback {hide_powerball_entry_window()}
-          xywh {300 530 105 20} color 14
-        }
+        xywh {10 20 405 510}
+      } {}
+      Fl_Button {} {
+        label OK
+        callback {powerballEntry()}
+        xywh {25 535 105 20} color 14
+      }
+      Fl_Button {} {
+        label Cancel
+        callback hide_parent
+        xywh {305 535 105 20} color 14
       }
     }
     Fl_Window lottostrike_divisions_window {
@@ -861,13 +865,13 @@ class UserInterface {open
       }
       Fl_Button {} {
         label Close
-        callback {close_lottostrike_divisions_window()}
+        callback hide_parent
         xywh {360 190 95 35}
       }
     }
     Fl_Window LicenseWindow {
       label License open
-      xywh {75 129 590 570} type Double color 14 visible
+      xywh {75 129 590 570} type Double color 14 hide
     } {
       Fl_Box {} {
         label License
@@ -879,7 +883,7 @@ class UserInterface {open
       }
       Fl_Button {} {
         label Close
-        callback {close_license_window()}
+        callback hide_parent
         xywh {250 540 145 25} color 31 labeltype EMBOSSED_LABEL
       }
       Fl_Box {} {
@@ -898,32 +902,8 @@ return 0;
 // Closes the program by hiding the main gui.  Hiding the main window ends the 
 // execution loop.} {}
   }
-  Function {close_results_window()} {} {
-    code {this->results_window->hide();} {}
-  }
-  Function {close_tatts_divisions_window()} {} {
-    code {this->divisions_window->hide();} {}
-  }
-  Function {show_tatts_divisions_window()} {} {
-    code {this->divisions_window->show();} {}
-  }
   Function {show_help_window()} {} {
     code {this->help_window->show();} {}
-  }
-  Function {close_help_window()} {} {
-    code {this->help_window->hide();} {}
-  }
-  Function {show_oz_divisions_window()} {} {
-    code {this->oz_divisions_window->show();} {}
-  }
-  Function {show_powerball_divisions_window()} {} {
-    code {this->powerball_divisions_window->show();} {}
-  }
-  Function {close_oz_divisions_window()} {} {
-    code {this->oz_divisions_window->hide();} {}
-  }
-  Function {close_powerball_divisions_window()} {} {
-    code {this->powerball_divisions_window->hide();} {}
   }
   Function {open_file() = 0} {open return_type {virtual int}
   } {}
@@ -941,46 +921,21 @@ return 0;
   } {}
   Function {changeTab() = 0} {open return_type {virtual void}
   } {}
-  Function {show_tatts_entry_window()} {open return_type virtual
-  } {
-    code {this->TattsNumberEntryWindow->show();} {}
-  }
-  Function {hide_tatts_entry_window()} {} {
-    code {this->TattsNumberEntryWindow->hide();} {}
-  }
-  Function {show_ozlotto_entry_window()} {return_type virtual
-  } {
-    code {this->OzlottoNumberEntryWindow->show();} {}
-  }
-  Function {hide_ozlotto_entry_window()} {} {
-    code {this->OzlottoNumberEntryWindow->hide();} {}
-  }
   Function {tattsEntry() = 0} {open return_type {virtual void}
   } {}
   Function {ozlottoEntry() = 0} {open return_type {virtual void}
   } {}
   Function {powerballEntry() = 0} {open return_type {virtual void}
   } {}
-  Function {show_powerball_entry_window()} {return_type virtual
-  } {
-    code {this->PowerballNumberEntryWindow->show();} {}
-  }
-  Function {hide_powerball_entry_window()} {} {
-    code {this->PowerballNumberEntryWindow->hide();} {}
-  }
   Function {saveResults()} {return_type {virtual void}
   } {
     code {return;} {}
   }
   Function {NumberSelectorUpdate(int x) = 0} {open return_type {virtual void}
   } {}
-  Function {show_Numberentry_window()} {return_type virtual
+  Function {show_Numberentry_window()} {selected return_type virtual
   } {
     code {this->Numberentry->show();} {}
-  }
-  Function {hide_Numberentry_window()} {return_type virtual
-  } {
-    code {this->Numberentry->hide();} {}
   }
   Function {submitButtonNums() = 0} {open return_type {virtual void}
   } {}
@@ -988,29 +943,54 @@ return 0;
   } {}
   Function {loadHelp() = 0} {open return_type {virtual void}
   } {}
-  Function {show_lottostrike_entry_window()} {return_type virtual
-  } {
-    code {this->LottostrikeNumberEntryWindow->show();} {}
-  }
-  Function {hide_lottostrike_entry_window()} {} {
-    code {this->LottostrikeNumberEntryWindow->hide();} {}
-  }
-  Function {lottostrikeEntry() = 0} {open selected return_type {virtual void}
+  Function {lottostrikeEntry() = 0} {open return_type {virtual void}
   } {}
-  Function {show_lottostrike_divisions_window()} {} {
-    code {this->lottostrike_divisions_window->show();} {}
-  }
-  Function {close_lottostrike_divisions_window()} {} {
-    code {this->lottostrike_divisions_window->hide();} {}
-  }
   Function {show_license_window()} {return_type {virtual void}
   } {
     code {this->LicenseWindow->show();} {}
   }
-  Function {close_license_window()} {open
-  } {
-    code {this->LicenseWindow->hide();} {}
-  }
-  Function {ensurePowerballButton() = 0} {open return_type {virtual void}
+  Function {ensurePowerballButton() = 0} {return_type {virtual void}
   } {}
+  Function {show_divisions(Fl_Widget* w, void* userdata)} {return_type {static void}
+  } {
+    code {Fl_Widget *p = w->parent();
+while (p->parent()) p = p->parent();
+
+((UserInterface*)p->user_data())->show_div_callback(w, userdata);} {}
+  }
+  Function {show_div_callback(Fl_Widget* w, void* userdata)} {return_type void
+  } {
+    code {if (userdata == (gameType*)LOTTOSTRIKE) {
+	this->lottostrike_divisions_window->show();
+} else if (userdata == (gameType*)OZLOTTO) {
+	oz_divisions_window->show();
+} else if (userdata == (gameType*)TATTSLOTTO) {
+	divisions_window->show();
+} else if (userdata == (gameType*)POWERBALL) {
+	powerball_divisions_window->show();
+}} {}
+  }
+  Function {hide_parent(Fl_Widget *w, void* data)} {return_type {static void}
+  } {
+    code {(w->parent())->hide();} {}
+  }
+  Function {show_entry_callback(Fl_Widget* w, void* userdata)} {return_type void
+  } {
+    code {if (userdata == (gameType*)LOTTOSTRIKE) {
+	LottostrikeNumberEntryWindow->show();
+} else if (userdata == (gameType*)OZLOTTO) {
+	OzlottoNumberEntryWindow->show();
+} else if (userdata == (gameType*)TATTSLOTTO) {
+	TattsNumberEntryWindow->show();
+} else if (userdata == (gameType*)POWERBALL) {
+	PowerballNumberEntryWindow->show();
+}} {}
+  }
+  Function {show_entry_window(Fl_Widget* w, void* userdata)} {return_type {static void}
+  } {
+    code {Fl_Widget *p = w->parent();
+while (p->parent()) p = p->parent();
+
+((UserInterface*)p->user_data())->show_entry_callback(w, userdata);} {}
+  }
 } 

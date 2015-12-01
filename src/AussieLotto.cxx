@@ -146,7 +146,7 @@ void AusLotto::submitButtonNums()
   }
 
   clearNumberSelector();
-  hide_Numberentry_window();
+   this->Numberentry->hide();
   return;
 }
       
