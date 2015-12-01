@@ -11,7 +11,7 @@ URL: http://dennisk.customer.netspace.net.au/aussielotto.html
 Distribution: Fedora
 Vendor: DK Soft
 Packager: Dennis Katsonis <dennisk@netspace.net.au>
-requires: fltk >=1.1
+Requires: fltk >= 1.1
 
 %description
 Tattslotto number generator and game player for
