@@ -48,83 +48,13 @@ protected:
     virtual int saveGame(std::string fname);
     virtual int loadGame(char *fname);
     virtual int generateGames(int numGames);
-    int setResultsSupps(int x1, int x2) throw (std::string);
+    int setResultsSupps(int x1, int x2) throw (AussieLottoException);
     virtual std::string checkResults();
     int getNumGames() const;
-    virtual int setResults(std::vector<int> passedResults) throw (std::string);
+    virtual int setResults(std::vector<int> passedResults) throw (AussieLottoException);
     virtual ~LottoGame();
     LottoGame();
-    virtual void addGame(std::vector<int>& enteredValues) throw (std::string);
-};
-
-class tattslottoGame : public LottoGame
-{
-  public:
-    int saveGame(std::string fname);
-    int generateGames(int numGames);
-    std::string checkResults();
-    ~tattslottoGame();
-    tattslottoGame();
-    tattslottoGame(char *fname);
-    tattslottoGame(int numgames);
-    friend std::ostream &operator<<(std::ostream &outstream, tattslottoGame & p);
-  private:
-
-};
-
-class ozlottoGame : public LottoGame
-{
-  public:
-    int saveGame(std::string fname);
-    int generateGames(int numGames);
-    ~ozlottoGame();
-    ozlottoGame();
-    ozlottoGame(char *fname);
-    ozlottoGame(int numgames);
-    std::string checkResults();
-    friend std::ostream &operator<<(std::ostream &outstream, ozlottoGame & p);
-  private:
-};
-
-
-class powerballGame : public LottoGame
-{
-  public:
-    int saveGame(std::string fname);
-    void addGame(int x1, int x2, int x3, int x4, int x5, int x6, int pb) throw (std::string);
-    int generateGames(int numGames, bool ensurePowerball);
-    int setResults(int x1, int x2, int x3, int x4, int x5, int x6, int pb) throw (std::string);
-    std::string checkResults();
-    int loadGame(char *fname);
-    ~powerballGame();
-    powerballGame();
-    powerballGame(char *fname);
-    powerballGame(int numgames, bool ensurePowerball);
-    friend std::ostream &operator<<(std::ostream &outstream, powerballGame & p);
-
-  private:
-    void resetPowerballRandomPool(void);
-    int result_pb;
-    std::vector<int> powerballPool;
-    std::vector<int> pb;
-    int powerballsRemaining;
-};
-
-class lottostrikeGame : public LottoGame
-{
-  public:
-    int saveGame(std::string fname);
-    int generateGames(int numGames);
-    ~lottostrikeGame();
-    lottostrikeGame();
-    lottostrikeGame(char *fname);
-    lottostrikeGame(int numgames);
-    void addGame(int x1, int x2, int x3, int x4) throw (std::string);
-    std::string checkResults();
-    
-    friend std::ostream &operator<<(std::ostream &outstream, lottostrikeGame & p);
-  private:
-
+    virtual void addGame(std::vector<int>& enteredValues) throw (AussieLottoException);
 };
 
 

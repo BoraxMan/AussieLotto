@@ -32,11 +32,13 @@ private:
   Fl_Input *oew[16][7];		// widget pointers for ozlotto
   Fl_Input *pew[16][7];		// widget pointers for powerball
   Fl_Input *lew[16][4];		// widget pointers for lottostrike
+  Fl_Input *sew[16][8];		// widget pointers for set for life
   std::bitset<46> NumberSelectorArray; // We're not using bit 0, just 1 - 45.  So need an extra spot.
   tattslottoGame *tatts;
   ozlottoGame *ozlotto;
   powerballGame *powerball;
   lottostrikeGame *lottostrike;
+  setforlifeGame *setforlife;
   bool ensurePowerballValue;
   void setGameTab(gameType);
   gameType getGameTab(void);
@@ -57,6 +59,7 @@ public:
   void tattsEntry(void);
   void ozlottoEntry(void);
   void powerballEntry(void);
+  void setForLifeEntry(void);
   int generate();
   int open_file(void);
   void loadHelp(void);
@@ -68,6 +71,7 @@ public:
   void createOzlottoEntryWindows(void);
   void createPowerballEntryWindows(void);
   void createLottostrikeEntryWindows(void);
+  void createSetForLifeEntryWindows(void);
   AusLotto();
 protected:
 

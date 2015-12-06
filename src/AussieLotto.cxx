@@ -116,7 +116,7 @@ void AusLotto::submitButtonNums()
     {
       case TATTSLOTTO:
 	if (values.size() != tattsBalls)
-	  throw(incorrectNumbers);
+	  throw(AussieLottoException(incorrectNumbers.c_str(), ""));
 	tatts->addGame(values);
 	strout << *tatts;
 	tattslottoTextBuffer->append(strout.str().c_str()); 
@@ -124,7 +124,7 @@ void AusLotto::submitButtonNums()
 	break;
       case OZLOTTO:
 	if (values.size() != ozlottoBalls)
-	  throw(incorrectNumbers);
+	  throw(AussieLottoException(incorrectNumbers.c_str(), ""));
 	ozlotto->addGame(values);
 	strout << *ozlotto;
 	ozlottoTextBuffer->append(strout.str().c_str());   
@@ -132,7 +132,7 @@ void AusLotto::submitButtonNums()
 	break;
       case LOTTOSTRIKE:
 	if (values.size() != lottostrikeBalls)
-	  throw(incorrectNumbers);
+	  throw(AussieLottoException(incorrectNumbers.c_str(), ""));
 	lottostrike->addGame(values[0], values[1], values[2],values[3]);
 	strout << *lottostrike;
 	lottostrikeTextBuffer->append(strout.str().c_str());   
@@ -142,9 +142,9 @@ void AusLotto::submitButtonNums()
 	return;
     } // end of switch.
   } // end of "try" block.
-  catch (std::string err)
+  catch (AussieLottoException &err)
   {
-    fl_message(err.c_str());
+    exceptionHander(err);
     clearNumberSelector();
     return;
   }
@@ -375,9 +375,9 @@ void AusLotto::tattsEntry(void)
       {
 	tatts->addGame(intValues);
       }
-      catch (std::string err)
+      catch (AussieLottoException &err)
       {
-	fl_message(err.c_str());
+	exceptionHander(err);
 	return;
       }
     }
@@ -419,9 +419,9 @@ void AusLotto::ozlottoEntry(void)
       {
 	ozlotto->addGame(intValues);
       }
-      catch (std::string err)
+      catch (AussieLottoException &err)
       {
-	fl_message(err.c_str());
+	exceptionHander(err);
 	return;
       }
     } 
@@ -463,9 +463,9 @@ void AusLotto::powerballEntry(void)
 	powerball->addGame(intValues[0], intValues[1], intValues[2],
          intValues[3], intValues[4], intValues[5], intValues[6]);
       }
-      catch (std::string err)
+      catch (AussieLottoException &err)
       {
-	fl_message(err.c_str());
+	exceptionHander(err);
 	return;
       } 
     }
@@ -505,9 +505,9 @@ void AusLotto::lottostrikeEntry(void)
       {
 	lottostrike->addGame(intValues[0], intValues[1], intValues[2],intValues[3]);
       }
-      catch (std::string err)
+      catch (AussieLottoException &err)
       {
-	fl_message(err.c_str());
+	exceptionHander(err);
 	return;
       } 
     }
@@ -644,7 +644,7 @@ void AusLotto::changeTab(void)
 void AusLotto::check_lotto(void)
 {
   std::string s;
-  std::string nogames = "No games to check.";
+  const char *nogames = "No games to check.";
   gameType activeTab;
   textbuf_results->text("");
   activeTab = this->getGameTab();
@@ -656,7 +656,7 @@ void AusLotto::check_lotto(void)
     {
       case TATTSLOTTO:
 	if (tatts->getNumGames() == 0)
-	  throw (nogames);
+	  throw (AussieLottoException(nogames, " "));
 
 	tmpResults.push_back(static_cast<int>(this->num1->value()));
 	tmpResults.push_back(static_cast<int>(this->num2->value()));
@@ -671,7 +671,7 @@ void AusLotto::check_lotto(void)
 	break;
       case OZLOTTO:
 	if (ozlotto->getNumGames() == 0)
-	  throw(nogames);
+	  throw (AussieLottoException(nogames, " "));
 	
 	tmpResults.push_back(static_cast<int>(this->oz_num1->value()));
 	tmpResults.push_back(static_cast<int>(this->oz_num2->value()));
@@ -687,7 +687,7 @@ void AusLotto::check_lotto(void)
 	break;
       case POWERBALL:
 	if (powerball->getNumGames() == 0)
-	  throw(nogames);
+	  throw (AussieLottoException(nogames, " "));
 	powerball->setResults(static_cast<int>(this->pb_num1->value()), static_cast<int>(this->pb_num2->value()), 
 	static_cast<int>(this->pb_num3->value()), static_cast<int>(this->pb_num4->value()),
 	static_cast<int>(this->pb_num5->value()), static_cast<int>(this->pb_num6->value()),
@@ -696,7 +696,7 @@ void AusLotto::check_lotto(void)
 	break;
       case LOTTOSTRIKE:
 	if (lottostrike->getNumGames() == 0)
-	  throw(nogames);
+	  throw (AussieLottoException(nogames, " "));
 	tmpResults.push_back(static_cast<int>(this->lsnum1->value()));
 	tmpResults.push_back(static_cast<int>(this->lsnum2->value()));
 	tmpResults.push_back(static_cast<int>(this->lsnum3->value()));
@@ -707,12 +707,12 @@ void AusLotto::check_lotto(void)
 	s = lottostrike->checkResults();
 	break;
       default:
-	throw("Unknown game type");
+	throw(AussieLottoException("Unknown game type", "Please report this error to the program's author"));
     }// end of switch
   } // end of try
-  catch (std::string err)
+  catch (AussieLottoException &err)
   {
-    fl_message(err.c_str());
+    exceptionHander(err);
     return;
   }
     
@@ -799,7 +799,7 @@ int AusLotto::save_file(void)
 
   char *fname;
   std::string extension;
-  std::string nogames = "There are no games to save.";
+  const char *nogames = "There are no games to save.";
   gameType activeTab;
   
   fname = fl_file_chooser("Save Tatts Game", NULL, NULL);
@@ -829,32 +829,36 @@ int AusLotto::save_file(void)
     {
       case TATTSLOTTO:
 	if (!tatts->getNumGames())
-	  throw(nogames);
+	  throw (AussieLottoException(nogames, " "));
 	tatts->saveGame(filename);
 	break;
       case OZLOTTO:
 	if (!ozlotto->getNumGames())
-	  throw(nogames);
+	  throw (AussieLottoException(nogames, " "));
 	ozlotto->saveGame(filename);
 	break;
       case POWERBALL:
 	if (!powerball->getNumGames())
-	  throw(nogames);
+	  throw (AussieLottoException(nogames, " "));
 	powerball->saveGame(filename);
 	break;
       case LOTTOSTRIKE:
 	if (!lottostrike->getNumGames())
-	  throw(nogames);
+	  throw (AussieLottoException(nogames, " "));
 	lottostrike->saveGame(filename);
 	break;
+      case SET_FOR_LIFE:
+	if (!setforlife->getNumGames())
+	  throw (AussieLottoException(nogames, " "));
+	setforlife->saveGame(filename);
       default:
-	throw("Unknown game type!");
+	throw(AussieLottoException("Unknown game type!", "Please let the author know of this issue"));
 	break;
     } // end of switch
   }// end of try
-  catch (std::string err)
+  catch (AussieLottoException &err)
   {
-    fl_message(err.c_str());
+    exceptionHander(err);
     return -1;
   }
   
@@ -939,13 +943,13 @@ int AusLotto::open_file(void)
 	setGameTab(LOTTOSTRIKE);
 	break;
       default:
-	throw std::string("This isn't a file created by this program.\nNot going to try to open it.");
+	throw (AussieLottoException("This isn't a file created by this program.\nNot going to try to open it.", fname));
 	break;
     }// end of switch
   } // end of try
-  catch (std::string err)
+  catch (AussieLottoException &err)
   {
-    fl_message(err.c_str());
+    exceptionHander(err);
     return -1;
   }
   return 0;
@@ -1010,16 +1014,16 @@ int AusLotto::generate()
   try
   {
     if (!numgames)
-      throw std::string("How many games?");
+      throw (AussieLottoException("How many games?", "Please enter the number of games you wish to generate numbers for."));
     else if (numgames > max_games || numgames < 0)
     {
       this->num_games->value(0);
-      throw std::string("Can't do more than a million or so games");
+      throw (AussieLottoException("Can't do more than a million or so games", " "));
     }
   }
-  catch(std::string err)
+  catch(AussieLottoException &err)
   {
-   fl_message(err.c_str());
+   exceptionHander(err);
   return -1;
   }
 

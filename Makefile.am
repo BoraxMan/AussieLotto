@@ -1,5 +1,5 @@
 SUBDIRS = src doc
-EXTRA_DIST = include/AussieLottoGUI.h  include/AussieLotto.h  include/defs.h  include/LottoGame.h  include/MersenneTwister.h  include/types.h aussielotto.spec dist/aussielotto.desktop dist/aussielotto.png
+EXTRA_DIST = include/AussieLottoGUI.h  include/AussieLotto.h  include/defs.h  include/LottoGame.h  include/MersenneTwister.h  include/types.h aussielotto.spec dist/aussielotto.desktop dist/aussielotto.png include/ExceptionHandler.h include/AussieLottoException.h include/ResultDownloader.h
 
 desktopdir=$(datadir)/applications
 desktop_DATA = dist/aussielotto.desktop

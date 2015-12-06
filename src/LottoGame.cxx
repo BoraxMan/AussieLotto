@@ -40,7 +40,7 @@ gameType getFileGameType(char *fname)
   fin.open(fname);
   
   if (!fin.is_open())
-    throw std::string("Could not open file");
+    throw (AussieLottoException("Could not open file", fname));
   
   fin >> header;
   fin.close();
@@ -100,7 +100,7 @@ std::string LottoGame::checkResults()
   return test.str();
 }
 
-int LottoGame::setResults(std::vector<int> passedResults) throw (std::string)
+int LottoGame::setResults(std::vector<int> passedResults) throw (AussieLottoException)
 {
   size_t c;
 
@@ -108,17 +108,16 @@ int LottoGame::setResults(std::vector<int> passedResults) throw (std::string)
   {
 
     if (passedResults[c] > highest_ball)
-      throw std::string("Can not have a lotto number greater than 45");  
+      throw (AussieLottoException("Can not have a lotto number greater than 45", " "));  
     if (passedResults[c] == 0)
-      throw std::string("Can not have a lottery number of zero");
+      throw (AussieLottoException("Can not have a lottery number of zero", "Try again"));
   }
   for (c = 0; c < (passedResults.size() - 1); ++c)
   {
     for(int x = (c + 1); x < balls; ++x)
       if(passedResults[c] == passedResults[x])
-	throw std::string("Can not have duplicate draw numbers");
+	throw AussieLottoException("Can not have duplicate draw numbers", " ");
   }
-
   results = passedResults;
   return 0;
 }
@@ -132,7 +131,7 @@ int LottoGame::loadGame(char *fname)
   fin.open(fname);
   
   if (!fin.is_open())
-    throw std::string("Could not open file");
+    throw AussieLottoException("Could not open file", fname);
 
   fin >> header;
 
