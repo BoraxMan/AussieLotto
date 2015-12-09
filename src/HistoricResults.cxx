@@ -2,6 +2,17 @@
 #include "HistoricResults.h"
 
 
+void Namedifstream::setName(const char *filename)
+{
+  fname = filename;
+}
+
+const char *Namedifstream::getName(void) const
+{
+    return fname.c_str();
+}
+
+
 float dollarsToFloat(std::string &prize)
 {
   
@@ -141,11 +152,22 @@ int LottoHistoricResults::tokenToInt(std::string &token)
   return (val);
 }
 
+int LottoHistoricResults::reload()
+{
+  results.clear();
+  loadHistoricData(fin.getName());
+}
+
 int LottoHistoricResults::loadHistoricData(const char *filename)
 {
+  fin.setName(filename); // Keep for later.
   std::string readBuffer;
   std::string value;
   fin.open(filename, std::ios_base::in);
+  if (!fin.is_open()) {
+    return -1;
+  }
+  
   std::string buffer;
   std::getline(fin, buffer);
   // discard the first line.
@@ -160,6 +182,7 @@ int LottoHistoricResults::loadHistoricData(const char *filename)
     results.push_back(temp_result);	
   }
   loaded = true;
+  fin.close();
   return 0;
 }
 

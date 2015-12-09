@@ -20,6 +20,17 @@ struct tatts_historic_result {
 	std::vector<float> prizes; // If any, from 1 to whatever
 };
 
+class Namedifstream : public std::ifstream
+{
+public:
+    Namedifstream() {};
+    void setName(const char *filename);
+    const char *getName(void) const;
+  private:
+    std::string fname;
+};
+
+
 
 class FindDraw {
   public:
@@ -47,7 +58,7 @@ public:
 	
 
 private:
-	std::ifstream fin;
+	Namedifstream fin;
 	std::vector<tatts_historic_result> results;
 	Date readDate(std::string &token);
 	int readLine(tatts_historic_result &destination);
