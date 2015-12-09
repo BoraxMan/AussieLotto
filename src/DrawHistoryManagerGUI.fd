@@ -1,0 +1,155 @@
+# data file for the Fltk User Interface Designer (fluid)
+version 1.0303 
+header_name {.h} 
+code_name {.cxx}
+decl {\#include <string>} {private local
+} 
+
+decl {\#include "defs.h"} {private local
+} 
+
+decl {\#include "types.h"} {private local
+} 
+
+decl {\#include "ResultDownloader.h"} {private local
+} 
+
+decl {\#include "ResultManager.h"} {private local
+} 
+
+decl {\#include "HistoricResults.h"} {private local
+} 
+
+class DrawHistoryManagerGUI {open
+} {
+  Function {make_window()} {} {
+    Fl_Window main_window {
+      label {Results Manager}
+      xywh {194 399 700 455} type Double color 12 resizable visible
+    } {
+      Fl_Progress {} {
+        xywh {0 430 700 25} selection_color 4
+      }
+      Fl_Box {} {
+        label {Result Manager}
+        xywh {0 0 700 25} box DOWN_BOX color 4 selection_color 0 labelsize 18 labelcolor 3
+      }
+      Fl_Button {} {
+        label Close
+        xywh {625 25 75 25}
+      }
+      Fl_Box {} {
+        xywh {625 50 75 25}
+      }
+      Fl_Menu_Button {} {
+        label Update open
+        xywh {480 25 145 25}
+      } {
+        MenuItem {} {
+          label {Tattslotto/GoldLotto/Lotto X}
+          user_data R_TATTSLOTTO
+          callback update_results
+          xywh {0 0 100 20}
+        }
+        MenuItem {} {
+          label {Oz Lotto}
+          user_data R_OZLOTTO
+          callback update_results
+          xywh {0 0 100 20}
+        }
+        MenuItem {} {
+          label Powerball
+          user_data R_POWERBALL
+          callback update_results
+          xywh {0 0 100 20}
+        }
+        MenuItem {} {
+          label {Set For Life}
+          user_data R_SET_FOR_LIFE
+          callback update_results
+          xywh {0 0 100 20}
+        }
+        MenuItem {} {
+          label {Update All}
+          xywh {0 0 100 20}
+        }
+      }
+      Fl_Box {} {
+        label Tattslotto
+        xywh {5 150 210 30} box BORDER_BOX
+      }
+      Fl_Box {} {
+        label {Oz Lotto}
+        xywh {5 180 210 30} box BORDER_BOX
+      }
+      Fl_Box {} {
+        label Powerball
+        xywh {5 210 210 30} box BORDER_BOX
+      }
+      Fl_Box {} {
+        label {Set For Life}
+        xywh {5 240 210 30} box BORDER_BOX
+      }
+      Fl_Box {} {
+        label Game
+        xywh {5 120 210 30} box BORDER_BOX color 51 labeltype ENGRAVED_LABEL labelsize 16
+      }
+      Fl_Box {} {
+        label {Latest Draw Number}
+        xywh {215 120 210 30} box BORDER_BOX color 51 labeltype ENGRAVED_LABEL labelsize 16
+      }
+      Fl_Output tatts_last_draw {
+        xywh {215 150 210 30}
+      }
+      Fl_Output ozlotto_last_draw {
+        xywh {215 180 210 30}
+      }
+      Fl_Output powerball_last_draw {
+        xywh {215 210 210 30}
+      }
+      Fl_Output sfl_last_draw {
+        xywh {215 240 210 30}
+      }
+      Fl_Box {} {
+        label {Latest Draw Date}
+        xywh {425 120 210 30} box BORDER_BOX color 51 labeltype ENGRAVED_LABEL labelsize 16
+      }
+      Fl_Output ozlotto_last_date {
+        xywh {425 180 210 30}
+      }
+      Fl_Output powerball_last_date {
+        xywh {425 210 210 30}
+      }
+      Fl_Output sfl_last_date {
+        xywh {425 240 210 30}
+      }
+      Fl_Output tatts_last_date {
+        xywh {425 150 210 30}
+      }
+    }
+  }
+  Function {update_results(Fl_Widget* w, void* userdata)} {open return_type {static void}
+  } {
+    code {Fl_Widget *p = w->parent();
+while (p->parent()) p = p->parent();
+
+((DrawHistoryManagerGUI*)p->user_data())->update_results_callback(w, userdata);} {}
+  }
+  Function {update_results_callback(Fl_Widget* w, void* userdata)} {open return_type void
+  } {
+    code {/*
+if (userdata == (resultType*)R_TATTSLOTTO) {
+	LottostrikeNumberEntryWindow->show();
+} else if (userdata == (resultType*)R_OZLOTTO) {
+	OzlottoNumberEntryWindow->show();
+} else if (userdata == (resultType*)R_SET_FOR_LIFE) {
+	TattsNumberEntryWindow->show();
+} else if (userdata == (resultType*)R_WEEKDAY_TATTSLOTTO) {
+	PowerballNumberEntryWindow->show();
+} else if (userdata == (resultType*)SET_FOR_LIFE) {
+	SetForLifeNumberEntryWindow->show();
+}
+*/} {selected
+    }
+  }
+} 
