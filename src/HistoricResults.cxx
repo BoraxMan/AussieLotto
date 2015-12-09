@@ -81,7 +81,7 @@ int LottoHistoricResults::readLine(tatts_historic_result &destination)
   
   //Get date
   getline(buffer, readBuffer, ',');
-  getDate(readBuffer, destination.date);
+  destination.date = readDate(readBuffer);
   
   // Process main numbers (drawnballs)
   for (int c = 0; c < balls; ++c) {

@@ -8,12 +8,13 @@
 #include <string>
 #include <sstream>
 #include <cstring>
+#include "date.h"
 
 float dollarsToFloat(std::string &prize);
 
 struct tatts_historic_result {
 	int drawnumber;
-	char date[8];
+	Date date;
 	std::vector<int> drawnballs; // Including powerball.
 	std::vector<int> supps; // If any
 	std::vector<float> prizes; // If any, from 1 to whatever
@@ -41,12 +42,14 @@ public:
 	std::vector<int> getResults(int draw = 0);
 	std::vector<int> getSupps(int draw = 0);
 	std::vector<float> getPrizes(int draw = 0);
+	Date getDate(int draw = 0);
+	int getLastDrawNumber();
 	
 
 private:
 	std::ifstream fin;
 	std::vector<tatts_historic_result> results;
-	void getDate(std::string &token, char *date);
+	Date readDate(std::string &token);
 	int readLine(tatts_historic_result &destination);
 	int tokenToInt(std::string &token);
 	int balls;
