@@ -132,6 +132,13 @@ void UserInterface::cb_ensurePowerball(Fl_Check_Button* o, void* v) {
   ((UserInterface*)(o->parent()->parent()->parent()->user_data()))->cb_ensurePowerball_i(o,v);
 }
 
+void UserInterface::cb_Enter2_i(Fl_Button*, void*) {
+  show_Numberentry_window();
+}
+void UserInterface::cb_Enter2(Fl_Button* o, void* v) {
+  ((UserInterface*)(o->parent()->parent()->parent()->user_data()))->cb_Enter2_i(o,v);
+}
+
 Fl_Menu_Item UserInterface::menu_Winning[] = {
  {"Tattslotto", 0,  (Fl_Callback*)show_divisions, (void*)(TATTSLOTTO), 0, FL_NORMAL_LABEL, 0, 14, 0},
  {"Oz Lotto", 0,  (Fl_Callback*)show_divisions, (void*)(OZLOTTO), 0, FL_NORMAL_LABEL, 0, 14, 0},
@@ -173,6 +180,13 @@ void UserInterface::cb_OK2_i(Fl_Button*, void*) {
 }
 void UserInterface::cb_OK2(Fl_Button* o, void* v) {
   ((UserInterface*)(o->parent()->user_data()))->cb_OK2_i(o,v);
+}
+
+void UserInterface::cb_OK3_i(Fl_Button*, void*) {
+  setForLifeEntry();
+}
+void UserInterface::cb_OK3(Fl_Button* o, void* v) {
+  ((UserInterface*)(o->parent()->user_data()))->cb_OK3_i(o,v);
 }
 
 void UserInterface::cb_button_1_i(Fl_Light_Button*, void*) {
@@ -490,29 +504,29 @@ void UserInterface::cb_button_45(Fl_Light_Button* o, void* v) {
   ((UserInterface*)(o->parent()->user_data()))->cb_button_45_i(o,v);
 }
 
-void UserInterface::cb_OK3_i(Fl_Button*, void*) {
-  submitButtonNums();
-}
-void UserInterface::cb_OK3(Fl_Button* o, void* v) {
-  ((UserInterface*)(o->parent()->user_data()))->cb_OK3_i(o,v);
-}
-
 void UserInterface::cb_OK4_i(Fl_Button*, void*) {
-  powerballEntry();
+  submitButtonNums();
 }
 void UserInterface::cb_OK4(Fl_Button* o, void* v) {
   ((UserInterface*)(o->parent()->user_data()))->cb_OK4_i(o,v);
 }
 
+void UserInterface::cb_OK5_i(Fl_Button*, void*) {
+  powerballEntry();
+}
+void UserInterface::cb_OK5(Fl_Button* o, void* v) {
+  ((UserInterface*)(o->parent()->user_data()))->cb_OK5_i(o,v);
+}
+
 Fl_Window* UserInterface::make_window() {
-  { lotto_gui = new Fl_Window(605, 620, "Aussie Lotto");
+  { lotto_gui = new Fl_Window(670, 620, "Aussie Lotto");
     lotto_gui->color((Fl_Color)14);
     lotto_gui->selection_color(FL_GRAY0);
     lotto_gui->labelcolor((Fl_Color)12);
     lotto_gui->user_data((void*)(this));
     lotto_gui->align(Fl_Align(FL_ALIGN_CLIP|FL_ALIGN_INSIDE));
     lotto_gui->when(FL_WHEN_RELEASE_ALWAYS);
-    { Fl_Box* o = new Fl_Box(0, 0, 605, 40, "Aussie Lotto");
+    { Fl_Box* o = new Fl_Box(0, 0, 675, 40, "Aussie Lotto");
       o->box(FL_DOWN_BOX);
       o->color((Fl_Color)4);
       o->selection_color(FL_BACKGROUND2_COLOR);
@@ -521,7 +535,7 @@ Fl_Window* UserInterface::make_window() {
       o->labelsize(26);
       o->labelcolor((Fl_Color)1);
     } // Fl_Box* o
-    { Fl_Button* o = new Fl_Button(540, 55, 65, 25, "Quit");
+    { Fl_Button* o = new Fl_Button(570, 55, 100, 25, "Quit");
       o->color((Fl_Color)14);
       o->callback((Fl_Callback*)cb_Quit);
     } // Fl_Button* o
@@ -529,7 +543,7 @@ Fl_Window* UserInterface::make_window() {
       o->color((Fl_Color)14);
       o->menu(menu_File);
     } // Fl_Menu_Button* o
-    { Fl_Button* o = new Fl_Button(395, 55, 65, 25, "About");
+    { Fl_Button* o = new Fl_Button(415, 55, 80, 25, "About");
       o->color((Fl_Color)14);
       o->selection_color((Fl_Color)6);
       o->callback((Fl_Callback*)cb_About);
@@ -560,20 +574,21 @@ Fl_Window* UserInterface::make_window() {
       o->color((Fl_Color)14);
       o->menu(menu_Options);
     } // Fl_Menu_Button* o
-    { Fl_Button* o = new Fl_Button(330, 55, 65, 25, "Help");
+    { Fl_Button* o = new Fl_Button(330, 55, 85, 25, "Help");
       o->color((Fl_Color)14);
       o->callback((Fl_Callback*)cb_Help);
     } // Fl_Button* o
-    { tabular = new Fl_Tabs(0, 125, 565, 605);
+    { tabular = new Fl_Tabs(0, 125, 660, 605);
       tabular->box(FL_THIN_DOWN_BOX);
       tabular->labeltype(FL_NO_LABEL);
       tabular->callback((Fl_Callback*)cb_tabular);
       tabular->align(Fl_Align(37));
-      { tattslotto_tab = new Fl_Group(0, 150, 565, 470, "Tattslotto/Gold Lotto/X Lotto");
+      { tattslotto_tab = new Fl_Group(0, 150, 660, 470, "Tattslotto/Gold Lotto/X Lotto");
         tattslotto_tab->box(FL_DOWN_BOX);
         tattslotto_tab->color(FL_DARK_CYAN);
         tattslotto_tab->selection_color((Fl_Color)29);
         tattslotto_tab->labeltype(FL_EMBOSSED_LABEL);
+        tattslotto_tab->hide();
         { Fl_Group* o = new Fl_Group(20, 170, 280, 45, "Lottery Numbers");
           o->box(FL_PLASTIC_DOWN_BOX);
           o->color((Fl_Color)6);
@@ -653,7 +668,7 @@ Fl_Window* UserInterface::make_window() {
         } // Fl_Button* o
         tattslotto_tab->end();
       } // Fl_Group* tattslotto_tab
-      { ozlotto_tab = new Fl_Group(0, 150, 565, 470, "OzLotto");
+      { ozlotto_tab = new Fl_Group(0, 150, 660, 470, "OzLotto");
         ozlotto_tab->box(FL_DOWN_BOX);
         ozlotto_tab->color(FL_DARK_GREEN);
         ozlotto_tab->labeltype(FL_EMBOSSED_LABEL);
@@ -743,7 +758,7 @@ Fl_Window* UserInterface::make_window() {
         } // Fl_Button* o
         ozlotto_tab->end();
       } // Fl_Group* ozlotto_tab
-      { powerball_tab = new Fl_Group(0, 150, 565, 580, "Powerball");
+      { powerball_tab = new Fl_Group(0, 150, 660, 580, "Powerball");
         powerball_tab->box(FL_DOWN_BOX);
         powerball_tab->color((Fl_Color)187);
         powerball_tab->labeltype(FL_EMBOSSED_LABEL);
@@ -817,19 +832,18 @@ Fl_Window* UserInterface::make_window() {
           ShowPowerballEntryWidget->callback((Fl_Callback*)show_entry_window, (void*)(POWERBALL));
           ShowPowerballEntryWidget->align(Fl_Align(FL_ALIGN_WRAP));
         } // Fl_Button* ShowPowerballEntryWidget
-        { ensurePowerball = new Fl_Check_Button(475, 150, 90, 55, "Ensure Powerball");
+        { ensurePowerball = new Fl_Check_Button(475, 150, 185, 55, "Ensure Powerball");
           ensurePowerball->down_box(FL_DOWN_BOX);
           ensurePowerball->callback((Fl_Callback*)cb_ensurePowerball);
           ensurePowerball->align(Fl_Align(132|FL_ALIGN_INSIDE));
         } // Fl_Check_Button* ensurePowerball
         powerball_tab->end();
       } // Fl_Group* powerball_tab
-      { lottostrike_tab = new Fl_Group(0, 150, 565, 470, "Lotto Strike");
+      { lottostrike_tab = new Fl_Group(0, 150, 660, 470, "Lotto Strike");
         lottostrike_tab->box(FL_DOWN_BOX);
         lottostrike_tab->color((Fl_Color)11);
         lottostrike_tab->selection_color((Fl_Color)29);
         lottostrike_tab->labeltype(FL_EMBOSSED_LABEL);
-        lottostrike_tab->hide();
         { Fl_Group* o = new Fl_Group(20, 170, 280, 45, "Gold Lotto Numbers");
           o->box(FL_PLASTIC_DOWN_BOX);
           o->color((Fl_Color)6);
@@ -886,13 +900,108 @@ Fl_Window* UserInterface::make_window() {
         lottostrike_tab->end();
         Fl_Group::current()->resizable(lottostrike_tab);
       } // Fl_Group* lottostrike_tab
+      { setforlife_tab = new Fl_Group(0, 150, 660, 470, "Set for life");
+        setforlife_tab->box(FL_DOWN_BOX);
+        setforlife_tab->color(FL_CYAN);
+        setforlife_tab->labeltype(FL_EMBOSSED_LABEL);
+        setforlife_tab->hide();
+        { Fl_Group* o = new Fl_Group(5, 170, 345, 45, "Set For Life Numbers");
+          o->box(FL_PLASTIC_DOWN_BOX);
+          o->color((Fl_Color)6);
+          o->labelsize(16);
+          { sfl_num1 = new Fl_Value_Input(20, 180, 35, 30);
+            sfl_num1->color((Fl_Color)58);
+            sfl_num1->textsize(16);
+            sfl_num1->textcolor((Fl_Color)3);
+          } // Fl_Value_Input* sfl_num1
+          { sfl_num2 = new Fl_Value_Input(60, 180, 35, 30);
+            sfl_num2->color((Fl_Color)58);
+            sfl_num2->textsize(16);
+            sfl_num2->textcolor((Fl_Color)3);
+          } // Fl_Value_Input* sfl_num2
+          { sfl_num3 = new Fl_Value_Input(100, 180, 35, 30);
+            sfl_num3->color((Fl_Color)58);
+            sfl_num3->textsize(16);
+            sfl_num3->textcolor((Fl_Color)3);
+          } // Fl_Value_Input* sfl_num3
+          { sfl_num4 = new Fl_Value_Input(140, 180, 35, 30);
+            sfl_num4->color((Fl_Color)58);
+            sfl_num4->textsize(16);
+            sfl_num4->textcolor((Fl_Color)3);
+          } // Fl_Value_Input* sfl_num4
+          { sfl_num5 = new Fl_Value_Input(180, 180, 35, 30);
+            sfl_num5->color((Fl_Color)58);
+            sfl_num5->textsize(16);
+            sfl_num5->textcolor((Fl_Color)3);
+          } // Fl_Value_Input* sfl_num5
+          { sfl_num6 = new Fl_Value_Input(220, 180, 35, 30);
+            sfl_num6->color((Fl_Color)58);
+            sfl_num6->textsize(16);
+            sfl_num6->textcolor((Fl_Color)3);
+          } // Fl_Value_Input* sfl_num6
+          { sfl_num7 = new Fl_Value_Input(260, 180, 35, 30);
+            sfl_num7->color((Fl_Color)58);
+            sfl_num7->textsize(16);
+            sfl_num7->textcolor((Fl_Color)3);
+          } // Fl_Value_Input* sfl_num7
+          { sfl_num8 = new Fl_Value_Input(300, 180, 35, 30);
+            sfl_num8->color((Fl_Color)58);
+            sfl_num8->textsize(16);
+            sfl_num8->textcolor((Fl_Color)3);
+          } // Fl_Value_Input* sfl_num8
+          o->end();
+        } // Fl_Group* o
+        { Fl_Group* o = new Fl_Group(395, 170, 135, 45, "Bonus");
+          o->box(FL_PLASTIC_DOWN_BOX);
+          o->color((Fl_Color)222);
+          o->labelsize(16);
+          { sfl_bonus1 = new Fl_Value_Input(415, 180, 35, 30);
+            sfl_bonus1->color((Fl_Color)59);
+            sfl_bonus1->selection_color((Fl_Color)58);
+            sfl_bonus1->labelcolor((Fl_Color)3);
+            sfl_bonus1->textsize(16);
+            sfl_bonus1->textcolor((Fl_Color)3);
+          } // Fl_Value_Input* sfl_bonus1
+          { sfl_bonus2 = new Fl_Value_Input(455, 180, 35, 30);
+            sfl_bonus2->color((Fl_Color)59);
+            sfl_bonus2->selection_color((Fl_Color)58);
+            sfl_bonus2->labelcolor((Fl_Color)3);
+            sfl_bonus2->textsize(16);
+            sfl_bonus2->textcolor((Fl_Color)3);
+          } // Fl_Value_Input* sfl_bonus2
+          o->end();
+        } // Fl_Group* o
+        { Fl_Text_Display* o = sflnumber_view = new Fl_Text_Display(15, 250, 485, 355, "Set For Life Numbers");
+          sflnumber_view->box(FL_THIN_DOWN_BOX);
+          sflnumber_view->color(FL_FOREGROUND_COLOR);
+          sflnumber_view->selection_color(FL_FOREGROUND_COLOR);
+          sflnumber_view->labeltype(FL_ENGRAVED_LABEL);
+          sflnumber_view->labelsize(22);
+          sflnumber_view->labelcolor((Fl_Color)80);
+          sflnumber_view->textfont(13);
+          sflnumber_view->textcolor((Fl_Color)2);
+          Fl_Group::current()->resizable(sflnumber_view);
+          o->buffer(sflTextBuffer);
+        } // Fl_Text_Display* sflnumber_view
+        { ShowSFLEntryWidget = new Fl_Button(510, 235, 120, 60, "Enter numbers with form");
+          ShowSFLEntryWidget->color((Fl_Color)219);
+          ShowSFLEntryWidget->callback((Fl_Callback*)show_entry_window, (void*)(SET_FOR_LIFE));
+          ShowSFLEntryWidget->align(Fl_Align(FL_ALIGN_WRAP));
+        } // Fl_Button* ShowSFLEntryWidget
+        { Fl_Button* o = new Fl_Button(510, 300, 120, 60, "Enter numbers with buttons");
+          o->color((Fl_Color)219);
+          o->callback((Fl_Callback*)cb_Enter2);
+          o->align(Fl_Align(FL_ALIGN_WRAP));
+        } // Fl_Button* o
+        setforlife_tab->end();
+      } // Fl_Group* setforlife_tab
       tabular->end();
     } // Fl_Tabs* tabular
     { Fl_Menu_Button* o = new Fl_Menu_Button(170, 55, 160, 25, "Winning Divisions");
       o->color((Fl_Color)14);
       o->menu(menu_Winning);
     } // Fl_Menu_Button* o
-    { Fl_Button* o = new Fl_Button(460, 55, 80, 25, "License");
+    { Fl_Button* o = new Fl_Button(490, 55, 80, 25, "License");
       o->color((Fl_Color)14);
       o->selection_color((Fl_Color)6);
       o->callback((Fl_Callback*)cb_License);
@@ -1159,6 +1268,23 @@ Fl_Window* UserInterface::make_window() {
     } // Fl_Button* o
     LottostrikeNumberEntryWindow->end();
   } // Fl_Double_Window* LottostrikeNumberEntryWindow
+  { SetForLifeNumberEntryWindow = new Fl_Double_Window(430, 565, "Set For Life Number");
+    SetForLifeNumberEntryWindow->color((Fl_Color)14);
+    SetForLifeNumberEntryWindow->user_data((void*)(this));
+    SetForLifeNumberEntryWindow->align(Fl_Align(FL_ALIGN_CLIP|FL_ALIGN_INSIDE));
+    { SetForLifeEntryGroup = new Fl_Group(10, 20, 405, 510, "Enter Set For Life Numbers");
+      SetForLifeEntryGroup->end();
+    } // Fl_Group* SetForLifeEntryGroup
+    { Fl_Button* o = new Fl_Button(25, 535, 105, 20, "OK");
+      o->color((Fl_Color)14);
+      o->callback((Fl_Callback*)cb_OK3);
+    } // Fl_Button* o
+    { Fl_Button* o = new Fl_Button(305, 535, 105, 20, "Cancel");
+      o->color((Fl_Color)14);
+      o->callback((Fl_Callback*)hide_parent);
+    } // Fl_Button* o
+    SetForLifeNumberEntryWindow->end();
+  } // Fl_Double_Window* SetForLifeNumberEntryWindow
   { Numberentry = new Fl_Double_Window(350, 250, "Number Entry");
     Numberentry->user_data((void*)(this));
     Numberentry->align(Fl_Align(FL_ALIGN_CLIP|FL_ALIGN_INSIDE));
@@ -1299,7 +1425,7 @@ Fl_Window* UserInterface::make_window() {
     } // Fl_Light_Button* button_45
     { Fl_Button* o = new Fl_Button(40, 210, 60, 30, "OK");
       o->labeltype(FL_EMBOSSED_LABEL);
-      o->callback((Fl_Callback*)cb_OK3);
+      o->callback((Fl_Callback*)cb_OK4);
     } // Fl_Button* o
     { Fl_Button* o = new Fl_Button(255, 210, 60, 30, "Cancel");
       o->labeltype(FL_EMBOSSED_LABEL);
@@ -1316,7 +1442,7 @@ Fl_Window* UserInterface::make_window() {
     } // Fl_Group* PowerballEntryGroup
     { Fl_Button* o = new Fl_Button(25, 535, 105, 20, "OK");
       o->color((Fl_Color)14);
-      o->callback((Fl_Callback*)cb_OK4);
+      o->callback((Fl_Callback*)cb_OK5);
     } // Fl_Button* o
     { Fl_Button* o = new Fl_Button(305, 535, 105, 20, "Cancel");
       o->color((Fl_Color)14);
@@ -1408,13 +1534,6 @@ void UserInterface::show_help_window() {
   this->help_window->show();
 }
 
-void UserInterface::clear_results() {
-}
-
-void UserInterface::saveResults() {
-  return;
-}
-
 void UserInterface::show_Numberentry_window() {
   this->Numberentry->show();
 }
@@ -1455,6 +1574,8 @@ void UserInterface::show_entry_callback(Fl_Widget* w, void* userdata) {
   	TattsNumberEntryWindow->show();
   } else if (userdata == (gameType*)POWERBALL) {
   	PowerballNumberEntryWindow->show();
+  } else if (userdata == (gameType*)SET_FOR_LIFE) {
+  	SetForLifeNumberEntryWindow->show();
   }
 }
 

@@ -16,26 +16,20 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <FL/Fl.H>
-#include <FL/Fl_Double_Window.H>
-#include <FL/Fl_Scroll.H>
-#include <FL/Fl_Tile.H>
-#include <FL/Fl_Box.H>
-#include <FL/Fl_Input.H>
-#include <FL/Fl_Float_Input.H>
+
 //#include <iostream>
 #include <sstream>
 #include <fstream>
 #include <string>
 #include <bitset>
-#include <Fl/Fl_Choice.h>
-#include <FL/Fl_File_Chooser.H>
+
 #include "AussieLottoGUI.h"
 #include "AussieLotto.h"
-
+#include "AussieLottoException.h"
+#include "ExceptionHandler.h"
 
 const int max_games = 1048576;
-const int highest_ball = 45;
+
 
 bool fexists(std::string filename)
 {
@@ -137,6 +131,13 @@ void AusLotto::submitButtonNums()
 	strout << *lottostrike;
 	lottostrikeTextBuffer->append(strout.str().c_str());   
 	this->num_games->value(lottostrike->getNumGames());
+	break;
+      case SET_FOR_LIFE:
+	if (values.size() != setforlifeBalls)
+	  throw(AussieLottoException(incorrectNumbers.c_str(), ""));
+	setforlife->addGame(values);
+	strout << *setforlife;
+	sflTextBuffer->append(strout.str().c_str());
 	break;
       default:
 	return;
@@ -277,6 +278,39 @@ void AusLotto::createOzlottoEntryWindows(void)
   this->OzlottoEntryGroup->end();
 }
 
+void AusLotto::createSetForLifeEntryWindows(void)
+{
+    this->SetForLifeEntryGroup->begin();
+
+          static const char *header[8] = {
+            "1","2","3","4","5","6","7","8"};
+	int X= 12;
+	int Y = 24;
+	int cellw = 40;
+        int cellh = 25;
+        int xx = X, yy = Y;
+	
+
+        // Create widgets
+        for ( int r = 0; r < 17; ++r ) {
+            for ( int c = 0; c < setforlifeBalls; ++c ) {
+                if ( r == 0 ) {
+                    Fl_Box *box = new Fl_Box(xx+c*5 ,yy+r*5,cellw,cellh,header[c]);
+                    box->box(FL_BORDER_BOX);
+                } else  {
+                    Fl_Input *in = new Fl_Input(xx + c*5,yy+r*5,cellw,cellh);
+                    in->box(FL_BORDER_BOX);
+                    in->value("");
+                    sew[r-1][c] = in;
+                } 
+                xx += cellw;
+            }
+            xx = X;
+            yy += cellh;
+  }
+  this->SetForLifeEntryGroup->end(); 
+}
+
 void AusLotto::createTattsEntryWindows(void)
 {
     this->TattsEntryGroup->begin();
@@ -341,6 +375,52 @@ void AusLotto::createLottostrikeEntryWindows(void)
             yy += cellh;
   }
   this->LottostrikeEntryGroup->end(); 
+}
+
+
+void AusLotto::setForLifeEntry(void)
+{
+  std::vector<int> intValues;
+  std::string value;
+  std::stringstream strout;
+  
+  intValues.resize(setforlifeBalls);
+  
+  for (int r = 0; r < 16; ++r)
+  {
+
+    for (int c = 0; c < setforlifeBalls; ++c)
+    {
+      if (sew[r][c]->size())
+      {
+	value = std::string(sew[r][c]->value());
+	std::istringstream(value) >> intValues[c];
+      }
+      else
+	intValues[c] = 0;
+      
+   }
+    // If all values are 0, ignore the line.
+
+    if (( intValues[0] || intValues[1] || intValues[2] ||
+	  intValues[3] || intValues[4] || intValues[5]) != 0)
+    {
+      try
+      {
+	setforlife->addGame(intValues);
+      }
+      catch (AussieLottoException &err)
+      {
+	exceptionHander(err);
+	return;
+      }
+    }
+  }
+  this->SetForLifeNumberEntryWindow->hide();
+  this->num_games->value(setforlife->getNumGames());
+  //tattslottoTextBuffer->text("");
+  strout << *setforlife;
+  sflTextBuffer->append(strout.str().c_str()); 
 }
 
 
@@ -571,22 +651,26 @@ void AusLotto::show_lottostrike_entry_window(void)
 }
 
 
-AusLotto::AusLotto() : ensurePowerballValue(false)
+AusLotto::AusLotto(ResultManager *resultmanager, const std::string &configdir) : ensurePowerballValue(false)
 {
+  homedir = configdir;
+
   tattslottoTextBuffer = new Fl_Text_Buffer();
   ozlottoTextBuffer = new Fl_Text_Buffer();
   powerballTextBuffer = new Fl_Text_Buffer();
   lottostrikeTextBuffer = new Fl_Text_Buffer();
   licenseTextBuffer = new Fl_Text_Buffer();
   textbuf_results = new Fl_Text_Buffer();
+  sflTextBuffer = new Fl_Text_Buffer();
 
   tatts = new tattslottoGame();
   ozlotto = new ozlottoGame();
   powerball = new powerballGame();
   lottostrike = new lottostrikeGame();
+  setforlife = new setforlifeGame();
 
   NumberSelectorArray.reset();
-  
+  rm = resultmanager;
 }
 
 void AusLotto::clear_lotto(void)
@@ -617,6 +701,11 @@ void AusLotto::clear_lotto(void)
       lottostrike = new lottostrikeGame();
       lottostrikeTextBuffer->text("");
       break;
+    case SET_FOR_LIFE:
+      delete setforlife;
+      setforlife = new setforlifeGame();
+      sflTextBuffer->text("");
+      break;
     default:
       break;
   }
@@ -639,6 +728,8 @@ void AusLotto::changeTab(void)
     this->num_games->value(powerball->getNumGames());
   if (gt == LOTTOSTRIKE && lottostrike->getNumGames())
     this->num_games->value(lottostrike->getNumGames());
+  if (gt == SET_FOR_LIFE && setforlife->getNumGames())
+    this->num_games->value(setforlife->getNumGames());
 }
   
 void AusLotto::check_lotto(void)
@@ -706,6 +797,20 @@ void AusLotto::check_lotto(void)
 	lottostrike->setResults(tmpResults);
 	s = lottostrike->checkResults();
 	break;
+      case SET_FOR_LIFE:
+	if (setforlife->getNumGames() == 0)
+	  throw (AussieLottoException(nogames, " "));
+	tmpResults.push_back(static_cast<int>(this->sfl_num1->value()));
+	tmpResults.push_back(static_cast<int>(this->sfl_num2->value()));
+	tmpResults.push_back(static_cast<int>(this->sfl_num3->value()));
+	tmpResults.push_back(static_cast<int>(this->sfl_num4->value()));
+	tmpResults.push_back(static_cast<int>(this->sfl_num5->value()));
+	tmpResults.push_back(static_cast<int>(this->sfl_num6->value()));
+	tmpResults.push_back(static_cast<int>(this->sfl_num7->value()));
+	tmpResults.push_back(static_cast<int>(this->sfl_num8->value()));
+	setforlife->setResults(tmpResults);
+	s = setforlife->checkResults();
+	break;
       default:
 	throw(AussieLottoException("Unknown game type", "Please report this error to the program's author"));
     }// end of switch
@@ -766,6 +871,16 @@ void AusLotto::clear_results(void)
       this->lsnum4->value(0);
       this->lsnum5->value(0);
       this->lsnum6->value(0);
+      break;
+    case SET_FOR_LIFE:
+      this->sfl_num1->value(0);
+      this->sfl_num2->value(0);
+      this->sfl_num3->value(0);
+      this->sfl_num4->value(0);
+      this->sfl_num5->value(0);
+      this->sfl_num6->value(0);
+      this->sfl_num7->value(0);
+      this->sfl_num8->value(0);
       break;
     default:
       break;
@@ -942,6 +1057,15 @@ int AusLotto::open_file(void)
 	lottostrikeTextBuffer->append(strout.str().c_str());  
 	setGameTab(LOTTOSTRIKE);
 	break;
+      case SET_FOR_LIFE:
+	delete setforlife;
+	setforlife = new setforlifeGame(fname);
+	this->num_games->value(setforlife->getNumGames());
+	strout << *setforlife;
+	sflTextBuffer->text("");
+	sflTextBuffer->append(strout.str().c_str());  
+	setGameTab(SET_FOR_LIFE);
+	break;
       default:
 	throw (AussieLottoException("This isn't a file created by this program.\nNot going to try to open it.", fname));
 	break;
@@ -983,6 +1107,9 @@ void AusLotto::setGameTab(gameType gt)
     case LOTTOSTRIKE:
       this->tabular->value(this->lottostrike_tab);
       break;
+    case SET_FOR_LIFE:
+      this->tabular->value(this->setforlife_tab);
+      break;
     default:
       break;
       
@@ -1000,6 +1127,8 @@ gameType AusLotto::getGameTab(void)
     return POWERBALL;
   if (this->tabular->value() == this->lottostrike_tab)
     return LOTTOSTRIKE;
+  if (this->tabular->value() == this->setforlife_tab)
+    return SET_FOR_LIFE;
   return UNDEFINED;
 }
 
@@ -1059,6 +1188,12 @@ int AusLotto::generate()
       strout << *lottostrike;
       lottostrikeTextBuffer->append(strout.str().c_str()); 
       break;
+   case SET_FOR_LIFE:
+      delete setforlife;
+      sflTextBuffer->text("");
+      setforlife = new setforlifeGame(numgames);
+      strout << *setforlife;
+      sflTextBuffer->append(strout.str().c_str()); 
     default:
       break;
     
@@ -1066,16 +1201,3 @@ int AusLotto::generate()
   return 0;
 }
  
- int main(void)
- { 
-  fl_register_images();
-  AusLotto x;
-
-  x.make_window();
-  x.lotto_gui->show();
-  x.createOzlottoEntryWindows();
-  x.createTattsEntryWindows();
-  x.createPowerballEntryWindows();
-  x.createLottostrikeEntryWindows();
-  return Fl::run();
-}

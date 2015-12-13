@@ -2,34 +2,32 @@
 version 1.0303 
 header_name {.h} 
 code_name {.cxx}
-decl {\#include <string>} {private local
+decl {\#include <string>} {public global
 } 
 
-decl {\#include "defs.h"} {private local
+decl {\#include "defs.h"} {public global
 } 
 
-decl {\#include "types.h"} {private local
+decl {\#include "types.h"} {public global
 } 
 
-decl {\#include "ResultDownloader.h"} {private local
+decl {\#include "ResultDownloader.h"} {public global
 } 
 
-decl {\#include "ResultManager.h"} {private local
+decl {\#include "ResultManager.h"} {public global
 } 
 
-decl {\#include "HistoricResults.h"} {private local
+decl {\#include "HistoricResults.h"} {selected public global
 } 
 
 class DrawHistoryManagerGUI {open
 } {
-  Function {make_window()} {} {
+  Function {make_window()} {open
+  } {
     Fl_Window main_window {
-      label {Results Manager}
+      label {Results Manager} open
       xywh {194 399 700 455} type Double color 12 resizable visible
     } {
-      Fl_Progress {} {
-        xywh {0 430 700 25} selection_color 4
-      }
       Fl_Box {} {
         label {Result Manager}
         xywh {0 0 700 25} box DOWN_BOX color 4 selection_color 0 labelsize 18 labelcolor 3
@@ -37,42 +35,6 @@ class DrawHistoryManagerGUI {open
       Fl_Button {} {
         label Close
         xywh {625 25 75 25}
-      }
-      Fl_Box {} {
-        xywh {625 50 75 25}
-      }
-      Fl_Menu_Button {} {
-        label Update open
-        xywh {480 25 145 25}
-      } {
-        MenuItem {} {
-          label {Tattslotto/GoldLotto/Lotto X}
-          user_data R_TATTSLOTTO
-          callback update_results
-          xywh {0 0 100 20}
-        }
-        MenuItem {} {
-          label {Oz Lotto}
-          user_data R_OZLOTTO
-          callback update_results
-          xywh {0 0 100 20}
-        }
-        MenuItem {} {
-          label Powerball
-          user_data R_POWERBALL
-          callback update_results
-          xywh {0 0 100 20}
-        }
-        MenuItem {} {
-          label {Set For Life}
-          user_data R_SET_FOR_LIFE
-          callback update_results
-          xywh {0 0 100 20}
-        }
-        MenuItem {} {
-          label {Update All}
-          xywh {0 0 100 20}
-        }
       }
       Fl_Box {} {
         label Tattslotto
@@ -126,30 +88,53 @@ class DrawHistoryManagerGUI {open
       Fl_Output tatts_last_date {
         xywh {425 150 210 30}
       }
+      Fl_Button {} {
+        label {Download Results}
+        callback {update_window->show();}
+        xywh {460 25 165 25}
+      }
+    }
+    Fl_Window update_window {
+      label {Update Results} open
+      xywh {347 478 310 235} type Double visible
+    } {
+      Fl_Check_Button tatts_c {
+        label Tattslotto
+        xywh {25 25 165 25} down_box DOWN_BOX
+      }
+      Fl_Check_Button ozlotto_c {
+        label {Oz Lotto}
+        xywh {25 50 165 25} down_box DOWN_BOX
+      }
+      Fl_Check_Button powerball_c {
+        label Powerball
+        xywh {25 75 165 25} down_box DOWN_BOX
+      }
+      Fl_Check_Button sfl_c {
+        label {Set For Life}
+        xywh {25 100 165 25} down_box DOWN_BOX
+      }
+      Fl_Check_Button weekday_tatts_c {
+        label {Monday/Wednesday Tattslotto}
+        xywh {25 125 250 25} down_box DOWN_BOX
+      }
+      Fl_Button {} {
+        label Update
+        callback update_results
+        xywh {30 190 250 30}
+      }
+      Fl_Progress update_progress_bar {
+        xywh {0 155 310 25} selection_color 4
+      }
     }
   }
   Function {update_results(Fl_Widget* w, void* userdata)} {open return_type {static void}
   } {
     code {Fl_Widget *p = w->parent();
 while (p->parent()) p = p->parent();
-
-((DrawHistoryManagerGUI*)p->user_data())->update_results_callback(w, userdata);} {}
+resultType ptr = *((resultType*)(&userdata));
+((DrawHistoryManagerGUI*)p->user_data())->update_results_callback(w, ptr);} {}
   }
-  Function {update_results_callback(Fl_Widget* w, void* userdata)} {open return_type void
-  } {
-    code {/*
-if (userdata == (resultType*)R_TATTSLOTTO) {
-	LottostrikeNumberEntryWindow->show();
-} else if (userdata == (resultType*)R_OZLOTTO) {
-	OzlottoNumberEntryWindow->show();
-} else if (userdata == (resultType*)R_SET_FOR_LIFE) {
-	TattsNumberEntryWindow->show();
-} else if (userdata == (resultType*)R_WEEKDAY_TATTSLOTTO) {
-	PowerballNumberEntryWindow->show();
-} else if (userdata == (resultType*)SET_FOR_LIFE) {
-	SetForLifeNumberEntryWindow->show();
-}
-*/} {selected
-    }
-  }
+  Function {update_results_callback(Fl_Widget* w, resultType userdata) = 0} {open return_type {virtual void}
+  } {}
 } 

@@ -2,64 +2,16 @@
 #include <fstream>
 #include <iostream>
 #include <iomanip>
-#include "LottoGame.h"
+
 #include "AussieLottoException.h"
 #include "ResultDownloader.h"
 
 
-static char *curl_error;
-const int urlcount = 5;
+static char curl_error[CURL_ERROR_SIZE];
+
 static const char* failure_message = "Failure to download results.";
-static bool dbInitialised = false;
 
-std::string ozLottoResultsURL;
-std::string tattsResultsURL;
-std::string weekdayTattsResultsURL;
-std::string powerballResultsURL;
-std::string setforlifeResultsURL;
 
-int populateURL(const std::string &g, const std::string &u)
-{
-  if (g == tatts_id) {
-    tattsResultsURL = u; 
-  } else if(g == ozlotto_id) {
-    ozLottoResultsURL = u;
-  } else if(g == powerball_id) {
-    powerballResultsURL = u;
-  } else if(g == setforlife_id) {
-    setforlifeResultsURL = u;
-  } else if(g== weekdaytatts_id) {
-    weekdayTattsResultsURL = u;
-  }
-
-  return 0;
-}
-
-int initResultFileDatabase()
-{
-  std::string game;
-  std::string url;
-  if (!dbInitialised) {
-    curl_error = new char[CURL_ERROR_SIZE];
-    std::ifstream urlsfile;
-    urlsfile.open("lottourls", std::ios::in);
-
-    if (!urlsfile.is_open()) {
-      return -1;
-    }
-
-    for (int x = 0; x < urlcount; ++x) {
-      urlsfile >> game;
-      urlsfile >> url;
-      if (urlsfile.bad()) { return -1;}
-      populateURL(game, url);
-    }
-    urlsfile.close();
-    dbInitialised = true;
-  }
-  return 0;
-
-}
 
 int downloadFile(const char *url, const char *destfile)
 {

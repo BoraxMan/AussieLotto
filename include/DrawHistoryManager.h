@@ -11,6 +11,7 @@
 #include <FL/Fl_File_Chooser.H>
 #include <string>
 
+
 #include "DrawHistoryManagerGUI.h"
 #include "ResultManager.h"
 #include "date.h"
@@ -21,6 +22,7 @@ class DrawHistoryManager: public DrawHistoryManagerGUI
 public:
   DrawHistoryManager(ResultManager *resultmanager, const std::string &configdir);
   void updateDashboard(void);
+  void update_results_callback(Fl_Widget* w, resultType userdata);
 private:
   ResultManager *rm;
   std::string homedir;

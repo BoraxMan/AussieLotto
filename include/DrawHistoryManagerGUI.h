@@ -3,18 +3,23 @@
 #ifndef DrawHistoryManagerGUI_h
 #define DrawHistoryManagerGUI_h
 #include <FL/Fl.H>
+#include <string>
+#include "defs.h"
+#include "types.h"
+#include "ResultDownloader.h"
+#include "ResultManager.h"
+#include "HistoricResults.h"
 #include <FL/Fl_Double_Window.H>
-#include <FL/Fl_Progress.H>
 #include <FL/Fl_Box.H>
 #include <FL/Fl_Button.H>
-#include <FL/Fl_Menu_Button.H>
 #include <FL/Fl_Output.H>
+#include <FL/Fl_Check_Button.H>
+#include <FL/Fl_Progress.H>
 
 class DrawHistoryManagerGUI {
 public:
   Fl_Double_Window* make_window();
   Fl_Double_Window *main_window;
-  static Fl_Menu_Item menu_Update[];
   Fl_Output *tatts_last_draw;
   Fl_Output *ozlotto_last_draw;
   Fl_Output *powerball_last_draw;
@@ -23,7 +28,18 @@ public:
   Fl_Output *powerball_last_date;
   Fl_Output *sfl_last_date;
   Fl_Output *tatts_last_date;
+private:
+  inline void cb_Download_i(Fl_Button*, void*);
+  static void cb_Download(Fl_Button*, void*);
+public:
+  Fl_Double_Window *update_window;
+  Fl_Check_Button *tatts_c;
+  Fl_Check_Button *ozlotto_c;
+  Fl_Check_Button *powerball_c;
+  Fl_Check_Button *sfl_c;
+  Fl_Check_Button *weekday_tatts_c;
+  Fl_Progress *update_progress_bar;
   static void update_results(Fl_Widget* w, void* userdata);
-  void update_results_callback(Fl_Widget* w, void* userdata);
+  virtual void update_results_callback(Fl_Widget* w, resultType userdata) = 0;
 };
 #endif

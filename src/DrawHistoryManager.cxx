@@ -9,6 +9,13 @@ DrawHistoryManager::DrawHistoryManager(ResultManager *resultmanager, const std::
   homedir = configdir;
 }
 
+
+void DrawHistoryManager::update_results_callback(Fl_Widget* w, resultType userdata)
+{
+  std::cout << userdata << std::endl;
+  
+}  
+
 void DrawHistoryManager::updateDashboard(void)
 {
   //rm->downloadResults(R_TATTSLOTTO);

@@ -45,8 +45,11 @@ class FindDraw {
 class LottoHistoricResults {
 public:
 	LottoHistoricResults();
+	~LottoHistoricResults();
 	LottoHistoricResults(const int bls, const int sups, const char *filename);
+	LottoHistoricResults(const LottoHistoricResults &src);
 	int loadHistoricData(const char *filename);
+	int reload();
 	void setBalls(const int balls);
 	void setSupps(const int supps);
 	int size(void);

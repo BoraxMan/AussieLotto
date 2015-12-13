@@ -22,9 +22,20 @@
 #include <string>
 #include <sstream>
 #include <vector>
+#include <cstdlib>
 
 #include "types.h"
 #include "MersenneTwister.h"
+#include "AussieLottoException.h"
+
+const int highest_ball = 45;
+const long long full32bit = 4294967296ULL;  // 2^32
+const std::string tatts_id = "TATTS_GAME";
+const std::string ozlotto_id = "OZLOTTO_GAME";
+const std::string powerball_id = "POWERBALL_GAME";
+const std::string lottostrike_id = "LOTTOSTRIKE_GAME";
+const std::string setforlife_id = "SETFORLIFE_GAME";
+const std::string weekdaytatts_id = "MONWED_TATTS_GAME";
 
 gameType getFileGameType(char *fname);
 void randomizeSeed();

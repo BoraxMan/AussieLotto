@@ -19,10 +19,31 @@
 #ifndef AUSSIELOTTO_H
 #define AUSSIELOTTO_H
 #include <stdint.h>
-#include "AussieLottoGUI.h"
-#include "LottoGame.h"
 #include <string>
 #include <bitset>
+#include <vector>
+
+#include <FL/Fl.H>
+#include <FL/Fl_Double_Window.H>
+#include <FL/Fl_Scroll.H>
+#include <FL/Fl_Tile.H>
+#include <FL/Fl_Box.H>
+#include <FL/Fl_Input.H>
+#include <FL/Fl_Float_Input.H>
+#include <Fl/Fl_Choice.h>
+#include <FL/Fl_File_Chooser.H>
+#include "AussieLottoGUI.h"
+#include "LottoGame.h"
+#include "SetForLife.h"
+#include "LottoStrike.h"
+#include "OzLotto.h"
+#include "Powerball.h"
+#include "Tattslotto.h"
+#include "AussieLottoException.h"
+#include "HistoricResults.h"
+#include "ResultManager.h"
+
+
 
 
 class AusLotto : public UserInterface
@@ -54,6 +75,9 @@ private:
   void clear_results(void);
   void show_license_window(void);
   void ensurePowerballButton(void);
+
+  ResultManager *rm;
+  std::string homedir;
   
 public:
   void tattsEntry(void);
@@ -72,7 +96,7 @@ public:
   void createPowerballEntryWindows(void);
   void createLottostrikeEntryWindows(void);
   void createSetForLifeEntryWindows(void);
-  AusLotto();
+  AusLotto(ResultManager *resultmanager, const std::string &configdir);
 protected:
 
 };

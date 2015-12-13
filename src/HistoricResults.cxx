@@ -61,15 +61,28 @@ LottoHistoricResults::LottoHistoricResults(const int bls, const int sups, const 
     loaded = true;
   }
 }
-void LottoHistoricResults::getDate(std::string &token, char *date)
+
+
+LottoHistoricResults::~LottoHistoricResults()
 {
+  if (fin.is_open()) {
+    fin.close();
+  }
+  
+}
+
+Date LottoHistoricResults::readDate(std::string &token)
+{
+  char cdate[8];
   std::string value;
   if (token[0] == '\"') {
     value = token.substr(1, token.length()-2);
   } else {
     value = token;
   }
-  std::copy(value.begin(), value.end(), date);	
+  std::copy(value.begin(), value.end(), cdate);
+  Date date(cdate);
+  return date;
 }
 
 int LottoHistoricResults::readLine(tatts_historic_result &destination)
@@ -171,7 +184,11 @@ int LottoHistoricResults::loadHistoricData(const char *filename)
   std::string buffer;
   std::getline(fin, buffer);
   // discard the first line.
-  
+  if(loaded) {
+    // Clear the data, reload.
+    results.clear();
+    loaded = false;
+  }
   
   for(;;) {
     tatts_historic_result temp_result;
@@ -199,6 +216,14 @@ void LottoHistoricResults::setSupps(const int x)
 int LottoHistoricResults::size(void)
 {
   return results.size();
+}
+
+int LottoHistoricResults::getLastDrawNumber()
+{
+  if (results.empty()) {
+    return 0;
+  }
+  return results[results.size() - 1].drawnumber;
 }
 
 std::vector<int> LottoHistoricResults::getResults(int draw)
@@ -264,13 +289,41 @@ std::vector<float> LottoHistoricResults::getPrizes(int draw)
   FindDraw fd(draw);
   
   std::vector<tatts_historic_result>::iterator it = 
-  std::find_if(results.begin(), results.end(), fd);
+    std::find_if(results.begin(), results.end(), fd);
   
   if (it == results.end()) {
     std::vector<float> empty;
     return empty;
   }
   return it->prizes;
+  
+}
+
+
+Date LottoHistoricResults::getDate(int draw)
+{
+      std::cout << "N" << std::endl;
+  if (!loaded) {
+    Date empty;
+    return empty;
+  }
+  
+    std::cout << "3232323N" << std::endl;
+  if (draw == 0) { 
+    // Return most recent if draw is zero
+    return results[results.size() - 1].date;
+  } 
+  
+  FindDraw fd(draw);
+  
+  std::vector<tatts_historic_result>::iterator it = std::find_if(results.begin(), results.end(), fd);
+  
+  if (it == results.end()) {
+    Date empty;
+    return empty;
+  }
+
+  return it->date;
   
 }
 

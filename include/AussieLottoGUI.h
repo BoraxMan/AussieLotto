@@ -19,6 +19,7 @@
 
 class UserInterface {
 public:
+  Fl_Text_Buffer *sflTextBuffer; 
   Fl_Text_Buffer *ozlottoTextBuffer; 
   Fl_Text_Buffer *lottostrikeTextBuffer; 
   Fl_Text_Buffer *licenseTextBuffer; 
@@ -119,8 +120,23 @@ public:
   Fl_Value_Input *lsnum6;
   Fl_Text_Display *lottostrike_number_view;
   Fl_Button *ShowLottostrikeEntryWidget;
-  static Fl_Menu_Item menu_Winning[];
+  Fl_Group *setforlife_tab;
+  Fl_Value_Input *sfl_num1;
+  Fl_Value_Input *sfl_num2;
+  Fl_Value_Input *sfl_num3;
+  Fl_Value_Input *sfl_num4;
+  Fl_Value_Input *sfl_num5;
+  Fl_Value_Input *sfl_num6;
+  Fl_Value_Input *sfl_num7;
+  Fl_Value_Input *sfl_num8;
+  Fl_Value_Input *sfl_bonus1;
+  Fl_Value_Input *sfl_bonus2;
+  Fl_Text_Display *sflnumber_view;
+  Fl_Button *ShowSFLEntryWidget;
 private:
+  inline void cb_Enter2_i(Fl_Button*, void*);
+  static void cb_Enter2(Fl_Button*, void*);
+  static Fl_Menu_Item menu_Winning[];
   inline void cb_License_i(Fl_Button*, void*);
   static void cb_License(Fl_Button*, void*);
 public:
@@ -151,6 +167,12 @@ public:
 private:
   inline void cb_OK2_i(Fl_Button*, void*);
   static void cb_OK2(Fl_Button*, void*);
+public:
+  Fl_Double_Window *SetForLifeNumberEntryWindow;
+  Fl_Group *SetForLifeEntryGroup;
+private:
+  inline void cb_OK3_i(Fl_Button*, void*);
+  static void cb_OK3(Fl_Button*, void*);
 public:
   Fl_Double_Window *Numberentry;
   Fl_Light_Button *button_1;
@@ -377,14 +399,14 @@ public:
 private:
   inline void cb_button_45_i(Fl_Light_Button*, void*);
   static void cb_button_45(Fl_Light_Button*, void*);
-  inline void cb_OK3_i(Fl_Button*, void*);
-  static void cb_OK3(Fl_Button*, void*);
+  inline void cb_OK4_i(Fl_Button*, void*);
+  static void cb_OK4(Fl_Button*, void*);
 public:
   Fl_Double_Window *PowerballNumberEntryWindow;
   Fl_Group *PowerballEntryGroup;
 private:
-  inline void cb_OK4_i(Fl_Button*, void*);
-  static void cb_OK4(Fl_Button*, void*);
+  inline void cb_OK5_i(Fl_Button*, void*);
+  static void cb_OK5(Fl_Button*, void*);
 public:
   Fl_Double_Window *lottostrike_divisions_window;
   Fl_Double_Window *LicenseWindow;
@@ -392,7 +414,7 @@ public:
   void show_help_window();
   virtual int open_file() = 0;
   virtual int save_file() = 0;
-  virtual void clear_results();
+  virtual void clear_results() = 0;
   virtual void check_lotto() = 0;
   virtual int generate() = 0;
   virtual void clear_lotto() = 0;
@@ -400,13 +422,14 @@ public:
   virtual void tattsEntry() = 0;
   virtual void ozlottoEntry() = 0;
   virtual void powerballEntry() = 0;
-  virtual void saveResults();
+  virtual void lottostrikeEntry() = 0;
+  virtual void setForLifeEntry() = 0;
+  virtual void saveResults() = 0;
   virtual void NumberSelectorUpdate(int x) = 0;
   virtual void show_Numberentry_window();
   virtual void submitButtonNums() = 0;
   virtual void clearNumberSelector() = 0;
   virtual void loadHelp() = 0;
-  virtual void lottostrikeEntry() = 0;
   virtual void show_license_window();
   virtual void ensurePowerballButton() = 0;
   static void show_divisions(Fl_Widget* w, void* userdata);

@@ -24,14 +24,17 @@ const int tattsBalls = 6;
 const int ozlottoBalls = 7;
 const int powerballBalls = 7;
 const int lottostrikeBalls = 4;
+const int setforlifeBalls = 8;
 
 typedef enum gameType
 {
-  UNDEFINED,
   TATTSLOTTO,
   OZLOTTO,
   POWERBALL,
-  LOTTOSTRIKE
+  LOTTOSTRIKE,
+  SET_FOR_LIFE,
+  WEEKDAY_TATTSLOTTO,
+  UNDEFINED // Also serves to get number of gametypes out there.
 } gameType;
 
 
