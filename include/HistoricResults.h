@@ -53,10 +53,12 @@ public:
 	void setBalls(const int balls);
 	void setSupps(const int supps);
 	int size(void);
+	int cols(void);
 	std::vector<int> getResults(int draw = 0);
 	std::vector<int> getSupps(int draw = 0);
 	std::vector<float> getPrizes(int draw = 0);
 	Date getDate(int draw = 0);
+	int rowToDraw(int row);
 	int getLastDrawNumber();
 	
 

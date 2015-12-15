@@ -299,6 +299,19 @@ std::vector<float> LottoHistoricResults::getPrizes(int draw)
   
 }
 
+int LottoHistoricResults::rowToDraw(int row)
+{
+  if (row >= results.size()) {
+    return -1;
+  } else {
+    return results[row].drawnumber; 
+  }
+  
+}
+int LottoHistoricResults::cols(void)
+{
+  return 2 + balls + supps;
+}
 
 Date LottoHistoricResults::getDate(int draw)
 {

@@ -72,11 +72,25 @@ int ResultManager::getLastDraw(resultType game)
 }
 
 
+int ResultManager::rowToDraw(resultType game, int row)
+{
+  return results[game]->rowToDraw(row);
+}
+  
 Date ResultManager::getDate(resultType game, int draw)
 {
  return results[game]->getDate(draw);
 }
 
+int ResultManager::size(resultType game)
+{
+  return results[game]->size();
+}
+
+int ResultManager::cols(resultType game)
+{
+  return results[game]->cols();
+}
 
 void ResultManager::downloadResults(resultType game)
 {

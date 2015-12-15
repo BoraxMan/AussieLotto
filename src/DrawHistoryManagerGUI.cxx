@@ -10,7 +10,7 @@ void DrawHistoryManagerGUI::cb_Update(Fl_Button* o, void* v) {
 }
 
 Fl_Double_Window* DrawHistoryManagerGUI::make_window() {
-  { main_window = new Fl_Double_Window(765, 455, "Results Manager");
+  { main_window = new Fl_Double_Window(970, 810, "Results Manager");
     main_window->color((Fl_Color)12);
     main_window->user_data((void*)(this));
     { Fl_Box* o = new Fl_Box(0, 0, 765, 25, "Result Manager");
@@ -92,6 +92,19 @@ Fl_Double_Window* DrawHistoryManagerGUI::make_window() {
     } // Fl_Button* o
     { new Fl_Button(610, 195, 135, 30, "View Results");
     } // Fl_Button* o
+    { resultViewTable = new ResultViewTable(15, 270, 755, 335);
+      resultViewTable->box(FL_THIN_DOWN_FRAME);
+      resultViewTable->color(FL_BACKGROUND_COLOR);
+      resultViewTable->selection_color(FL_BACKGROUND_COLOR);
+      resultViewTable->labeltype(FL_NORMAL_LABEL);
+      resultViewTable->labelfont(0);
+      resultViewTable->labelsize(14);
+      resultViewTable->labelcolor(FL_FOREGROUND_COLOR);
+      resultViewTable->align(Fl_Align(FL_ALIGN_TOP));
+      resultViewTable->when(FL_WHEN_RELEASE);
+      init_result_view(R_TATTSLOTTO);
+      resultViewTable->end();
+    } // ResultViewTable* resultViewTable
     main_window->end();
     main_window->resizable(main_window);
   } // Fl_Double_Window* main_window

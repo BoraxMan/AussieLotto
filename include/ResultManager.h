@@ -29,6 +29,9 @@ class ResultManager {
     std::vector<float> getPrizes(resultType game, int draw = 0);
     Date getDate(resultType game, int draw = 0);
     int getLastDraw(resultType game);
+    int size(resultType game);
+    int cols(resultType game);
+    int rowToDraw(resultType game, int row); // Returns the draw number for row 'row'
     void downloadResults(resultType game);
     int (*progress_callback)(void *, double, double, double, double);
     void *ptr; // Pointer to the GUI hosting the callback widget.

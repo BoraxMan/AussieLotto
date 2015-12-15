@@ -26,6 +26,7 @@ public:
 private:
   ResultManager *rm;
   std::string homedir;
+  void init_result_view(resultType type);
 };
 
 #endif

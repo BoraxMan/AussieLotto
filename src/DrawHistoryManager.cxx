@@ -22,6 +22,11 @@ DrawHistoryManager::DrawHistoryManager(ResultManager *resultmanager, const std::
 
 }
 
+void DrawHistoryManager::init_result_view(resultType type)
+{
+  resultViewTable->setData(rm, R_TATTSLOTTO);
+  resultViewTable->init();
+}
 
 void DrawHistoryManager::update_results_callback(Fl_Widget* w, void* userdata)
 {

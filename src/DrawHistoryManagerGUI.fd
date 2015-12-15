@@ -20,13 +20,16 @@ decl {\#include "ResultManager.h"} {public global
 decl {\#include "HistoricResults.h"} {public global
 } 
 
+decl {\#include "ResultViewTable.h"} {public global
+} 
+
 class DrawHistoryManagerGUI {open
 } {
   Function {make_window()} {open
   } {
     Fl_Window main_window {
-      label {Results Manager} open selected
-      xywh {278 505 765 455} type Double color 12 resizable visible
+      label {Results Manager} open
+      xywh {490 209 970 810} type Double color 12 resizable visible
     } {
       Fl_Box {} {
         label {Result Manager}
@@ -126,6 +129,11 @@ class DrawHistoryManagerGUI {open
         label {View Results}
         xywh {610 195 135 30}
       }
+      Fl_Table resultViewTable {open
+        xywh {15 270 755 335}
+        code0 {init_result_view(R_TATTSLOTTO);}
+        class ResultViewTable
+      } {}
     }
     Fl_Window update_window {
       label {Update Results} open
@@ -148,7 +156,7 @@ class DrawHistoryManagerGUI {open
         xywh {25 100 165 25} down_box DOWN_BOX
       }
       Fl_Check_Button weekday_tatts_c {
-        label {Monday/Wednesday Tattslotto}
+        label {Monday/Wednesday Tattslotto} selected
         xywh {25 125 250 25} down_box DOWN_BOX
       }
       Fl_Button {} {
@@ -182,4 +190,6 @@ while (p->parent()) p = p->parent();
   } {
     code {(w->parent())->hide();} {}
   }
+  Function {init_result_view(resultType type) = 0} {open return_type {virtual void}
+  } {}
 } 

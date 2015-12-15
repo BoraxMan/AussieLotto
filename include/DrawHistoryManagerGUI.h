@@ -9,6 +9,7 @@
 #include "ResultDownloader.h"
 #include "ResultManager.h"
 #include "HistoricResults.h"
+#include "ResultViewTable.h"
 #include <FL/Fl_Double_Window.H>
 #include <FL/Fl_Box.H>
 #include <FL/Fl_Button.H>
@@ -32,6 +33,7 @@ private:
   inline void cb_Update_i(Fl_Button*, void*);
   static void cb_Update(Fl_Button*, void*);
 public:
+  ResultViewTable *resultViewTable;
   Fl_Double_Window *update_window;
   Fl_Check_Button *tatts_c;
   Fl_Check_Button *ozlotto_c;
@@ -42,5 +44,6 @@ public:
   static void update_results(Fl_Widget* w, void* userdata);
   virtual void update_results_callback(Fl_Widget* w, void* userdata) = 0;
   static void hide_parent(Fl_Widget *w, void* data);
+  virtual void init_result_view(resultType type) = 0;
 };
 #endif
