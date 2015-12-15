@@ -30,7 +30,8 @@ class ResultManager {
     Date getDate(resultType game, int draw = 0);
     int getLastDraw(resultType game);
     void downloadResults(resultType game);
-    
+    int (*progress_callback)(void *, double, double, double, double);
+    void *ptr; // Pointer to the GUI hosting the callback widget.
     
   private:
 

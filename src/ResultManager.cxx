@@ -74,14 +74,13 @@ int ResultManager::getLastDraw(resultType game)
 
 Date ResultManager::getDate(resultType game, int draw)
 {
-    std::cout << "33N" << std::endl;
  return results[game]->getDate(draw);
 }
 
 
 void ResultManager::downloadResults(resultType game)
 {
-  downloadFile(URLlist[game].c_str(), csv_files[game].c_str());
+  downloadFile(URLlist[game].c_str(), csv_files[game].c_str(), progress_callback, ptr);
   
 }
 

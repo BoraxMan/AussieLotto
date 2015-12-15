@@ -1047,7 +1047,7 @@ return 0;
   } {}
   Function {changeTab() = 0} {open return_type {virtual void}
   } {}
-  Function {tattsEntry() = 0} {open selected return_type {virtual void}
+  Function {tattsEntry() = 0} {open return_type {virtual void}
   } {}
   Function {ozlottoEntry() = 0} {open return_type {virtual void}
   } {}
@@ -1082,14 +1082,14 @@ int ptr = *((int*)(&userdata));
   }
   Function {ensurePowerballButton() = 0} {return_type {virtual void}
   } {}
-  Function {show_divisions(Fl_Widget* w, void* userdata)} {return_type {static void}
+  Function {show_divisions(Fl_Widget* w, void* userdata)} {open return_type {static void}
   } {
     code {Fl_Widget *p = w->parent();
 while (p->parent()) p = p->parent();
 
 ((UserInterface*)p->user_data())->show_div_callback(w, userdata);} {}
   }
-  Function {show_div_callback(Fl_Widget* w, void* userdata)} {return_type void
+  Function {show_div_callback(Fl_Widget* w, void* userdata)} {open return_type void
   } {
     code {if (userdata == (gameType*)LOTTOSTRIKE) {
 	this->lottostrike_divisions_window->show();

@@ -14,12 +14,8 @@ int initResultFileDatabase();
 int populateURL(const std::string &g, const std::string &u);
 
 
-int downloadFile(const char *url, const char *destfile);
+int downloadFile(const char *url, const char *destfile, int (*progress_callback)(void *, double, double, double, double), void *ptr);
 size_t write_data(void *ptr, size_t size, size_t nmemb, std::fstream *stream);
-int progress_callback(void *clientp,
-  double dltotal,
-  double dlnow,
-  double ultotal,
-  double ulnow);
+
 
 #endif

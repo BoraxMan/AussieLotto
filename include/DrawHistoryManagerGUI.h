@@ -29,8 +29,8 @@ public:
   Fl_Output *sfl_last_date;
   Fl_Output *tatts_last_date;
 private:
-  inline void cb_Download_i(Fl_Button*, void*);
-  static void cb_Download(Fl_Button*, void*);
+  inline void cb_Update_i(Fl_Button*, void*);
+  static void cb_Update(Fl_Button*, void*);
 public:
   Fl_Double_Window *update_window;
   Fl_Check_Button *tatts_c;
@@ -40,6 +40,7 @@ public:
   Fl_Check_Button *weekday_tatts_c;
   Fl_Progress *update_progress_bar;
   static void update_results(Fl_Widget* w, void* userdata);
-  virtual void update_results_callback(Fl_Widget* w, resultType userdata) = 0;
+  virtual void update_results_callback(Fl_Widget* w, void* userdata) = 0;
+  static void hide_parent(Fl_Widget *w, void* data);
 };
 #endif

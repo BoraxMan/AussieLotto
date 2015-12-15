@@ -17,7 +17,7 @@ decl {\#include "ResultDownloader.h"} {public global
 decl {\#include "ResultManager.h"} {public global
 } 
 
-decl {\#include "HistoricResults.h"} {selected public global
+decl {\#include "HistoricResults.h"} {public global
 } 
 
 class DrawHistoryManagerGUI {open
@@ -25,78 +25,111 @@ class DrawHistoryManagerGUI {open
   Function {make_window()} {open
   } {
     Fl_Window main_window {
-      label {Results Manager} open
-      xywh {194 399 700 455} type Double color 12 resizable visible
+      label {Results Manager} open selected
+      xywh {278 505 765 455} type Double color 12 resizable visible
     } {
       Fl_Box {} {
         label {Result Manager}
-        xywh {0 0 700 25} box DOWN_BOX color 4 selection_color 0 labelsize 18 labelcolor 3
+        xywh {0 0 765 25} box DOWN_BOX color 4 selection_color 0 labelsize 18 labelcolor 3
       }
       Fl_Button {} {
         label Close
+        callback hide_parent
         xywh {625 25 75 25}
       }
       Fl_Box {} {
         label Tattslotto
-        xywh {5 150 210 30} box BORDER_BOX
+        xywh {205 75 135 30} box BORDER_BOX
       }
       Fl_Box {} {
         label {Oz Lotto}
-        xywh {5 180 210 30} box BORDER_BOX
+        xywh {475 75 135 30} box BORDER_BOX
       }
       Fl_Box {} {
         label Powerball
-        xywh {5 210 210 30} box BORDER_BOX
+        xywh {340 75 135 30} box BORDER_BOX
       }
       Fl_Box {} {
         label {Set For Life}
-        xywh {5 240 210 30} box BORDER_BOX
+        xywh {610 75 135 30} box BORDER_BOX
       }
       Fl_Box {} {
         label Game
-        xywh {5 120 210 30} box BORDER_BOX color 51 labeltype ENGRAVED_LABEL labelsize 16
+        xywh {5 75 200 30} box BORDER_BOX color 51 labeltype ENGRAVED_LABEL labelsize 16
       }
       Fl_Box {} {
         label {Latest Draw Number}
-        xywh {215 120 210 30} box BORDER_BOX color 51 labeltype ENGRAVED_LABEL labelsize 16
+        xywh {5 105 200 30} box BORDER_BOX color 51 labeltype ENGRAVED_LABEL labelsize 16
       }
       Fl_Output tatts_last_draw {
-        xywh {215 150 210 30}
+        xywh {205 105 135 30}
       }
       Fl_Output ozlotto_last_draw {
-        xywh {215 180 210 30}
+        xywh {340 105 135 30}
       }
       Fl_Output powerball_last_draw {
-        xywh {215 210 210 30}
+        xywh {475 105 135 30}
       }
       Fl_Output sfl_last_draw {
-        xywh {215 240 210 30}
+        xywh {475 135 135 30}
       }
       Fl_Box {} {
         label {Latest Draw Date}
-        xywh {425 120 210 30} box BORDER_BOX color 51 labeltype ENGRAVED_LABEL labelsize 16
+        xywh {5 135 200 30} box BORDER_BOX color 51 labeltype ENGRAVED_LABEL labelsize 16
       }
       Fl_Output ozlotto_last_date {
-        xywh {425 180 210 30}
+        xywh {340 135 135 30}
       }
       Fl_Output powerball_last_date {
-        xywh {425 210 210 30}
+        xywh {610 105 135 30}
       }
       Fl_Output sfl_last_date {
-        xywh {425 240 210 30}
+        xywh {610 135 135 30}
       }
       Fl_Output tatts_last_date {
-        xywh {425 150 210 30}
+        xywh {205 135 135 30}
       }
       Fl_Button {} {
-        label {Download Results}
+        label {Update/Download Results}
         callback {update_window->show();}
-        xywh {460 25 165 25}
+        xywh {415 25 210 25}
+      }
+      Fl_Button {} {
+        label {Use Results}
+        tooltip {Check your results against the latest draw} xywh {205 165 135 30}
+      }
+      Fl_Button {} {
+        label {Use Results}
+        tooltip {Check your results against the latest draw} xywh {340 165 135 30}
+      }
+      Fl_Button {} {
+        label {Use Results}
+        tooltip {Check your results against the latest draw} xywh {475 165 135 30}
+      }
+      Fl_Button {} {
+        label {Use Results}
+        tooltip {Check your results against the latest draw} xywh {610 165 135 30}
+      }
+      Fl_Button {} {
+        label {View Results}
+        xywh {205 195 135 30}
+      }
+      Fl_Button {} {
+        label {View Results}
+        xywh {340 195 135 30}
+      }
+      Fl_Button {} {
+        label {View Results}
+        xywh {475 195 135 30}
+      }
+      Fl_Button {} {
+        label {View Results}
+        xywh {610 195 135 30}
       }
     }
     Fl_Window update_window {
       label {Update Results} open
-      xywh {347 478 310 235} type Double visible
+      xywh {657 510 310 235} type Double visible
     } {
       Fl_Check_Button tatts_c {
         label Tattslotto
@@ -121,10 +154,18 @@ class DrawHistoryManagerGUI {open
       Fl_Button {} {
         label Update
         callback update_results
-        xywh {30 190 250 30}
+        xywh {5 190 160 30}
       }
       Fl_Progress update_progress_bar {
         xywh {0 155 310 25} selection_color 4
+        code0 {o->maximum(1);}
+        code1 {o->minimum(0);}
+        code2 {o->value(0);}
+      }
+      Fl_Button {} {
+        label Close
+        callback hide_parent
+        xywh {175 190 130 30}
       }
     }
   }
@@ -132,9 +173,13 @@ class DrawHistoryManagerGUI {open
   } {
     code {Fl_Widget *p = w->parent();
 while (p->parent()) p = p->parent();
-resultType ptr = *((resultType*)(&userdata));
-((DrawHistoryManagerGUI*)p->user_data())->update_results_callback(w, ptr);} {}
+
+((DrawHistoryManagerGUI*)p->user_data())->update_results_callback(w, NULL);} {}
   }
-  Function {update_results_callback(Fl_Widget* w, resultType userdata) = 0} {open return_type {virtual void}
+  Function {update_results_callback(Fl_Widget* w, void* userdata) = 0} {open return_type {virtual void}
   } {}
+  Function {hide_parent(Fl_Widget *w, void* data)} {open return_type {static void}
+  } {
+    code {(w->parent())->hide();} {}
+  }
 } 

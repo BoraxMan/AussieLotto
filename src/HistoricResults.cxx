@@ -302,13 +302,11 @@ std::vector<float> LottoHistoricResults::getPrizes(int draw)
 
 Date LottoHistoricResults::getDate(int draw)
 {
-      std::cout << "N" << std::endl;
   if (!loaded) {
     Date empty;
     return empty;
   }
   
-    std::cout << "3232323N" << std::endl;
   if (draw == 0) { 
     // Return most recent if draw is zero
     return results[results.size() - 1].date;

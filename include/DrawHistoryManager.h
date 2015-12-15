@@ -22,7 +22,7 @@ class DrawHistoryManager: public DrawHistoryManagerGUI
 public:
   DrawHistoryManager(ResultManager *resultmanager, const std::string &configdir);
   void updateDashboard(void);
-  void update_results_callback(Fl_Widget* w, resultType userdata);
+  void update_results_callback(Fl_Widget* w, void* userdata);
 private:
   ResultManager *rm;
   std::string homedir;
