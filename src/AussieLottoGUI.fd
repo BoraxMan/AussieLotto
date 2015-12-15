@@ -669,227 +669,272 @@ class UserInterface {open
     } {
       Fl_Light_Button button_1 {
         label 1
-        callback {NumberSelectorUpdate(1)}
+        user_data 1
+        callback NumberSelectorUpdate_cb
         xywh {15 25 40 25}
       }
       Fl_Light_Button button_2 {
         label 2
-        callback {NumberSelectorUpdate(2)}
+        user_data 2
+        callback NumberSelectorUpdate_cb
         xywh {55 25 40 25}
       }
       Fl_Light_Button button_3 {
         label 3
-        callback {NumberSelectorUpdate(3)}
+        user_data 3
+        callback NumberSelectorUpdate_cb
         xywh {95 25 40 25}
       }
       Fl_Light_Button button_4 {
         label 4
-        callback {NumberSelectorUpdate(4)}
+        user_data 4
+        callback NumberSelectorUpdate_cb
         xywh {135 25 40 25}
       }
       Fl_Light_Button button_5 {
         label 5
-        callback {NumberSelectorUpdate(5)}
+        user_data 5
+        callback NumberSelectorUpdate_cb
         xywh {175 25 40 25}
       }
       Fl_Light_Button button_6 {
         label 6
-        callback {NumberSelectorUpdate(6)}
+        user_data 6
+        callback NumberSelectorUpdate_cb
         xywh {215 25 40 25}
       }
       Fl_Light_Button button_7 {
         label 7
-        callback {NumberSelectorUpdate(7)}
+        user_data 7
+        callback NumberSelectorUpdate_cb
         xywh {255 25 40 25}
       }
       Fl_Light_Button button_8 {
         label 8
-        callback {NumberSelectorUpdate(8)}
+        user_data 8
+        callback NumberSelectorUpdate_cb
         xywh {295 25 40 25}
       }
       Fl_Light_Button button_9 {
         label 9
-        callback {NumberSelectorUpdate(9)}
+        user_data 9
+        callback NumberSelectorUpdate_cb
         xywh {15 50 40 25}
       }
       Fl_Light_Button button_10 {
         label 10
-        callback {NumberSelectorUpdate(10)}
+        user_data 10
+        callback NumberSelectorUpdate_cb
         xywh {55 50 40 25}
       }
       Fl_Light_Button button_11 {
         label 11
-        callback {NumberSelectorUpdate(11)}
+        user_data 11
+        callback NumberSelectorUpdate_cb
         xywh {95 50 40 25}
       }
       Fl_Light_Button button_12 {
         label 12
-        callback {NumberSelectorUpdate(12)}
+        user_data 12
+        callback NumberSelectorUpdate_cb
         xywh {135 50 40 25}
       }
       Fl_Light_Button button_13 {
         label 13
-        callback {NumberSelectorUpdate(13)}
+        user_data 13
+        callback NumberSelectorUpdate_cb
         xywh {175 50 40 25}
       }
       Fl_Light_Button button_14 {
         label 14
-        callback {NumberSelectorUpdate(14)}
+        user_data 14
+        callback NumberSelectorUpdate_cb
         xywh {215 50 40 25}
       }
       Fl_Light_Button button_15 {
         label 15
-        callback {NumberSelectorUpdate(15)}
+        user_data 15
+        callback NumberSelectorUpdate_cb
         xywh {255 50 40 25}
       }
       Fl_Light_Button button_16 {
         label 16
-        callback {NumberSelectorUpdate(16)}
+        user_data 16
+        callback NumberSelectorUpdate_cb
         xywh {295 50 40 25}
       }
       Fl_Light_Button button_17 {
         label 17
-        callback {NumberSelectorUpdate(17)}
+        user_data 17
+        callback NumberSelectorUpdate_cb
         xywh {15 75 40 25}
       }
       Fl_Light_Button button_18 {
         label 18
-        callback {NumberSelectorUpdate(18)}
+        user_data 18
+        callback NumberSelectorUpdate_cb
         xywh {55 75 40 25}
       }
       Fl_Light_Button button_19 {
         label 19
-        callback {NumberSelectorUpdate(19)}
+        user_data 19
+        callback NumberSelectorUpdate_cb
         xywh {95 75 40 25}
       }
       Fl_Light_Button button_20 {
         label 20
-        callback {NumberSelectorUpdate(20)}
+        user_data 20
+        callback NumberSelectorUpdate_cb
         xywh {135 75 40 25}
       }
       Fl_Light_Button button_21 {
         label 21
-        callback {NumberSelectorUpdate(21)}
+        user_data 21
+        callback NumberSelectorUpdate_cb
         xywh {175 75 40 25}
       }
       Fl_Light_Button button_22 {
         label 22
-        callback {NumberSelectorUpdate(22)}
+        user_data 22
+        callback NumberSelectorUpdate_cb
         xywh {215 75 40 25}
       }
       Fl_Light_Button button_23 {
         label 23
-        callback {NumberSelectorUpdate(23)}
+        user_data 23
+        callback NumberSelectorUpdate_cb
         xywh {255 75 40 25}
       }
       Fl_Light_Button button_24 {
         label 24
-        callback {NumberSelectorUpdate(24)}
+        user_data 24
+        callback NumberSelectorUpdate_cb
         xywh {295 75 40 25}
       }
       Fl_Light_Button button_25 {
         label 25
-        callback {NumberSelectorUpdate(25)}
+        user_data 25
+        callback NumberSelectorUpdate_cb
         xywh {15 100 40 25}
       }
       Fl_Light_Button button_26 {
         label 26
-        callback {NumberSelectorUpdate(26)}
+        user_data 26
+        callback NumberSelectorUpdate_cb
         xywh {55 100 40 25}
       }
       Fl_Light_Button button_27 {
         label 27
-        callback {NumberSelectorUpdate(27)}
+        user_data 27
+        callback NumberSelectorUpdate_cb
         xywh {95 100 40 25}
       }
       Fl_Light_Button button_28 {
         label 28
-        callback {NumberSelectorUpdate(28)}
+        user_data 28
+        callback NumberSelectorUpdate_cb
         xywh {135 100 40 25}
       }
       Fl_Light_Button button_29 {
         label 29
-        callback {NumberSelectorUpdate(29)}
+        user_data 29
+        callback NumberSelectorUpdate_cb
         xywh {175 100 40 25}
       }
       Fl_Light_Button button_30 {
         label 30
-        callback {NumberSelectorUpdate(30)}
+        user_data 30
+        callback NumberSelectorUpdate_cb
         xywh {215 100 40 25}
       }
       Fl_Light_Button button_31 {
         label 31
-        callback {NumberSelectorUpdate(31)}
+        user_data 31
+        callback NumberSelectorUpdate_cb
         xywh {255 100 40 25}
       }
       Fl_Light_Button button_32 {
         label 32
-        callback {NumberSelectorUpdate(32)}
+        user_data 32
+        callback NumberSelectorUpdate_cb
         xywh {295 100 40 25}
       }
       Fl_Light_Button button_33 {
         label 33
-        callback {NumberSelectorUpdate(33)}
+        user_data 33
+        callback NumberSelectorUpdate_cb
         xywh {15 125 40 25}
       }
       Fl_Light_Button button_34 {
         label 34
-        callback {NumberSelectorUpdate(34)}
+        user_data 34
+        callback NumberSelectorUpdate_cb
         xywh {55 125 40 25}
       }
       Fl_Light_Button button_35 {
         label 35
-        callback {NumberSelectorUpdate(35)}
+        user_data 35
+        callback NumberSelectorUpdate_cb
         xywh {95 125 40 25}
       }
       Fl_Light_Button button_36 {
         label 36
-        callback {NumberSelectorUpdate(36)}
+        user_data 36
+        callback NumberSelectorUpdate_cb
         xywh {135 125 40 25}
       }
       Fl_Light_Button button_37 {
         label 37
-        callback {NumberSelectorUpdate(37)}
+        user_data 37
+        callback NumberSelectorUpdate_cb
         xywh {175 125 40 25}
       }
       Fl_Light_Button button_38 {
         label 38
-        callback {NumberSelectorUpdate(38)}
+        user_data 38
+        callback NumberSelectorUpdate_cb
         xywh {215 125 40 25}
       }
       Fl_Light_Button button_39 {
         label 39
-        callback {NumberSelectorUpdate(39)}
+        user_data 39
+        callback NumberSelectorUpdate_cb
         xywh {255 125 40 25}
       }
       Fl_Light_Button button_40 {
         label 40
-        callback {NumberSelectorUpdate(40)}
+        user_data 40
+        callback NumberSelectorUpdate_cb
         xywh {295 125 40 25}
       }
       Fl_Light_Button button_41 {
         label 41
-        callback {NumberSelectorUpdate(41)}
+        user_data 41
+        callback NumberSelectorUpdate_cb
         xywh {15 150 40 25}
       }
       Fl_Light_Button button_42 {
         label 42
-        callback {NumberSelectorUpdate(42)}
+        user_data 42
+        callback NumberSelectorUpdate_cb
         xywh {55 150 40 25}
       }
       Fl_Light_Button button_43 {
         label 43
-        callback {NumberSelectorUpdate(43)}
+        user_data 43
+        callback NumberSelectorUpdate_cb
         xywh {95 150 40 25}
       }
       Fl_Light_Button button_44 {
         label 44
-        callback {NumberSelectorUpdate(44)}
+        user_data 44
+        callback NumberSelectorUpdate_cb
         xywh {135 150 40 25}
       }
       Fl_Light_Button button_45 {
         label 45
-        callback {NumberSelectorUpdate(45)}
+        user_data 45
+        callback NumberSelectorUpdate_cb
         xywh {175 150 40 25}
       }
       Fl_Button {} {
@@ -1014,8 +1059,13 @@ return 0;
   } {}
   Function {saveResults() = 0} {open return_type {virtual void}
   } {}
-  Function {NumberSelectorUpdate(int x) = 0} {open return_type {virtual void}
-  } {}
+  Function {NumberSelectorUpdate_cb(Fl_Widget* w, void* userdata)} {return_type {static void}
+  } {
+    code {Fl_Widget *p = w->parent();
+while (p->parent()) p = p->parent();
+int ptr = *((int*)(&userdata));
+((UserInterface*)p->user_data())->NumberSelectorUpdate(ptr);} {}
+  }
   Function {show_Numberentry_window()} {return_type virtual
   } {
     code {this->Numberentry->show();} {}
@@ -1076,4 +1126,6 @@ while (p->parent()) p = p->parent();
 
 ((UserInterface*)p->user_data())->show_entry_callback(w, userdata);} {}
   }
+  Function {NumberSelectorUpdate(int x) = 0;} {open selected return_type {virtual void}
+  } {}
 } 

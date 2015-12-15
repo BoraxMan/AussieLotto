@@ -189,321 +189,6 @@ void UserInterface::cb_OK3(Fl_Button* o, void* v) {
   ((UserInterface*)(o->parent()->user_data()))->cb_OK3_i(o,v);
 }
 
-void UserInterface::cb_button_1_i(Fl_Light_Button*, void*) {
-  NumberSelectorUpdate(1);
-}
-void UserInterface::cb_button_1(Fl_Light_Button* o, void* v) {
-  ((UserInterface*)(o->parent()->user_data()))->cb_button_1_i(o,v);
-}
-
-void UserInterface::cb_button_2_i(Fl_Light_Button*, void*) {
-  NumberSelectorUpdate(2);
-}
-void UserInterface::cb_button_2(Fl_Light_Button* o, void* v) {
-  ((UserInterface*)(o->parent()->user_data()))->cb_button_2_i(o,v);
-}
-
-void UserInterface::cb_button_3_i(Fl_Light_Button*, void*) {
-  NumberSelectorUpdate(3);
-}
-void UserInterface::cb_button_3(Fl_Light_Button* o, void* v) {
-  ((UserInterface*)(o->parent()->user_data()))->cb_button_3_i(o,v);
-}
-
-void UserInterface::cb_button_4_i(Fl_Light_Button*, void*) {
-  NumberSelectorUpdate(4);
-}
-void UserInterface::cb_button_4(Fl_Light_Button* o, void* v) {
-  ((UserInterface*)(o->parent()->user_data()))->cb_button_4_i(o,v);
-}
-
-void UserInterface::cb_button_5_i(Fl_Light_Button*, void*) {
-  NumberSelectorUpdate(5);
-}
-void UserInterface::cb_button_5(Fl_Light_Button* o, void* v) {
-  ((UserInterface*)(o->parent()->user_data()))->cb_button_5_i(o,v);
-}
-
-void UserInterface::cb_button_6_i(Fl_Light_Button*, void*) {
-  NumberSelectorUpdate(6);
-}
-void UserInterface::cb_button_6(Fl_Light_Button* o, void* v) {
-  ((UserInterface*)(o->parent()->user_data()))->cb_button_6_i(o,v);
-}
-
-void UserInterface::cb_button_7_i(Fl_Light_Button*, void*) {
-  NumberSelectorUpdate(7);
-}
-void UserInterface::cb_button_7(Fl_Light_Button* o, void* v) {
-  ((UserInterface*)(o->parent()->user_data()))->cb_button_7_i(o,v);
-}
-
-void UserInterface::cb_button_8_i(Fl_Light_Button*, void*) {
-  NumberSelectorUpdate(8);
-}
-void UserInterface::cb_button_8(Fl_Light_Button* o, void* v) {
-  ((UserInterface*)(o->parent()->user_data()))->cb_button_8_i(o,v);
-}
-
-void UserInterface::cb_button_9_i(Fl_Light_Button*, void*) {
-  NumberSelectorUpdate(9);
-}
-void UserInterface::cb_button_9(Fl_Light_Button* o, void* v) {
-  ((UserInterface*)(o->parent()->user_data()))->cb_button_9_i(o,v);
-}
-
-void UserInterface::cb_button_10_i(Fl_Light_Button*, void*) {
-  NumberSelectorUpdate(10);
-}
-void UserInterface::cb_button_10(Fl_Light_Button* o, void* v) {
-  ((UserInterface*)(o->parent()->user_data()))->cb_button_10_i(o,v);
-}
-
-void UserInterface::cb_button_11_i(Fl_Light_Button*, void*) {
-  NumberSelectorUpdate(11);
-}
-void UserInterface::cb_button_11(Fl_Light_Button* o, void* v) {
-  ((UserInterface*)(o->parent()->user_data()))->cb_button_11_i(o,v);
-}
-
-void UserInterface::cb_button_12_i(Fl_Light_Button*, void*) {
-  NumberSelectorUpdate(12);
-}
-void UserInterface::cb_button_12(Fl_Light_Button* o, void* v) {
-  ((UserInterface*)(o->parent()->user_data()))->cb_button_12_i(o,v);
-}
-
-void UserInterface::cb_button_13_i(Fl_Light_Button*, void*) {
-  NumberSelectorUpdate(13);
-}
-void UserInterface::cb_button_13(Fl_Light_Button* o, void* v) {
-  ((UserInterface*)(o->parent()->user_data()))->cb_button_13_i(o,v);
-}
-
-void UserInterface::cb_button_14_i(Fl_Light_Button*, void*) {
-  NumberSelectorUpdate(14);
-}
-void UserInterface::cb_button_14(Fl_Light_Button* o, void* v) {
-  ((UserInterface*)(o->parent()->user_data()))->cb_button_14_i(o,v);
-}
-
-void UserInterface::cb_button_15_i(Fl_Light_Button*, void*) {
-  NumberSelectorUpdate(15);
-}
-void UserInterface::cb_button_15(Fl_Light_Button* o, void* v) {
-  ((UserInterface*)(o->parent()->user_data()))->cb_button_15_i(o,v);
-}
-
-void UserInterface::cb_button_16_i(Fl_Light_Button*, void*) {
-  NumberSelectorUpdate(16);
-}
-void UserInterface::cb_button_16(Fl_Light_Button* o, void* v) {
-  ((UserInterface*)(o->parent()->user_data()))->cb_button_16_i(o,v);
-}
-
-void UserInterface::cb_button_17_i(Fl_Light_Button*, void*) {
-  NumberSelectorUpdate(17);
-}
-void UserInterface::cb_button_17(Fl_Light_Button* o, void* v) {
-  ((UserInterface*)(o->parent()->user_data()))->cb_button_17_i(o,v);
-}
-
-void UserInterface::cb_button_18_i(Fl_Light_Button*, void*) {
-  NumberSelectorUpdate(18);
-}
-void UserInterface::cb_button_18(Fl_Light_Button* o, void* v) {
-  ((UserInterface*)(o->parent()->user_data()))->cb_button_18_i(o,v);
-}
-
-void UserInterface::cb_button_19_i(Fl_Light_Button*, void*) {
-  NumberSelectorUpdate(19);
-}
-void UserInterface::cb_button_19(Fl_Light_Button* o, void* v) {
-  ((UserInterface*)(o->parent()->user_data()))->cb_button_19_i(o,v);
-}
-
-void UserInterface::cb_button_20_i(Fl_Light_Button*, void*) {
-  NumberSelectorUpdate(20);
-}
-void UserInterface::cb_button_20(Fl_Light_Button* o, void* v) {
-  ((UserInterface*)(o->parent()->user_data()))->cb_button_20_i(o,v);
-}
-
-void UserInterface::cb_button_21_i(Fl_Light_Button*, void*) {
-  NumberSelectorUpdate(21);
-}
-void UserInterface::cb_button_21(Fl_Light_Button* o, void* v) {
-  ((UserInterface*)(o->parent()->user_data()))->cb_button_21_i(o,v);
-}
-
-void UserInterface::cb_button_22_i(Fl_Light_Button*, void*) {
-  NumberSelectorUpdate(22);
-}
-void UserInterface::cb_button_22(Fl_Light_Button* o, void* v) {
-  ((UserInterface*)(o->parent()->user_data()))->cb_button_22_i(o,v);
-}
-
-void UserInterface::cb_button_23_i(Fl_Light_Button*, void*) {
-  NumberSelectorUpdate(23);
-}
-void UserInterface::cb_button_23(Fl_Light_Button* o, void* v) {
-  ((UserInterface*)(o->parent()->user_data()))->cb_button_23_i(o,v);
-}
-
-void UserInterface::cb_button_24_i(Fl_Light_Button*, void*) {
-  NumberSelectorUpdate(24);
-}
-void UserInterface::cb_button_24(Fl_Light_Button* o, void* v) {
-  ((UserInterface*)(o->parent()->user_data()))->cb_button_24_i(o,v);
-}
-
-void UserInterface::cb_button_25_i(Fl_Light_Button*, void*) {
-  NumberSelectorUpdate(25);
-}
-void UserInterface::cb_button_25(Fl_Light_Button* o, void* v) {
-  ((UserInterface*)(o->parent()->user_data()))->cb_button_25_i(o,v);
-}
-
-void UserInterface::cb_button_26_i(Fl_Light_Button*, void*) {
-  NumberSelectorUpdate(26);
-}
-void UserInterface::cb_button_26(Fl_Light_Button* o, void* v) {
-  ((UserInterface*)(o->parent()->user_data()))->cb_button_26_i(o,v);
-}
-
-void UserInterface::cb_button_27_i(Fl_Light_Button*, void*) {
-  NumberSelectorUpdate(27);
-}
-void UserInterface::cb_button_27(Fl_Light_Button* o, void* v) {
-  ((UserInterface*)(o->parent()->user_data()))->cb_button_27_i(o,v);
-}
-
-void UserInterface::cb_button_28_i(Fl_Light_Button*, void*) {
-  NumberSelectorUpdate(28);
-}
-void UserInterface::cb_button_28(Fl_Light_Button* o, void* v) {
-  ((UserInterface*)(o->parent()->user_data()))->cb_button_28_i(o,v);
-}
-
-void UserInterface::cb_button_29_i(Fl_Light_Button*, void*) {
-  NumberSelectorUpdate(29);
-}
-void UserInterface::cb_button_29(Fl_Light_Button* o, void* v) {
-  ((UserInterface*)(o->parent()->user_data()))->cb_button_29_i(o,v);
-}
-
-void UserInterface::cb_button_30_i(Fl_Light_Button*, void*) {
-  NumberSelectorUpdate(30);
-}
-void UserInterface::cb_button_30(Fl_Light_Button* o, void* v) {
-  ((UserInterface*)(o->parent()->user_data()))->cb_button_30_i(o,v);
-}
-
-void UserInterface::cb_button_31_i(Fl_Light_Button*, void*) {
-  NumberSelectorUpdate(31);
-}
-void UserInterface::cb_button_31(Fl_Light_Button* o, void* v) {
-  ((UserInterface*)(o->parent()->user_data()))->cb_button_31_i(o,v);
-}
-
-void UserInterface::cb_button_32_i(Fl_Light_Button*, void*) {
-  NumberSelectorUpdate(32);
-}
-void UserInterface::cb_button_32(Fl_Light_Button* o, void* v) {
-  ((UserInterface*)(o->parent()->user_data()))->cb_button_32_i(o,v);
-}
-
-void UserInterface::cb_button_33_i(Fl_Light_Button*, void*) {
-  NumberSelectorUpdate(33);
-}
-void UserInterface::cb_button_33(Fl_Light_Button* o, void* v) {
-  ((UserInterface*)(o->parent()->user_data()))->cb_button_33_i(o,v);
-}
-
-void UserInterface::cb_button_34_i(Fl_Light_Button*, void*) {
-  NumberSelectorUpdate(34);
-}
-void UserInterface::cb_button_34(Fl_Light_Button* o, void* v) {
-  ((UserInterface*)(o->parent()->user_data()))->cb_button_34_i(o,v);
-}
-
-void UserInterface::cb_button_35_i(Fl_Light_Button*, void*) {
-  NumberSelectorUpdate(35);
-}
-void UserInterface::cb_button_35(Fl_Light_Button* o, void* v) {
-  ((UserInterface*)(o->parent()->user_data()))->cb_button_35_i(o,v);
-}
-
-void UserInterface::cb_button_36_i(Fl_Light_Button*, void*) {
-  NumberSelectorUpdate(36);
-}
-void UserInterface::cb_button_36(Fl_Light_Button* o, void* v) {
-  ((UserInterface*)(o->parent()->user_data()))->cb_button_36_i(o,v);
-}
-
-void UserInterface::cb_button_37_i(Fl_Light_Button*, void*) {
-  NumberSelectorUpdate(37);
-}
-void UserInterface::cb_button_37(Fl_Light_Button* o, void* v) {
-  ((UserInterface*)(o->parent()->user_data()))->cb_button_37_i(o,v);
-}
-
-void UserInterface::cb_button_38_i(Fl_Light_Button*, void*) {
-  NumberSelectorUpdate(38);
-}
-void UserInterface::cb_button_38(Fl_Light_Button* o, void* v) {
-  ((UserInterface*)(o->parent()->user_data()))->cb_button_38_i(o,v);
-}
-
-void UserInterface::cb_button_39_i(Fl_Light_Button*, void*) {
-  NumberSelectorUpdate(39);
-}
-void UserInterface::cb_button_39(Fl_Light_Button* o, void* v) {
-  ((UserInterface*)(o->parent()->user_data()))->cb_button_39_i(o,v);
-}
-
-void UserInterface::cb_button_40_i(Fl_Light_Button*, void*) {
-  NumberSelectorUpdate(40);
-}
-void UserInterface::cb_button_40(Fl_Light_Button* o, void* v) {
-  ((UserInterface*)(o->parent()->user_data()))->cb_button_40_i(o,v);
-}
-
-void UserInterface::cb_button_41_i(Fl_Light_Button*, void*) {
-  NumberSelectorUpdate(41);
-}
-void UserInterface::cb_button_41(Fl_Light_Button* o, void* v) {
-  ((UserInterface*)(o->parent()->user_data()))->cb_button_41_i(o,v);
-}
-
-void UserInterface::cb_button_42_i(Fl_Light_Button*, void*) {
-  NumberSelectorUpdate(42);
-}
-void UserInterface::cb_button_42(Fl_Light_Button* o, void* v) {
-  ((UserInterface*)(o->parent()->user_data()))->cb_button_42_i(o,v);
-}
-
-void UserInterface::cb_button_43_i(Fl_Light_Button*, void*) {
-  NumberSelectorUpdate(43);
-}
-void UserInterface::cb_button_43(Fl_Light_Button* o, void* v) {
-  ((UserInterface*)(o->parent()->user_data()))->cb_button_43_i(o,v);
-}
-
-void UserInterface::cb_button_44_i(Fl_Light_Button*, void*) {
-  NumberSelectorUpdate(44);
-}
-void UserInterface::cb_button_44(Fl_Light_Button* o, void* v) {
-  ((UserInterface*)(o->parent()->user_data()))->cb_button_44_i(o,v);
-}
-
-void UserInterface::cb_button_45_i(Fl_Light_Button*, void*) {
-  NumberSelectorUpdate(45);
-}
-void UserInterface::cb_button_45(Fl_Light_Button* o, void* v) {
-  ((UserInterface*)(o->parent()->user_data()))->cb_button_45_i(o,v);
-}
-
 void UserInterface::cb_OK4_i(Fl_Button*, void*) {
   submitButtonNums();
 }
@@ -1289,139 +974,139 @@ Fl_Window* UserInterface::make_window() {
     Numberentry->user_data((void*)(this));
     Numberentry->align(Fl_Align(FL_ALIGN_CLIP|FL_ALIGN_INSIDE));
     { button_1 = new Fl_Light_Button(15, 25, 40, 25, "1");
-      button_1->callback((Fl_Callback*)cb_button_1);
+      button_1->callback((Fl_Callback*)NumberSelectorUpdate_cb, (void*)(1));
     } // Fl_Light_Button* button_1
     { button_2 = new Fl_Light_Button(55, 25, 40, 25, "2");
-      button_2->callback((Fl_Callback*)cb_button_2);
+      button_2->callback((Fl_Callback*)NumberSelectorUpdate_cb, (void*)(2));
     } // Fl_Light_Button* button_2
     { button_3 = new Fl_Light_Button(95, 25, 40, 25, "3");
-      button_3->callback((Fl_Callback*)cb_button_3);
+      button_3->callback((Fl_Callback*)NumberSelectorUpdate_cb, (void*)(3));
     } // Fl_Light_Button* button_3
     { button_4 = new Fl_Light_Button(135, 25, 40, 25, "4");
-      button_4->callback((Fl_Callback*)cb_button_4);
+      button_4->callback((Fl_Callback*)NumberSelectorUpdate_cb, (void*)(4));
     } // Fl_Light_Button* button_4
     { button_5 = new Fl_Light_Button(175, 25, 40, 25, "5");
-      button_5->callback((Fl_Callback*)cb_button_5);
+      button_5->callback((Fl_Callback*)NumberSelectorUpdate_cb, (void*)(5));
     } // Fl_Light_Button* button_5
     { button_6 = new Fl_Light_Button(215, 25, 40, 25, "6");
-      button_6->callback((Fl_Callback*)cb_button_6);
+      button_6->callback((Fl_Callback*)NumberSelectorUpdate_cb, (void*)(6));
     } // Fl_Light_Button* button_6
     { button_7 = new Fl_Light_Button(255, 25, 40, 25, "7");
-      button_7->callback((Fl_Callback*)cb_button_7);
+      button_7->callback((Fl_Callback*)NumberSelectorUpdate_cb, (void*)(7));
     } // Fl_Light_Button* button_7
     { button_8 = new Fl_Light_Button(295, 25, 40, 25, "8");
-      button_8->callback((Fl_Callback*)cb_button_8);
+      button_8->callback((Fl_Callback*)NumberSelectorUpdate_cb, (void*)(8));
     } // Fl_Light_Button* button_8
     { button_9 = new Fl_Light_Button(15, 50, 40, 25, "9");
-      button_9->callback((Fl_Callback*)cb_button_9);
+      button_9->callback((Fl_Callback*)NumberSelectorUpdate_cb, (void*)(9));
     } // Fl_Light_Button* button_9
     { button_10 = new Fl_Light_Button(55, 50, 40, 25, "10");
-      button_10->callback((Fl_Callback*)cb_button_10);
+      button_10->callback((Fl_Callback*)NumberSelectorUpdate_cb, (void*)(10));
     } // Fl_Light_Button* button_10
     { button_11 = new Fl_Light_Button(95, 50, 40, 25, "11");
-      button_11->callback((Fl_Callback*)cb_button_11);
+      button_11->callback((Fl_Callback*)NumberSelectorUpdate_cb, (void*)(11));
     } // Fl_Light_Button* button_11
     { button_12 = new Fl_Light_Button(135, 50, 40, 25, "12");
-      button_12->callback((Fl_Callback*)cb_button_12);
+      button_12->callback((Fl_Callback*)NumberSelectorUpdate_cb, (void*)(12));
     } // Fl_Light_Button* button_12
     { button_13 = new Fl_Light_Button(175, 50, 40, 25, "13");
-      button_13->callback((Fl_Callback*)cb_button_13);
+      button_13->callback((Fl_Callback*)NumberSelectorUpdate_cb, (void*)(13));
     } // Fl_Light_Button* button_13
     { button_14 = new Fl_Light_Button(215, 50, 40, 25, "14");
-      button_14->callback((Fl_Callback*)cb_button_14);
+      button_14->callback((Fl_Callback*)NumberSelectorUpdate_cb, (void*)(14));
     } // Fl_Light_Button* button_14
     { button_15 = new Fl_Light_Button(255, 50, 40, 25, "15");
-      button_15->callback((Fl_Callback*)cb_button_15);
+      button_15->callback((Fl_Callback*)NumberSelectorUpdate_cb, (void*)(15));
     } // Fl_Light_Button* button_15
     { button_16 = new Fl_Light_Button(295, 50, 40, 25, "16");
-      button_16->callback((Fl_Callback*)cb_button_16);
+      button_16->callback((Fl_Callback*)NumberSelectorUpdate_cb, (void*)(16));
     } // Fl_Light_Button* button_16
     { button_17 = new Fl_Light_Button(15, 75, 40, 25, "17");
-      button_17->callback((Fl_Callback*)cb_button_17);
+      button_17->callback((Fl_Callback*)NumberSelectorUpdate_cb, (void*)(17));
     } // Fl_Light_Button* button_17
     { button_18 = new Fl_Light_Button(55, 75, 40, 25, "18");
-      button_18->callback((Fl_Callback*)cb_button_18);
+      button_18->callback((Fl_Callback*)NumberSelectorUpdate_cb, (void*)(18));
     } // Fl_Light_Button* button_18
     { button_19 = new Fl_Light_Button(95, 75, 40, 25, "19");
-      button_19->callback((Fl_Callback*)cb_button_19);
+      button_19->callback((Fl_Callback*)NumberSelectorUpdate_cb, (void*)(19));
     } // Fl_Light_Button* button_19
     { button_20 = new Fl_Light_Button(135, 75, 40, 25, "20");
-      button_20->callback((Fl_Callback*)cb_button_20);
+      button_20->callback((Fl_Callback*)NumberSelectorUpdate_cb, (void*)(20));
     } // Fl_Light_Button* button_20
     { button_21 = new Fl_Light_Button(175, 75, 40, 25, "21");
-      button_21->callback((Fl_Callback*)cb_button_21);
+      button_21->callback((Fl_Callback*)NumberSelectorUpdate_cb, (void*)(21));
     } // Fl_Light_Button* button_21
     { button_22 = new Fl_Light_Button(215, 75, 40, 25, "22");
-      button_22->callback((Fl_Callback*)cb_button_22);
+      button_22->callback((Fl_Callback*)NumberSelectorUpdate_cb, (void*)(22));
     } // Fl_Light_Button* button_22
     { button_23 = new Fl_Light_Button(255, 75, 40, 25, "23");
-      button_23->callback((Fl_Callback*)cb_button_23);
+      button_23->callback((Fl_Callback*)NumberSelectorUpdate_cb, (void*)(23));
     } // Fl_Light_Button* button_23
     { button_24 = new Fl_Light_Button(295, 75, 40, 25, "24");
-      button_24->callback((Fl_Callback*)cb_button_24);
+      button_24->callback((Fl_Callback*)NumberSelectorUpdate_cb, (void*)(24));
     } // Fl_Light_Button* button_24
     { button_25 = new Fl_Light_Button(15, 100, 40, 25, "25");
-      button_25->callback((Fl_Callback*)cb_button_25);
+      button_25->callback((Fl_Callback*)NumberSelectorUpdate_cb, (void*)(25));
     } // Fl_Light_Button* button_25
     { button_26 = new Fl_Light_Button(55, 100, 40, 25, "26");
-      button_26->callback((Fl_Callback*)cb_button_26);
+      button_26->callback((Fl_Callback*)NumberSelectorUpdate_cb, (void*)(26));
     } // Fl_Light_Button* button_26
     { button_27 = new Fl_Light_Button(95, 100, 40, 25, "27");
-      button_27->callback((Fl_Callback*)cb_button_27);
+      button_27->callback((Fl_Callback*)NumberSelectorUpdate_cb, (void*)(27));
     } // Fl_Light_Button* button_27
     { button_28 = new Fl_Light_Button(135, 100, 40, 25, "28");
-      button_28->callback((Fl_Callback*)cb_button_28);
+      button_28->callback((Fl_Callback*)NumberSelectorUpdate_cb, (void*)(28));
     } // Fl_Light_Button* button_28
     { button_29 = new Fl_Light_Button(175, 100, 40, 25, "29");
-      button_29->callback((Fl_Callback*)cb_button_29);
+      button_29->callback((Fl_Callback*)NumberSelectorUpdate_cb, (void*)(29));
     } // Fl_Light_Button* button_29
     { button_30 = new Fl_Light_Button(215, 100, 40, 25, "30");
-      button_30->callback((Fl_Callback*)cb_button_30);
+      button_30->callback((Fl_Callback*)NumberSelectorUpdate_cb, (void*)(30));
     } // Fl_Light_Button* button_30
     { button_31 = new Fl_Light_Button(255, 100, 40, 25, "31");
-      button_31->callback((Fl_Callback*)cb_button_31);
+      button_31->callback((Fl_Callback*)NumberSelectorUpdate_cb, (void*)(31));
     } // Fl_Light_Button* button_31
     { button_32 = new Fl_Light_Button(295, 100, 40, 25, "32");
-      button_32->callback((Fl_Callback*)cb_button_32);
+      button_32->callback((Fl_Callback*)NumberSelectorUpdate_cb, (void*)(32));
     } // Fl_Light_Button* button_32
     { button_33 = new Fl_Light_Button(15, 125, 40, 25, "33");
-      button_33->callback((Fl_Callback*)cb_button_33);
+      button_33->callback((Fl_Callback*)NumberSelectorUpdate_cb, (void*)(33));
     } // Fl_Light_Button* button_33
     { button_34 = new Fl_Light_Button(55, 125, 40, 25, "34");
-      button_34->callback((Fl_Callback*)cb_button_34);
+      button_34->callback((Fl_Callback*)NumberSelectorUpdate_cb, (void*)(34));
     } // Fl_Light_Button* button_34
     { button_35 = new Fl_Light_Button(95, 125, 40, 25, "35");
-      button_35->callback((Fl_Callback*)cb_button_35);
+      button_35->callback((Fl_Callback*)NumberSelectorUpdate_cb, (void*)(35));
     } // Fl_Light_Button* button_35
     { button_36 = new Fl_Light_Button(135, 125, 40, 25, "36");
-      button_36->callback((Fl_Callback*)cb_button_36);
+      button_36->callback((Fl_Callback*)NumberSelectorUpdate_cb, (void*)(36));
     } // Fl_Light_Button* button_36
     { button_37 = new Fl_Light_Button(175, 125, 40, 25, "37");
-      button_37->callback((Fl_Callback*)cb_button_37);
+      button_37->callback((Fl_Callback*)NumberSelectorUpdate_cb, (void*)(37));
     } // Fl_Light_Button* button_37
     { button_38 = new Fl_Light_Button(215, 125, 40, 25, "38");
-      button_38->callback((Fl_Callback*)cb_button_38);
+      button_38->callback((Fl_Callback*)NumberSelectorUpdate_cb, (void*)(38));
     } // Fl_Light_Button* button_38
     { button_39 = new Fl_Light_Button(255, 125, 40, 25, "39");
-      button_39->callback((Fl_Callback*)cb_button_39);
+      button_39->callback((Fl_Callback*)NumberSelectorUpdate_cb, (void*)(39));
     } // Fl_Light_Button* button_39
     { button_40 = new Fl_Light_Button(295, 125, 40, 25, "40");
-      button_40->callback((Fl_Callback*)cb_button_40);
+      button_40->callback((Fl_Callback*)NumberSelectorUpdate_cb, (void*)(40));
     } // Fl_Light_Button* button_40
     { button_41 = new Fl_Light_Button(15, 150, 40, 25, "41");
-      button_41->callback((Fl_Callback*)cb_button_41);
+      button_41->callback((Fl_Callback*)NumberSelectorUpdate_cb, (void*)(41));
     } // Fl_Light_Button* button_41
     { button_42 = new Fl_Light_Button(55, 150, 40, 25, "42");
-      button_42->callback((Fl_Callback*)cb_button_42);
+      button_42->callback((Fl_Callback*)NumberSelectorUpdate_cb, (void*)(42));
     } // Fl_Light_Button* button_42
     { button_43 = new Fl_Light_Button(95, 150, 40, 25, "43");
-      button_43->callback((Fl_Callback*)cb_button_43);
+      button_43->callback((Fl_Callback*)NumberSelectorUpdate_cb, (void*)(43));
     } // Fl_Light_Button* button_43
     { button_44 = new Fl_Light_Button(135, 150, 40, 25, "44");
-      button_44->callback((Fl_Callback*)cb_button_44);
+      button_44->callback((Fl_Callback*)NumberSelectorUpdate_cb, (void*)(44));
     } // Fl_Light_Button* button_44
     { button_45 = new Fl_Light_Button(175, 150, 40, 25, "45");
-      button_45->callback((Fl_Callback*)cb_button_45);
+      button_45->callback((Fl_Callback*)NumberSelectorUpdate_cb, (void*)(45));
     } // Fl_Light_Button* button_45
     { Fl_Button* o = new Fl_Button(40, 210, 60, 30, "OK");
       o->labeltype(FL_EMBOSSED_LABEL);
@@ -1532,6 +1217,13 @@ int UserInterface::quit() {
 
 void UserInterface::show_help_window() {
   this->help_window->show();
+}
+
+void UserInterface::NumberSelectorUpdate_cb(Fl_Widget* w, void* userdata) {
+  Fl_Widget *p = w->parent();
+  while (p->parent()) p = p->parent();
+  int ptr = *((int*)(&userdata));
+  ((UserInterface*)p->user_data())->NumberSelectorUpdate(ptr);
 }
 
 void UserInterface::show_Numberentry_window() {

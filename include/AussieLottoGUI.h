@@ -176,229 +176,51 @@ private:
 public:
   Fl_Double_Window *Numberentry;
   Fl_Light_Button *button_1;
-private:
-  inline void cb_button_1_i(Fl_Light_Button*, void*);
-  static void cb_button_1(Fl_Light_Button*, void*);
-public:
   Fl_Light_Button *button_2;
-private:
-  inline void cb_button_2_i(Fl_Light_Button*, void*);
-  static void cb_button_2(Fl_Light_Button*, void*);
-public:
   Fl_Light_Button *button_3;
-private:
-  inline void cb_button_3_i(Fl_Light_Button*, void*);
-  static void cb_button_3(Fl_Light_Button*, void*);
-public:
   Fl_Light_Button *button_4;
-private:
-  inline void cb_button_4_i(Fl_Light_Button*, void*);
-  static void cb_button_4(Fl_Light_Button*, void*);
-public:
   Fl_Light_Button *button_5;
-private:
-  inline void cb_button_5_i(Fl_Light_Button*, void*);
-  static void cb_button_5(Fl_Light_Button*, void*);
-public:
   Fl_Light_Button *button_6;
-private:
-  inline void cb_button_6_i(Fl_Light_Button*, void*);
-  static void cb_button_6(Fl_Light_Button*, void*);
-public:
   Fl_Light_Button *button_7;
-private:
-  inline void cb_button_7_i(Fl_Light_Button*, void*);
-  static void cb_button_7(Fl_Light_Button*, void*);
-public:
   Fl_Light_Button *button_8;
-private:
-  inline void cb_button_8_i(Fl_Light_Button*, void*);
-  static void cb_button_8(Fl_Light_Button*, void*);
-public:
   Fl_Light_Button *button_9;
-private:
-  inline void cb_button_9_i(Fl_Light_Button*, void*);
-  static void cb_button_9(Fl_Light_Button*, void*);
-public:
   Fl_Light_Button *button_10;
-private:
-  inline void cb_button_10_i(Fl_Light_Button*, void*);
-  static void cb_button_10(Fl_Light_Button*, void*);
-public:
   Fl_Light_Button *button_11;
-private:
-  inline void cb_button_11_i(Fl_Light_Button*, void*);
-  static void cb_button_11(Fl_Light_Button*, void*);
-public:
   Fl_Light_Button *button_12;
-private:
-  inline void cb_button_12_i(Fl_Light_Button*, void*);
-  static void cb_button_12(Fl_Light_Button*, void*);
-public:
   Fl_Light_Button *button_13;
-private:
-  inline void cb_button_13_i(Fl_Light_Button*, void*);
-  static void cb_button_13(Fl_Light_Button*, void*);
-public:
   Fl_Light_Button *button_14;
-private:
-  inline void cb_button_14_i(Fl_Light_Button*, void*);
-  static void cb_button_14(Fl_Light_Button*, void*);
-public:
   Fl_Light_Button *button_15;
-private:
-  inline void cb_button_15_i(Fl_Light_Button*, void*);
-  static void cb_button_15(Fl_Light_Button*, void*);
-public:
   Fl_Light_Button *button_16;
-private:
-  inline void cb_button_16_i(Fl_Light_Button*, void*);
-  static void cb_button_16(Fl_Light_Button*, void*);
-public:
   Fl_Light_Button *button_17;
-private:
-  inline void cb_button_17_i(Fl_Light_Button*, void*);
-  static void cb_button_17(Fl_Light_Button*, void*);
-public:
   Fl_Light_Button *button_18;
-private:
-  inline void cb_button_18_i(Fl_Light_Button*, void*);
-  static void cb_button_18(Fl_Light_Button*, void*);
-public:
   Fl_Light_Button *button_19;
-private:
-  inline void cb_button_19_i(Fl_Light_Button*, void*);
-  static void cb_button_19(Fl_Light_Button*, void*);
-public:
   Fl_Light_Button *button_20;
-private:
-  inline void cb_button_20_i(Fl_Light_Button*, void*);
-  static void cb_button_20(Fl_Light_Button*, void*);
-public:
   Fl_Light_Button *button_21;
-private:
-  inline void cb_button_21_i(Fl_Light_Button*, void*);
-  static void cb_button_21(Fl_Light_Button*, void*);
-public:
   Fl_Light_Button *button_22;
-private:
-  inline void cb_button_22_i(Fl_Light_Button*, void*);
-  static void cb_button_22(Fl_Light_Button*, void*);
-public:
   Fl_Light_Button *button_23;
-private:
-  inline void cb_button_23_i(Fl_Light_Button*, void*);
-  static void cb_button_23(Fl_Light_Button*, void*);
-public:
   Fl_Light_Button *button_24;
-private:
-  inline void cb_button_24_i(Fl_Light_Button*, void*);
-  static void cb_button_24(Fl_Light_Button*, void*);
-public:
   Fl_Light_Button *button_25;
-private:
-  inline void cb_button_25_i(Fl_Light_Button*, void*);
-  static void cb_button_25(Fl_Light_Button*, void*);
-public:
   Fl_Light_Button *button_26;
-private:
-  inline void cb_button_26_i(Fl_Light_Button*, void*);
-  static void cb_button_26(Fl_Light_Button*, void*);
-public:
   Fl_Light_Button *button_27;
-private:
-  inline void cb_button_27_i(Fl_Light_Button*, void*);
-  static void cb_button_27(Fl_Light_Button*, void*);
-public:
   Fl_Light_Button *button_28;
-private:
-  inline void cb_button_28_i(Fl_Light_Button*, void*);
-  static void cb_button_28(Fl_Light_Button*, void*);
-public:
   Fl_Light_Button *button_29;
-private:
-  inline void cb_button_29_i(Fl_Light_Button*, void*);
-  static void cb_button_29(Fl_Light_Button*, void*);
-public:
   Fl_Light_Button *button_30;
-private:
-  inline void cb_button_30_i(Fl_Light_Button*, void*);
-  static void cb_button_30(Fl_Light_Button*, void*);
-public:
   Fl_Light_Button *button_31;
-private:
-  inline void cb_button_31_i(Fl_Light_Button*, void*);
-  static void cb_button_31(Fl_Light_Button*, void*);
-public:
   Fl_Light_Button *button_32;
-private:
-  inline void cb_button_32_i(Fl_Light_Button*, void*);
-  static void cb_button_32(Fl_Light_Button*, void*);
-public:
   Fl_Light_Button *button_33;
-private:
-  inline void cb_button_33_i(Fl_Light_Button*, void*);
-  static void cb_button_33(Fl_Light_Button*, void*);
-public:
   Fl_Light_Button *button_34;
-private:
-  inline void cb_button_34_i(Fl_Light_Button*, void*);
-  static void cb_button_34(Fl_Light_Button*, void*);
-public:
   Fl_Light_Button *button_35;
-private:
-  inline void cb_button_35_i(Fl_Light_Button*, void*);
-  static void cb_button_35(Fl_Light_Button*, void*);
-public:
   Fl_Light_Button *button_36;
-private:
-  inline void cb_button_36_i(Fl_Light_Button*, void*);
-  static void cb_button_36(Fl_Light_Button*, void*);
-public:
   Fl_Light_Button *button_37;
-private:
-  inline void cb_button_37_i(Fl_Light_Button*, void*);
-  static void cb_button_37(Fl_Light_Button*, void*);
-public:
   Fl_Light_Button *button_38;
-private:
-  inline void cb_button_38_i(Fl_Light_Button*, void*);
-  static void cb_button_38(Fl_Light_Button*, void*);
-public:
   Fl_Light_Button *button_39;
-private:
-  inline void cb_button_39_i(Fl_Light_Button*, void*);
-  static void cb_button_39(Fl_Light_Button*, void*);
-public:
   Fl_Light_Button *button_40;
-private:
-  inline void cb_button_40_i(Fl_Light_Button*, void*);
-  static void cb_button_40(Fl_Light_Button*, void*);
-public:
   Fl_Light_Button *button_41;
-private:
-  inline void cb_button_41_i(Fl_Light_Button*, void*);
-  static void cb_button_41(Fl_Light_Button*, void*);
-public:
   Fl_Light_Button *button_42;
-private:
-  inline void cb_button_42_i(Fl_Light_Button*, void*);
-  static void cb_button_42(Fl_Light_Button*, void*);
-public:
   Fl_Light_Button *button_43;
-private:
-  inline void cb_button_43_i(Fl_Light_Button*, void*);
-  static void cb_button_43(Fl_Light_Button*, void*);
-public:
   Fl_Light_Button *button_44;
-private:
-  inline void cb_button_44_i(Fl_Light_Button*, void*);
-  static void cb_button_44(Fl_Light_Button*, void*);
-public:
   Fl_Light_Button *button_45;
 private:
-  inline void cb_button_45_i(Fl_Light_Button*, void*);
-  static void cb_button_45(Fl_Light_Button*, void*);
   inline void cb_OK4_i(Fl_Button*, void*);
   static void cb_OK4(Fl_Button*, void*);
 public:
@@ -425,7 +247,7 @@ public:
   virtual void lottostrikeEntry() = 0;
   virtual void setForLifeEntry() = 0;
   virtual void saveResults() = 0;
-  virtual void NumberSelectorUpdate(int x) = 0;
+  static void NumberSelectorUpdate_cb(Fl_Widget* w, void* userdata);
   virtual void show_Numberentry_window();
   virtual void submitButtonNums() = 0;
   virtual void clearNumberSelector() = 0;
@@ -437,5 +259,6 @@ public:
   static void hide_parent(Fl_Widget *w, void* data);
   void show_entry_callback(Fl_Widget* w, void* userdata);
   static void show_entry_window(Fl_Widget* w, void* userdata);
+  virtual void NumberSelectorUpdate(int x) = 0;;
 };
 #endif
