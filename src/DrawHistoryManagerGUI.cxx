@@ -9,11 +9,39 @@ void DrawHistoryManagerGUI::cb_Update(Fl_Button* o, void* v) {
   ((DrawHistoryManagerGUI*)(o->parent()->user_data()))->cb_Update_i(o,v);
 }
 
+void DrawHistoryManagerGUI::cb_View_i(Fl_Button*, void*) {
+  init_result_view(R_TATTSLOTTO);
+}
+void DrawHistoryManagerGUI::cb_View(Fl_Button* o, void* v) {
+  ((DrawHistoryManagerGUI*)(o->parent()->user_data()))->cb_View_i(o,v);
+}
+
+void DrawHistoryManagerGUI::cb_View1_i(Fl_Button*, void*) {
+  init_result_view(R_POWERBALL);
+}
+void DrawHistoryManagerGUI::cb_View1(Fl_Button* o, void* v) {
+  ((DrawHistoryManagerGUI*)(o->parent()->user_data()))->cb_View1_i(o,v);
+}
+
+void DrawHistoryManagerGUI::cb_View2_i(Fl_Button*, void*) {
+  init_result_view(R_OZLOTTO);
+}
+void DrawHistoryManagerGUI::cb_View2(Fl_Button* o, void* v) {
+  ((DrawHistoryManagerGUI*)(o->parent()->user_data()))->cb_View2_i(o,v);
+}
+
+void DrawHistoryManagerGUI::cb_View3_i(Fl_Button*, void*) {
+  init_result_view(R_SET_FOR_LIFE);
+}
+void DrawHistoryManagerGUI::cb_View3(Fl_Button* o, void* v) {
+  ((DrawHistoryManagerGUI*)(o->parent()->user_data()))->cb_View3_i(o,v);
+}
+
 Fl_Double_Window* DrawHistoryManagerGUI::make_window() {
   { main_window = new Fl_Double_Window(970, 810, "Results Manager");
     main_window->color((Fl_Color)12);
     main_window->user_data((void*)(this));
-    { Fl_Box* o = new Fl_Box(0, 0, 765, 25, "Result Manager");
+    { Fl_Box* o = new Fl_Box(0, 0, 970, 25, "Result Manager");
       o->box(FL_DOWN_BOX);
       o->color((Fl_Color)4);
       o->selection_color(FL_FOREGROUND_COLOR);
@@ -49,11 +77,11 @@ Fl_Double_Window* DrawHistoryManagerGUI::make_window() {
     } // Fl_Box* o
     { tatts_last_draw = new Fl_Output(205, 105, 135, 30);
     } // Fl_Output* tatts_last_draw
-    { ozlotto_last_draw = new Fl_Output(340, 105, 135, 30);
+    { ozlotto_last_draw = new Fl_Output(475, 105, 135, 30);
     } // Fl_Output* ozlotto_last_draw
-    { powerball_last_draw = new Fl_Output(475, 105, 135, 30);
+    { powerball_last_draw = new Fl_Output(340, 105, 135, 30);
     } // Fl_Output* powerball_last_draw
-    { sfl_last_draw = new Fl_Output(475, 135, 135, 30);
+    { sfl_last_draw = new Fl_Output(610, 105, 135, 30);
     } // Fl_Output* sfl_last_draw
     { Fl_Box* o = new Fl_Box(5, 135, 200, 30, "Latest Draw Date");
       o->box(FL_BORDER_BOX);
@@ -61,9 +89,9 @@ Fl_Double_Window* DrawHistoryManagerGUI::make_window() {
       o->labeltype(FL_ENGRAVED_LABEL);
       o->labelsize(16);
     } // Fl_Box* o
-    { ozlotto_last_date = new Fl_Output(340, 135, 135, 30);
+    { ozlotto_last_date = new Fl_Output(475, 135, 135, 30);
     } // Fl_Output* ozlotto_last_date
-    { powerball_last_date = new Fl_Output(610, 105, 135, 30);
+    { powerball_last_date = new Fl_Output(340, 135, 135, 30);
     } // Fl_Output* powerball_last_date
     { sfl_last_date = new Fl_Output(610, 135, 135, 30);
     } // Fl_Output* sfl_last_date
@@ -72,27 +100,19 @@ Fl_Double_Window* DrawHistoryManagerGUI::make_window() {
     { Fl_Button* o = new Fl_Button(415, 25, 210, 25, "Update/Download Results");
       o->callback((Fl_Callback*)cb_Update);
     } // Fl_Button* o
-    { Fl_Button* o = new Fl_Button(205, 165, 135, 30, "Use Results");
-      o->tooltip("Check your results against the latest draw");
+    { Fl_Button* o = new Fl_Button(205, 165, 135, 30, "View Results");
+      o->callback((Fl_Callback*)cb_View);
     } // Fl_Button* o
-    { Fl_Button* o = new Fl_Button(340, 165, 135, 30, "Use Results");
-      o->tooltip("Check your results against the latest draw");
+    { Fl_Button* o = new Fl_Button(340, 165, 135, 30, "View Results");
+      o->callback((Fl_Callback*)cb_View1);
     } // Fl_Button* o
-    { Fl_Button* o = new Fl_Button(475, 165, 135, 30, "Use Results");
-      o->tooltip("Check your results against the latest draw");
+    { Fl_Button* o = new Fl_Button(475, 165, 135, 30, "View Results");
+      o->callback((Fl_Callback*)cb_View2);
     } // Fl_Button* o
-    { Fl_Button* o = new Fl_Button(610, 165, 135, 30, "Use Results");
-      o->tooltip("Check your results against the latest draw");
+    { Fl_Button* o = new Fl_Button(610, 165, 135, 30, "View Results");
+      o->callback((Fl_Callback*)cb_View3);
     } // Fl_Button* o
-    { new Fl_Button(205, 195, 135, 30, "View Results");
-    } // Fl_Button* o
-    { new Fl_Button(340, 195, 135, 30, "View Results");
-    } // Fl_Button* o
-    { new Fl_Button(475, 195, 135, 30, "View Results");
-    } // Fl_Button* o
-    { new Fl_Button(610, 195, 135, 30, "View Results");
-    } // Fl_Button* o
-    { resultViewTable = new ResultViewTable(15, 270, 755, 335);
+    { resultViewTable = new ResultViewTable(15, 270, 955, 335);
       resultViewTable->box(FL_THIN_DOWN_FRAME);
       resultViewTable->color(FL_BACKGROUND_COLOR);
       resultViewTable->selection_color(FL_BACKGROUND_COLOR);

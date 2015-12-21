@@ -12,7 +12,9 @@ void ResultViewTable::DrawHeader(const char *s, int X, int Y, int W, int H) {
   } 
 void ResultViewTable::draw_cell(TableContext context, int ROW, int COL, int X, int Y, int W, int H)
 {
-  int x = viewdata->rowToDraw(R_TATTSLOTTO, ROW);
+  int x = viewdata->rowToDraw(type, ROW);
+  const std::vector<int> &balls = viewdata->getResults(type, x);
+  const std::vector<int> &supps = viewdata->getSupps(type, x);
   std::string date;
   static char s[40];
   switch ( context ) {
@@ -30,9 +32,15 @@ void ResultViewTable::draw_cell(TableContext context, int ROW, int COL, int X, i
     case CONTEXT_CELL: {
      if (COL == 0)
       {
-	date = viewdata->getDate(R_TATTSLOTTO, x);
+	date = viewdata->getDate(type, x);
 	sprintf(s,"%s",date.c_str());     
-      } else sprintf(s, "%s", "test");
+      } else if (( COL <= balls.size() ) && (COL >= 1)) {
+	sprintf(s, "%u", balls[COL-1]);
+      } else if (( COL > balls.size()) && (COL <= (balls.size() + supps.size()))) {
+	sprintf(s, "%u", supps[COL - (balls.size() + 1)]);
+      } else {
+	sprintf(s, "%u", 0);
+      }
       // Handle coloring of cells
       draw_context_cell(s, ROW, COL, X, Y, W, H);
     }
@@ -75,7 +83,7 @@ void ResultViewTable::init()
     row_height_all(20);         // default height of rows
     row_resize(0);              // disable row resizing
     // Cols
-    cols(viewdata->cols(type));             // how many columns
+    cols(viewdata->cols(type)-1);             // how many columns
     col_header(1);              // enable column headers (along top)
     col_width_all(80);          // default width of columns
     col_resize(1);              // enable column resizing

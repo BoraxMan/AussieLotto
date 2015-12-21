@@ -673,6 +673,100 @@ AusLotto::AusLotto(ResultManager *resultmanager, const std::string &configdir) :
   rm = resultmanager;
 }
 
+void AusLotto::no_draw(int draw)
+{
+  fl_message_title("Invalid draw.");
+  fl_message("There are no results available for draw %u.  Try downloading the latest results and trying again.", draw);
+  return;
+}
+void AusLotto::use_draw_results_cb(Fl_Widget* w, void* userdata)
+{
+  if (userdata == (resultType*)R_TATTSLOTTO) {
+    int draw = static_cast<int>(this->t_draw->value());
+    if (draw == 0) {
+      this->t_draw->value(rm->getLastDraw(R_TATTSLOTTO));
+    }
+    const std::vector<int> &balls = rm->getResults(R_TATTSLOTTO, draw);
+    if (balls.size() == 0) {
+      no_draw(draw);
+      return;
+    }
+    const std::vector<int> &supps = rm->getSupps(R_TATTSLOTTO, draw);
+    this->num1->value(balls[0]);
+    this->num2->value(balls[1]);
+    this->num3->value(balls[2]);
+    this->num4->value(balls[3]);
+    this->num5->value(balls[4]);
+    this->num6->value(balls[5]);
+    this->supp1->value(supps[0]);
+    this->supp2->value(supps[1]);
+    return;
+  } else if (userdata == (resultType*)R_OZLOTTO) {
+    int draw = static_cast<int>(this->o_draw->value());
+    if (draw == 0) {
+      this->o_draw->value(rm->getLastDraw(R_OZLOTTO));
+    }
+    const std::vector<int> &balls = rm->getResults(R_OZLOTTO, draw);
+    if (balls.size() == 0) {
+      no_draw(draw);
+      return;
+    }
+    const std::vector<int> &supps = rm->getSupps(R_OZLOTTO, draw);
+    this->oz_num1->value(balls[0]);
+    this->oz_num2->value(balls[1]);
+    this->oz_num3->value(balls[2]);
+    this->oz_num4->value(balls[3]);
+    this->oz_num5->value(balls[4]);
+    this->oz_num6->value(balls[5]);
+    this->oz_num7->value(balls[6]);
+    this->oz_supp1->value(supps[0]);
+    this->oz_supp2->value(supps[1]);
+    return;
+  } else if (userdata == (resultType*)R_POWERBALL) {
+    int draw = static_cast<int>(this->p_draw->value());
+    if (draw == 0) {
+      this->p_draw->value(rm->getLastDraw(R_POWERBALL));
+    }
+    const std::vector<int> &balls = rm->getResults(R_POWERBALL, draw);
+    if (balls.size() == 0) {
+      no_draw(draw);
+      return;
+    }
+    const std::vector<int> &supps = rm->getSupps(R_POWERBALL, draw);
+    this->pb_num1->value(balls[0]);
+    this->pb_num2->value(balls[1]);
+    this->pb_num3->value(balls[2]);
+    this->pb_num4->value(balls[3]);
+    this->pb_num5->value(balls[4]);
+    this->pb_num6->value(balls[5]);
+    this->powerball_value->value(balls[6]);
+    return;
+  } else if (userdata == (resultType*)R_SET_FOR_LIFE) {
+    int draw = static_cast<int>(this->s_draw->value());
+    if (draw == 0) {
+      this->s_draw->value(rm->getLastDraw(R_SET_FOR_LIFE));
+    }
+    const std::vector<int> &balls = rm->getResults(R_SET_FOR_LIFE, draw);
+    if (balls.size() == 0) {
+      no_draw(draw);
+      return;
+    }
+    const std::vector<int> &supps = rm->getSupps(R_SET_FOR_LIFE, draw);
+    this->sfl_num1->value(balls[0]);
+    this->sfl_num2->value(balls[1]);
+    this->sfl_num3->value(balls[2]);
+    this->sfl_num4->value(balls[3]);
+    this->sfl_num5->value(balls[4]);
+    this->sfl_num6->value(balls[5]);
+    this->sfl_num7->value(balls[6]);
+    this->sfl_num8->value(balls[7]);
+    this->sfl_bonus1->value(supps[0]);
+    this->sfl_bonus2->value(supps[1]);
+    return;
+  }
+    
+}
+
 void AusLotto::clear_lotto(void)
 {
   gameType activeTab;

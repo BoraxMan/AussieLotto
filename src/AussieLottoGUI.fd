@@ -14,6 +14,9 @@ decl {\#include "defs.h"} {private local
 decl {\#include "types.h"} {public global
 } 
 
+decl {\#include "ResultManager.h"} {selected public global
+} 
+
 class UserInterface {open
 } {
   decl {Fl_Text_Buffer *sflTextBuffer;} {public local
@@ -35,8 +38,8 @@ class UserInterface {open
   Function {make_window()} {open
   } {
     Fl_Window lotto_gui {
-      label {Aussie Lotto}
-      xywh {776 338 670 620} type Single color 14 selection_color 32 labelcolor 12 align 80 when 6 hide
+      label {Aussie Lotto} open
+      xywh {393 375 670 620} type Single color 14 selection_color 32 labelcolor 12 align 80 when 6 visible
     } {
       Fl_Box {} {
         label {Aussie Lotto}
@@ -118,10 +121,10 @@ class UserInterface {open
       }
       Fl_Tabs tabular {
         callback {changeTab()} open
-        xywh {0 125 660 605} box THIN_DOWN_BOX labeltype NO_LABEL align 37
+        xywh {0 125 670 605} box THIN_DOWN_BOX labeltype NO_LABEL align 37
       } {
         Fl_Group tattslotto_tab {
-          label {Tattslotto/Gold Lotto/X Lotto}
+          label {Tattslotto/Gold Lotto/X Lotto} open
           xywh {0 150 660 470} box DOWN_BOX color 140 selection_color 29 labeltype EMBOSSED_LABEL hide
         } {
           Fl_Group {} {
@@ -174,10 +177,19 @@ class UserInterface {open
             callback {show_Numberentry_window()}
             xywh {440 305 120 60} color 14 align 128
           }
+          Fl_Value_Input t_draw {
+            xywh {460 185 60 25}
+          }
+          Fl_Button {} {
+            label {Use Draw Results}
+            user_data R_TATTSLOTTO
+            callback use_draw_results
+            xywh {520 185 140 25}
+          }
         }
         Fl_Group ozlotto_tab {
-          label OzLotto
-          xywh {0 150 660 470} box DOWN_BOX color 60 labeltype EMBOSSED_LABEL hide
+          label OzLotto open
+          xywh {0 150 670 470} box DOWN_BOX color 60 labeltype EMBOSSED_LABEL hide
         } {
           Fl_Group {} {
             label {Oz Lotto Numbers} open
@@ -232,9 +244,18 @@ class UserInterface {open
             callback {show_Numberentry_window()}
             xywh {440 305 120 60} color 10 align 128
           }
+          Fl_Value_Input o_draw {
+            xywh {555 155 70 25}
+          }
+          Fl_Button {} {
+            label {Use Draw Results}
+            user_data R_OZLOTTO
+            callback use_draw_results
+            xywh {530 180 140 25}
+          }
         }
         Fl_Group powerball_tab {
-          label Powerball
+          label Powerball open
           xywh {0 150 660 580} box DOWN_BOX color 187 labeltype EMBOSSED_LABEL hide
         } {
           Fl_Group {} {
@@ -262,10 +283,10 @@ class UserInterface {open
           }
           Fl_Group {} {
             label Powerball open
-            xywh {375 170 85 55} box PLASTIC_DOWN_BOX color 4 labeltype ENGRAVED_LABEL labelsize 16
+            xywh {300 170 90 55} box PLASTIC_DOWN_BOX color 4 labeltype ENGRAVED_LABEL labelsize 16
           } {
             Fl_Value_Input powerball_value {
-              xywh {395 175 50 45} color 59 selection_color 58 labelsize 16 labelcolor 6 textfont 1 textsize 18 textcolor 6
+              xywh {320 175 50 45} color 59 selection_color 58 labelsize 16 labelcolor 6 textfont 1 textsize 18 textcolor 6
             }
           }
           Fl_Text_Display powerball_number_view {
@@ -282,12 +303,21 @@ class UserInterface {open
           Fl_Check_Button ensurePowerball {
             label {Ensure Powerball}
             callback {ensurePowerballButton()}
-            xywh {475 150 185 55} down_box DOWN_BOX align 148
+            xywh {400 150 185 55} down_box DOWN_BOX align 148
+          }
+          Fl_Button {} {
+            label {Use Draw Results}
+            user_data R_POWERBALL
+            callback use_draw_results
+            xywh {515 200 140 25}
+          }
+          Fl_Value_Input p_draw {
+            xywh {395 200 120 25}
           }
         }
         Fl_Group lottostrike_tab {
           label {Lotto Strike} open
-          xywh {0 150 660 470} box DOWN_BOX color 11 selection_color 29 labeltype EMBOSSED_LABEL resizable
+          xywh {0 150 660 470} box DOWN_BOX color 11 selection_color 29 labeltype EMBOSSED_LABEL hide resizable
         } {
           Fl_Group {} {
             label {Gold Lotto Numbers} open
@@ -326,7 +356,7 @@ class UserInterface {open
         }
         Fl_Group setforlife_tab {
           label {Set for life} open
-          xywh {0 150 660 470} box DOWN_BOX color 223 labeltype EMBOSSED_LABEL hide
+          xywh {0 150 660 470} box DOWN_BOX color 223 labeltype EMBOSSED_LABEL
         } {
           Fl_Group {} {
             label {Set For Life Numbers} open
@@ -359,13 +389,13 @@ class UserInterface {open
           }
           Fl_Group {} {
             label Bonus open
-            xywh {395 170 135 45} box PLASTIC_DOWN_BOX color 222 labelsize 16
+            xywh {355 170 135 45} box PLASTIC_DOWN_BOX color 222 labelsize 16
           } {
             Fl_Value_Input sfl_bonus1 {
-              xywh {415 180 35 30} color 59 selection_color 58 labelcolor 3 textsize 16 textcolor 3
+              xywh {375 180 35 30} color 59 selection_color 58 labelcolor 3 textsize 16 textcolor 3
             }
             Fl_Value_Input sfl_bonus2 {
-              xywh {455 180 35 30} color 59 selection_color 58 labelcolor 3 textsize 16 textcolor 3
+              xywh {415 180 35 30} color 59 selection_color 58 labelcolor 3 textsize 16 textcolor 3
             }
           }
           Fl_Text_Display sflnumber_view {
@@ -383,6 +413,15 @@ class UserInterface {open
             label {Enter numbers with buttons}
             callback {show_Numberentry_window()}
             xywh {510 300 120 60} color 219 align 128
+          }
+          Fl_Button {} {
+            label {Use Draw Results}
+            user_data R_SET_FOR_LIFE
+            callback use_draw_results
+            xywh {510 185 140 25}
+          }
+          Fl_Value_Input s_draw {
+            xywh {510 160 140 25}
           }
         }
       }
@@ -426,7 +465,7 @@ class UserInterface {open
     }
     Fl_Window results_window {
       label Results
-      xywh {512 211 415 380} type Double color 14 align 80 modal visible
+      xywh {512 211 415 380} type Double color 14 align 80 hide modal
     } {
       Fl_Button {} {
         label Close
@@ -449,7 +488,7 @@ class UserInterface {open
     }
     Fl_Window divisions_window {
       label {Tattslotto Divisions}
-      xywh {330 218 505 295} type Double color 14 align 80 modal visible
+      xywh {330 218 505 295} type Double color 14 align 80 hide modal
     } {
       Fl_Text_Display {} {
         label {Division 1 : 6 numbers}
@@ -487,7 +526,7 @@ class UserInterface {open
     }
     Fl_Window help_window {
       label {HELP / MANUAL}
-      xywh {31 77 555 440} type Double color 14 align 80 visible
+      xywh {31 77 555 440} type Double color 14 align 80 hide
     } {
       Fl_Box {} {
         label {HELP / MANUAL}
@@ -627,7 +666,7 @@ class UserInterface {open
     }
     Fl_Window LottostrikeNumberEntryWindow {
       label {Lotto Strike Number} open
-      xywh {77 56 430 565} type Double color 14 visible
+      xywh {77 56 430 565} type Double color 14 hide
     } {
       Fl_Group LottostrikeEntryGroup {
         label {Enter Lotto Strike Numbers} open
@@ -646,7 +685,7 @@ class UserInterface {open
     }
     Fl_Window SetForLifeNumberEntryWindow {
       label {Set For Life Number} open
-      xywh {471 73 430 565} type Double color 14 align 80 visible
+      xywh {471 73 430 565} type Double color 14 align 80 hide
     } {
       Fl_Group SetForLifeEntryGroup {
         label {Enter Set For Life Numbers} open
@@ -950,7 +989,7 @@ class UserInterface {open
     }
     Fl_Window PowerballNumberEntryWindow {
       label {Powerball Number} open
-      xywh {461 63 430 565} type Double color 14 align 80 visible
+      xywh {461 63 430 565} type Double color 14 align 80 hide
     } {
       Fl_Group PowerballEntryGroup {
         label {Enter Powerball Numbers} open
@@ -1126,6 +1165,15 @@ while (p->parent()) p = p->parent();
 
 ((UserInterface*)p->user_data())->show_entry_callback(w, userdata);} {}
   }
-  Function {NumberSelectorUpdate(int x) = 0;} {open selected return_type {virtual void}
+  Function {NumberSelectorUpdate(int x) = 0;} {open return_type {virtual void}
+  } {}
+  Function {use_draw_results(Fl_Widget* w, void* userdata)} {open return_type {static void}
+  } {
+    code {Fl_Widget *p = w->parent();
+while (p->parent()) p = p->parent();
+
+((UserInterface*)p->user_data())->use_draw_results_cb(w, userdata);} {}
+  }
+  Function {use_draw_results_cb(Fl_Widget* w, void* userdata) = 0} {open return_type {virtual void}
   } {}
 } 

@@ -263,7 +263,7 @@ Fl_Window* UserInterface::make_window() {
       o->color((Fl_Color)14);
       o->callback((Fl_Callback*)cb_Help);
     } // Fl_Button* o
-    { tabular = new Fl_Tabs(0, 125, 660, 605);
+    { tabular = new Fl_Tabs(0, 125, 670, 605);
       tabular->box(FL_THIN_DOWN_BOX);
       tabular->labeltype(FL_NO_LABEL);
       tabular->callback((Fl_Callback*)cb_tabular);
@@ -351,9 +351,14 @@ Fl_Window* UserInterface::make_window() {
           o->callback((Fl_Callback*)cb_Enter);
           o->align(Fl_Align(FL_ALIGN_WRAP));
         } // Fl_Button* o
+        { t_draw = new Fl_Value_Input(460, 185, 60, 25);
+        } // Fl_Value_Input* t_draw
+        { Fl_Button* o = new Fl_Button(520, 185, 140, 25, "Use Draw Results");
+          o->callback((Fl_Callback*)use_draw_results, (void*)(R_TATTSLOTTO));
+        } // Fl_Button* o
         tattslotto_tab->end();
       } // Fl_Group* tattslotto_tab
-      { ozlotto_tab = new Fl_Group(0, 150, 660, 470, "OzLotto");
+      { ozlotto_tab = new Fl_Group(0, 150, 670, 470, "OzLotto");
         ozlotto_tab->box(FL_DOWN_BOX);
         ozlotto_tab->color(FL_DARK_GREEN);
         ozlotto_tab->labeltype(FL_EMBOSSED_LABEL);
@@ -441,6 +446,11 @@ Fl_Window* UserInterface::make_window() {
           o->callback((Fl_Callback*)cb_Enter1);
           o->align(Fl_Align(FL_ALIGN_WRAP));
         } // Fl_Button* o
+        { o_draw = new Fl_Value_Input(555, 155, 70, 25);
+        } // Fl_Value_Input* o_draw
+        { Fl_Button* o = new Fl_Button(530, 180, 140, 25, "Use Draw Results");
+          o->callback((Fl_Callback*)use_draw_results, (void*)(R_OZLOTTO));
+        } // Fl_Button* o
         ozlotto_tab->end();
       } // Fl_Group* ozlotto_tab
       { powerball_tab = new Fl_Group(0, 150, 660, 580, "Powerball");
@@ -484,12 +494,12 @@ Fl_Window* UserInterface::make_window() {
           } // Fl_Value_Input* pb_num6
           o->end();
         } // Fl_Group* o
-        { Fl_Group* o = new Fl_Group(375, 170, 85, 55, "Powerball");
+        { Fl_Group* o = new Fl_Group(300, 170, 90, 55, "Powerball");
           o->box(FL_PLASTIC_DOWN_BOX);
           o->color((Fl_Color)4);
           o->labeltype(FL_ENGRAVED_LABEL);
           o->labelsize(16);
-          { powerball_value = new Fl_Value_Input(395, 175, 50, 45);
+          { powerball_value = new Fl_Value_Input(320, 175, 50, 45);
             powerball_value->color((Fl_Color)59);
             powerball_value->selection_color((Fl_Color)58);
             powerball_value->labelsize(16);
@@ -517,11 +527,16 @@ Fl_Window* UserInterface::make_window() {
           ShowPowerballEntryWidget->callback((Fl_Callback*)show_entry_window, (void*)(POWERBALL));
           ShowPowerballEntryWidget->align(Fl_Align(FL_ALIGN_WRAP));
         } // Fl_Button* ShowPowerballEntryWidget
-        { ensurePowerball = new Fl_Check_Button(475, 150, 185, 55, "Ensure Powerball");
+        { ensurePowerball = new Fl_Check_Button(400, 150, 185, 55, "Ensure Powerball");
           ensurePowerball->down_box(FL_DOWN_BOX);
           ensurePowerball->callback((Fl_Callback*)cb_ensurePowerball);
           ensurePowerball->align(Fl_Align(132|FL_ALIGN_INSIDE));
         } // Fl_Check_Button* ensurePowerball
+        { Fl_Button* o = new Fl_Button(515, 200, 140, 25, "Use Draw Results");
+          o->callback((Fl_Callback*)use_draw_results, (void*)(R_POWERBALL));
+        } // Fl_Button* o
+        { p_draw = new Fl_Value_Input(395, 200, 120, 25);
+        } // Fl_Value_Input* p_draw
         powerball_tab->end();
       } // Fl_Group* powerball_tab
       { lottostrike_tab = new Fl_Group(0, 150, 660, 470, "Lotto Strike");
@@ -529,6 +544,7 @@ Fl_Window* UserInterface::make_window() {
         lottostrike_tab->color((Fl_Color)11);
         lottostrike_tab->selection_color((Fl_Color)29);
         lottostrike_tab->labeltype(FL_EMBOSSED_LABEL);
+        lottostrike_tab->hide();
         { Fl_Group* o = new Fl_Group(20, 170, 280, 45, "Gold Lotto Numbers");
           o->box(FL_PLASTIC_DOWN_BOX);
           o->color((Fl_Color)6);
@@ -589,7 +605,6 @@ Fl_Window* UserInterface::make_window() {
         setforlife_tab->box(FL_DOWN_BOX);
         setforlife_tab->color(FL_CYAN);
         setforlife_tab->labeltype(FL_EMBOSSED_LABEL);
-        setforlife_tab->hide();
         { Fl_Group* o = new Fl_Group(5, 170, 345, 45, "Set For Life Numbers");
           o->box(FL_PLASTIC_DOWN_BOX);
           o->color((Fl_Color)6);
@@ -636,18 +651,18 @@ Fl_Window* UserInterface::make_window() {
           } // Fl_Value_Input* sfl_num8
           o->end();
         } // Fl_Group* o
-        { Fl_Group* o = new Fl_Group(395, 170, 135, 45, "Bonus");
+        { Fl_Group* o = new Fl_Group(355, 170, 135, 45, "Bonus");
           o->box(FL_PLASTIC_DOWN_BOX);
           o->color((Fl_Color)222);
           o->labelsize(16);
-          { sfl_bonus1 = new Fl_Value_Input(415, 180, 35, 30);
+          { sfl_bonus1 = new Fl_Value_Input(375, 180, 35, 30);
             sfl_bonus1->color((Fl_Color)59);
             sfl_bonus1->selection_color((Fl_Color)58);
             sfl_bonus1->labelcolor((Fl_Color)3);
             sfl_bonus1->textsize(16);
             sfl_bonus1->textcolor((Fl_Color)3);
           } // Fl_Value_Input* sfl_bonus1
-          { sfl_bonus2 = new Fl_Value_Input(455, 180, 35, 30);
+          { sfl_bonus2 = new Fl_Value_Input(415, 180, 35, 30);
             sfl_bonus2->color((Fl_Color)59);
             sfl_bonus2->selection_color((Fl_Color)58);
             sfl_bonus2->labelcolor((Fl_Color)3);
@@ -678,6 +693,11 @@ Fl_Window* UserInterface::make_window() {
           o->callback((Fl_Callback*)cb_Enter2);
           o->align(Fl_Align(FL_ALIGN_WRAP));
         } // Fl_Button* o
+        { Fl_Button* o = new Fl_Button(510, 185, 140, 25, "Use Draw Results");
+          o->callback((Fl_Callback*)use_draw_results, (void*)(R_SET_FOR_LIFE));
+        } // Fl_Button* o
+        { s_draw = new Fl_Value_Input(510, 160, 140, 25);
+        } // Fl_Value_Input* s_draw
         setforlife_tab->end();
       } // Fl_Group* setforlife_tab
       tabular->end();
@@ -1276,4 +1296,11 @@ void UserInterface::show_entry_window(Fl_Widget* w, void* userdata) {
   while (p->parent()) p = p->parent();
   
   ((UserInterface*)p->user_data())->show_entry_callback(w, userdata);
+}
+
+void UserInterface::use_draw_results(Fl_Widget* w, void* userdata) {
+  Fl_Widget *p = w->parent();
+  while (p->parent()) p = p->parent();
+  
+  ((UserInterface*)p->user_data())->use_draw_results_cb(w, userdata);
 }

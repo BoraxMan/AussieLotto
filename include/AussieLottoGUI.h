@@ -4,6 +4,7 @@
 #define AussieLottoGUI_h
 #include <FL/Fl.H>
 #include "types.h"
+#include "ResultManager.h"
 #include <FL/Fl_Window.H>
 #include <FL/Fl_Box.H>
 #include <FL/Fl_Button.H>
@@ -80,6 +81,7 @@ private:
   inline void cb_Enter_i(Fl_Button*, void*);
   static void cb_Enter(Fl_Button*, void*);
 public:
+  Fl_Value_Input *t_draw;
   Fl_Group *ozlotto_tab;
   Fl_Value_Input *oz_num1;
   Fl_Value_Input *oz_num2;
@@ -96,6 +98,7 @@ private:
   inline void cb_Enter1_i(Fl_Button*, void*);
   static void cb_Enter1(Fl_Button*, void*);
 public:
+  Fl_Value_Input *o_draw;
   Fl_Group *powerball_tab;
   Fl_Value_Input *pb_num1;
   Fl_Value_Input *pb_num2;
@@ -111,6 +114,7 @@ private:
   inline void cb_ensurePowerball_i(Fl_Check_Button*, void*);
   static void cb_ensurePowerball(Fl_Check_Button*, void*);
 public:
+  Fl_Value_Input *p_draw;
   Fl_Group *lottostrike_tab;
   Fl_Value_Input *lsnum1;
   Fl_Value_Input *lsnum2;
@@ -136,7 +140,10 @@ public:
 private:
   inline void cb_Enter2_i(Fl_Button*, void*);
   static void cb_Enter2(Fl_Button*, void*);
+public:
+  Fl_Value_Input *s_draw;
   static Fl_Menu_Item menu_Winning[];
+private:
   inline void cb_License_i(Fl_Button*, void*);
   static void cb_License(Fl_Button*, void*);
 public:
@@ -260,5 +267,7 @@ public:
   void show_entry_callback(Fl_Widget* w, void* userdata);
   static void show_entry_window(Fl_Widget* w, void* userdata);
   virtual void NumberSelectorUpdate(int x) = 0;;
+  static void use_draw_results(Fl_Widget* w, void* userdata);
+  virtual void use_draw_results_cb(Fl_Widget* w, void* userdata) = 0;
 };
 #endif

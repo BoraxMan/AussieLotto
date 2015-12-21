@@ -52,14 +52,14 @@ public:
 	int reload();
 	void setBalls(const int balls);
 	void setSupps(const int supps);
-	int size(void);
-	int cols(void);
-	std::vector<int> getResults(int draw = 0);
-	std::vector<int> getSupps(int draw = 0);
-	std::vector<float> getPrizes(int draw = 0);
-	Date getDate(int draw = 0);
-	int rowToDraw(int row);
-	int getLastDrawNumber();
+	int size(void) const;
+	int cols(void) const;
+	const std::vector<int> &getResults(const int draw = 0) const;
+	const std::vector<int> &getSupps(const int draw = 0) const;
+	const std::vector<float> &getPrizes(const int draw = 0) const;
+	Date getDate(const int draw = 0) const;
+	int rowToDraw(const int row) const;
+	int getLastDrawNumber() const;
 	
 
 private:
@@ -71,6 +71,8 @@ private:
 	int balls;
 	int supps;
 	bool loaded;
+	std::vector<int> empty;
+	std::vector<float> emptyf;
 };
 
 #endif

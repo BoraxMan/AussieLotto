@@ -213,12 +213,12 @@ void LottoHistoricResults::setSupps(const int x)
   supps = x;
 }
 
-int LottoHistoricResults::size(void)
+int LottoHistoricResults::size(void) const
 {
   return results.size();
 }
 
-int LottoHistoricResults::getLastDrawNumber()
+int LottoHistoricResults::getLastDrawNumber() const
 {
   if (results.empty()) {
     return 0;
@@ -226,10 +226,9 @@ int LottoHistoricResults::getLastDrawNumber()
   return results[results.size() - 1].drawnumber;
 }
 
-std::vector<int> LottoHistoricResults::getResults(int draw)
+const std::vector<int> &LottoHistoricResults::getResults(const int draw) const
 {
    if (!loaded) {
-    std::vector<int> empty;
     return empty;
   }
   
@@ -239,20 +238,18 @@ std::vector<int> LottoHistoricResults::getResults(int draw)
   
   FindDraw fd(draw);
   
-  std::vector<tatts_historic_result>::iterator it = std::find_if(results.begin(), results.end(), fd);
+  std::vector<tatts_historic_result>::const_iterator it = std::find_if(results.begin(), results.end(), fd);
   
   if (it == results.end()) {
-    std::vector<int> empty;
     return empty;
   }
   return it->drawnballs;
   
 }
 
-std::vector<int> LottoHistoricResults::getSupps(int draw)
+const std::vector<int> &LottoHistoricResults::getSupps(const int draw) const
 {
   if (!loaded) {
-    std::vector<int> empty;
     return empty;
   }
   
@@ -263,10 +260,9 @@ std::vector<int> LottoHistoricResults::getSupps(int draw)
   
   FindDraw fd(draw);
   
-  std::vector<tatts_historic_result>::iterator it = std::find_if(results.begin(), results.end(), fd);
+  std::vector<tatts_historic_result>::const_iterator it = std::find_if(results.begin(), results.end(), fd);
   
   if (it == results.end()) {
-    std::vector<int> empty;
     return empty;
   }
   return it->supps;
@@ -274,11 +270,10 @@ std::vector<int> LottoHistoricResults::getSupps(int draw)
 }
 
 
-std::vector<float> LottoHistoricResults::getPrizes(int draw)
+const std::vector<float> &LottoHistoricResults::getPrizes(const int draw) const
 {
   if (!loaded) {
-    std::vector<float> empty;
-    return empty;
+    return emptyf;
   }
   
   if (draw == 0) { 
@@ -288,18 +283,17 @@ std::vector<float> LottoHistoricResults::getPrizes(int draw)
   
   FindDraw fd(draw);
   
-  std::vector<tatts_historic_result>::iterator it = 
+  std::vector<tatts_historic_result>::const_iterator it = 
     std::find_if(results.begin(), results.end(), fd);
   
   if (it == results.end()) {
-    std::vector<float> empty;
-    return empty;
+    return emptyf;
   }
   return it->prizes;
   
 }
 
-int LottoHistoricResults::rowToDraw(int row)
+int LottoHistoricResults::rowToDraw(const int row) const
 {
   if (row >= results.size()) {
     return -1;
@@ -308,12 +302,12 @@ int LottoHistoricResults::rowToDraw(int row)
   }
   
 }
-int LottoHistoricResults::cols(void)
+int LottoHistoricResults::cols(void) const
 {
   return 2 + balls + supps;
 }
 
-Date LottoHistoricResults::getDate(int draw)
+Date LottoHistoricResults::getDate(int draw) const
 {
   if (!loaded) {
     Date empty;
@@ -327,7 +321,7 @@ Date LottoHistoricResults::getDate(int draw)
   
   FindDraw fd(draw);
   
-  std::vector<tatts_historic_result>::iterator it = std::find_if(results.begin(), results.end(), fd);
+  std::vector<tatts_historic_result>::const_iterator it = std::find_if(results.begin(), results.end(), fd);
   
   if (it == results.end()) {
     Date empty;

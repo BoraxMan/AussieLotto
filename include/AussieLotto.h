@@ -75,7 +75,7 @@ private:
   void clear_results(void);
   void show_license_window(void);
   void ensurePowerballButton(void);
-
+  void use_draw_results_cb(Fl_Widget* w, void* userdata);
   ResultManager *rm;
   std::string homedir;
   
@@ -90,6 +90,7 @@ public:
   int save_file(void);
   void saveResults(void);
   void check_lotto(void);
+  void no_draw(int draw);
   void lottostrikeEntry(void);
   void createTattsEntryWindows(void);
   void createOzlottoEntryWindows(void);

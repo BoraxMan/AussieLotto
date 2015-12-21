@@ -33,7 +33,7 @@ class DrawHistoryManagerGUI {open
     } {
       Fl_Box {} {
         label {Result Manager}
-        xywh {0 0 765 25} box DOWN_BOX color 4 selection_color 0 labelsize 18 labelcolor 3
+        xywh {0 0 970 25} box DOWN_BOX color 4 selection_color 0 labelsize 18 labelcolor 3
       }
       Fl_Button {} {
         label Close
@@ -68,23 +68,23 @@ class DrawHistoryManagerGUI {open
         xywh {205 105 135 30}
       }
       Fl_Output ozlotto_last_draw {
-        xywh {340 105 135 30}
-      }
-      Fl_Output powerball_last_draw {
         xywh {475 105 135 30}
       }
+      Fl_Output powerball_last_draw {
+        xywh {340 105 135 30}
+      }
       Fl_Output sfl_last_draw {
-        xywh {475 135 135 30}
+        xywh {610 105 135 30}
       }
       Fl_Box {} {
         label {Latest Draw Date}
         xywh {5 135 200 30} box BORDER_BOX color 51 labeltype ENGRAVED_LABEL labelsize 16
       }
-      Fl_Output ozlotto_last_date {
-        xywh {340 135 135 30}
+      Fl_Output ozlotto_last_date {selected
+        xywh {475 135 135 30}
       }
       Fl_Output powerball_last_date {
-        xywh {610 105 135 30}
+        xywh {340 135 135 30}
       }
       Fl_Output sfl_last_date {
         xywh {610 135 135 30}
@@ -98,39 +98,27 @@ class DrawHistoryManagerGUI {open
         xywh {415 25 210 25}
       }
       Fl_Button {} {
-        label {Use Results}
-        tooltip {Check your results against the latest draw} xywh {205 165 135 30}
-      }
-      Fl_Button {} {
-        label {Use Results}
-        tooltip {Check your results against the latest draw} xywh {340 165 135 30}
-      }
-      Fl_Button {} {
-        label {Use Results}
-        tooltip {Check your results against the latest draw} xywh {475 165 135 30}
-      }
-      Fl_Button {} {
-        label {Use Results}
-        tooltip {Check your results against the latest draw} xywh {610 165 135 30}
+        label {View Results}
+        callback {init_result_view(R_TATTSLOTTO);}
+        xywh {205 165 135 30}
       }
       Fl_Button {} {
         label {View Results}
-        xywh {205 195 135 30}
+        callback {init_result_view(R_POWERBALL);}
+        xywh {340 165 135 30}
       }
       Fl_Button {} {
         label {View Results}
-        xywh {340 195 135 30}
+        callback {init_result_view(R_OZLOTTO);}
+        xywh {475 165 135 30}
       }
       Fl_Button {} {
         label {View Results}
-        xywh {475 195 135 30}
-      }
-      Fl_Button {} {
-        label {View Results}
-        xywh {610 195 135 30}
+        callback {init_result_view(R_SET_FOR_LIFE);}
+        xywh {610 165 135 30}
       }
       Fl_Table resultViewTable {open
-        xywh {15 270 755 335}
+        xywh {15 270 955 335}
         code0 {init_result_view(R_TATTSLOTTO);}
         class ResultViewTable
       } {}
@@ -156,7 +144,7 @@ class DrawHistoryManagerGUI {open
         xywh {25 100 165 25} down_box DOWN_BOX
       }
       Fl_Check_Button weekday_tatts_c {
-        label {Monday/Wednesday Tattslotto} selected
+        label {Monday/Wednesday Tattslotto}
         xywh {25 125 250 25} down_box DOWN_BOX
       }
       Fl_Button {} {
