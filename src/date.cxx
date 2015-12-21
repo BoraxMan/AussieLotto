@@ -12,8 +12,6 @@ namespace {
     "Jul",
     "Aug",
     "Sep",
-    "Aug",
-    "Sep",
     "Oct",
     "Nov",
     "Dec"

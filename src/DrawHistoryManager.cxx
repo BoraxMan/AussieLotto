@@ -57,7 +57,7 @@ void DrawHistoryManager::update_results_callback(Fl_Widget* w, void* userdata)
     
   }
 
-  
+  updateDashboard();
 
 }  
 

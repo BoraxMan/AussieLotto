@@ -32,6 +32,14 @@ public:
 private:
   inline void cb_Update_i(Fl_Button*, void*);
   static void cb_Update(Fl_Button*, void*);
+  inline void cb_View_i(Fl_Button*, void*);
+  static void cb_View(Fl_Button*, void*);
+  inline void cb_View1_i(Fl_Button*, void*);
+  static void cb_View1(Fl_Button*, void*);
+  inline void cb_View2_i(Fl_Button*, void*);
+  static void cb_View2(Fl_Button*, void*);
+  inline void cb_View3_i(Fl_Button*, void*);
+  static void cb_View3(Fl_Button*, void*);
 public:
   ResultViewTable *resultViewTable;
   Fl_Double_Window *update_window;
