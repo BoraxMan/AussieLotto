@@ -671,6 +671,10 @@ AusLotto::AusLotto(ResultManager *resultmanager, const std::string &configdir) :
 
   NumberSelectorArray.reset();
   rm = resultmanager;
+  resultManager = new ResultManager(homedir);
+  dhm = new DrawHistoryManager(resultManager, homedir);
+  dhm->make_window();
+  dhm->updateDashboard();
 }
 
 void AusLotto::no_draw(int draw)

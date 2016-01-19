@@ -89,11 +89,19 @@ void UserInterface::cb_Clear1(Fl_Menu_* o, void* v) {
   ((UserInterface*)(o->parent()->user_data()))->cb_Clear1_i(o,v);
 }
 
+void UserInterface::cb_Result_i(Fl_Menu_*, void*) {
+  dhm->main_window->show();
+}
+void UserInterface::cb_Result(Fl_Menu_* o, void* v) {
+  ((UserInterface*)(o->parent()->user_data()))->cb_Result_i(o,v);
+}
+
 Fl_Menu_Item UserInterface::menu_Options[] = {
  {"Check", 0,  (Fl_Callback*)UserInterface::cb_Check1, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
  {"Generate", 0,  (Fl_Callback*)UserInterface::cb_Generate1, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
  {"Clear Numbers", 0,  (Fl_Callback*)UserInterface::cb_Clear, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
  {"Clear Lottery Results", 0,  (Fl_Callback*)UserInterface::cb_Clear1, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
+ {"Result Manager", 0,  (Fl_Callback*)UserInterface::cb_Result, 0, 0, FL_NORMAL_LABEL, 0, 14, 0},
  {0,0,0,0,0,0,0,0,0}
 };
 
@@ -273,7 +281,6 @@ Fl_Window* UserInterface::make_window() {
         tattslotto_tab->color(FL_DARK_CYAN);
         tattslotto_tab->selection_color((Fl_Color)29);
         tattslotto_tab->labeltype(FL_EMBOSSED_LABEL);
-        tattslotto_tab->hide();
         { Fl_Group* o = new Fl_Group(20, 170, 280, 45, "Lottery Numbers");
           o->box(FL_PLASTIC_DOWN_BOX);
           o->color((Fl_Color)6);
@@ -601,10 +608,11 @@ Fl_Window* UserInterface::make_window() {
         lottostrike_tab->end();
         Fl_Group::current()->resizable(lottostrike_tab);
       } // Fl_Group* lottostrike_tab
-      { setforlife_tab = new Fl_Group(0, 150, 660, 470, "Set for life");
+      { setforlife_tab = new Fl_Group(0, 150, 670, 470, "Set for life");
         setforlife_tab->box(FL_DOWN_BOX);
         setforlife_tab->color(FL_CYAN);
         setforlife_tab->labeltype(FL_EMBOSSED_LABEL);
+        setforlife_tab->hide();
         { Fl_Group* o = new Fl_Group(5, 170, 345, 45, "Set For Life Numbers");
           o->box(FL_PLASTIC_DOWN_BOX);
           o->color((Fl_Color)6);

@@ -5,6 +5,7 @@
 #include <FL/Fl.H>
 #include "types.h"
 #include "ResultManager.h"
+#include "DrawHistoryManager.h"
 #include <FL/Fl_Window.H>
 #include <FL/Fl_Box.H>
 #include <FL/Fl_Button.H>
@@ -20,6 +21,8 @@
 
 class UserInterface {
 public:
+  ResultManager *resultManager; 
+  DrawHistoryManager *dhm; 
   Fl_Text_Buffer *sflTextBuffer; 
   Fl_Text_Buffer *ozlottoTextBuffer; 
   Fl_Text_Buffer *lottostrikeTextBuffer; 
@@ -58,6 +61,8 @@ private:
   static void cb_Clear(Fl_Menu_*, void*);
   inline void cb_Clear1_i(Fl_Menu_*, void*);
   static void cb_Clear1(Fl_Menu_*, void*);
+  inline void cb_Result_i(Fl_Menu_*, void*);
+  static void cb_Result(Fl_Menu_*, void*);
   inline void cb_Help_i(Fl_Button*, void*);
   static void cb_Help(Fl_Button*, void*);
 public:

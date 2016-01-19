@@ -14,11 +14,18 @@ decl {\#include "defs.h"} {private local
 decl {\#include "types.h"} {public global
 } 
 
-decl {\#include "ResultManager.h"} {selected public global
+decl {\#include "ResultManager.h"} {public global
+} 
+
+decl {\#include "DrawHistoryManager.h"} {public global
 } 
 
 class UserInterface {open
 } {
+  decl {ResultManager *resultManager;} {public global
+  }
+  decl {DrawHistoryManager *dhm;} {public local
+  }
   decl {Fl_Text_Buffer *sflTextBuffer;} {public local
   }
   decl {Fl_Text_Buffer *ozlottoTextBuffer;} {public local
@@ -39,7 +46,7 @@ class UserInterface {open
   } {
     Fl_Window lotto_gui {
       label {Aussie Lotto} open
-      xywh {393 375 670 620} type Single color 14 selection_color 32 labelcolor 12 align 80 when 6 visible
+      xywh {393 385 670 620} type Single color 14 selection_color 32 labelcolor 12 align 80 when 6 visible
     } {
       Fl_Box {} {
         label {Aussie Lotto}
@@ -56,7 +63,7 @@ class UserInterface {open
       } {
         MenuItem {} {
           label Open
-          callback {open_file()}
+          callback {open_file()} selected
           xywh {0 0 100 20}
         }
         MenuItem {} {
@@ -113,6 +120,11 @@ class UserInterface {open
           callback {clear_results()}
           xywh {0 0 100 20}
         }
+        MenuItem {} {
+          label {Result Manager}
+          callback {dhm->main_window->show();}
+          xywh {0 0 36 20}
+        }
       }
       Fl_Button {} {
         label Help
@@ -125,7 +137,7 @@ class UserInterface {open
       } {
         Fl_Group tattslotto_tab {
           label {Tattslotto/Gold Lotto/X Lotto} open
-          xywh {0 150 660 470} box DOWN_BOX color 140 selection_color 29 labeltype EMBOSSED_LABEL hide
+          xywh {0 150 660 470} box DOWN_BOX color 140 selection_color 29 labeltype EMBOSSED_LABEL
         } {
           Fl_Group {} {
             label {Lottery Numbers} open
@@ -356,7 +368,7 @@ class UserInterface {open
         }
         Fl_Group setforlife_tab {
           label {Set for life} open
-          xywh {0 150 660 470} box DOWN_BOX color 223 labeltype EMBOSSED_LABEL
+          xywh {0 150 670 470} box DOWN_BOX color 223 labeltype EMBOSSED_LABEL hide
         } {
           Fl_Group {} {
             label {Set For Life Numbers} open
@@ -704,7 +716,7 @@ class UserInterface {open
     }
     Fl_Window Numberentry {
       label {Number Entry} open
-      xywh {90 376 350 250} type Double align 80 visible
+      xywh {90 386 350 250} type Double align 80 visible
     } {
       Fl_Light_Button button_1 {
         label 1
