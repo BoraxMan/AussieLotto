@@ -8,6 +8,9 @@
 #include <FL/Fl_Check_Button.H>
 #include "ResultManager.h"
 
+void getColumnHeader(const int col, char *s, const gameType type);
+
+
 class ResultViewTable : public Fl_Table
 {
   public:

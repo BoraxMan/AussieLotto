@@ -14,16 +14,11 @@ decl {\#include "defs.h"} {private local
 decl {\#include "types.h"} {public global
 } 
 
-decl {\#include "ResultManager.h"} {public global
-} 
-
 decl {\#include "DrawHistoryManager.h"} {public global
 } 
 
 class UserInterface {open
 } {
-  decl {ResultManager *resultManager;} {public global
-  }
   decl {DrawHistoryManager *dhm;} {public local
   }
   decl {Fl_Text_Buffer *sflTextBuffer;} {public local
@@ -63,7 +58,7 @@ class UserInterface {open
       } {
         MenuItem {} {
           label Open
-          callback {open_file()} selected
+          callback {open_file()}
           xywh {0 0 100 20}
         }
         MenuItem {} {

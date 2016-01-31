@@ -3,6 +3,56 @@
 const int MAX_COLS = 8;
 const int MAX_ROWS = 50;
 
+const char *powerballHeaders[] = {
+  "Date",
+  "Ball 1",
+  "Ball 2",
+  "Ball 3",
+  "Ball 4",
+  "Ball 5",
+  "Ball 6",
+  "Powerball"
+};
+
+const char *tattslottoHeaders[] = {
+  "Date",
+  "Ball 1",
+  "Ball 2",
+  "Ball 3",
+  "Ball 4",
+  "Ball 5",
+  "Ball 6",
+  "Supp 1",
+  "Supp 2"
+};
+
+const char *ozlottoHeaders[] = {
+  "Date",
+  "Ball 1",
+  "Ball 2",
+  "Ball 3",
+  "Ball 4",
+  "Ball 5",
+  "Ball 6",
+  "Ball 7",
+  "Supp 1",
+  "Supp 2"
+};
+
+const char *sflHeaders[] = {
+  "Date",
+  "Ball 1",
+  "Ball 2",
+  "Ball 3",
+  "Ball 4",
+  "Ball 5",
+  "Ball 6",
+  "Ball 7",
+  "Ball 8",
+  "Bonus 1",
+  "Bonus 2"
+};
+
 void ResultViewTable::DrawHeader(const char *s, int X, int Y, int W, int H) {
     fl_push_clip(X,Y,W,H);
       fl_draw_box(FL_THIN_UP_BOX, X,Y,W,H, row_header_color());
@@ -10,6 +60,7 @@ void ResultViewTable::DrawHeader(const char *s, int X, int Y, int W, int H) {
       fl_draw(s, X,Y,W,H, FL_ALIGN_CENTER);
     fl_pop_clip();
   } 
+  
 void ResultViewTable::draw_cell(TableContext context, int ROW, int COL, int X, int Y, int W, int H)
 {
   int x = viewdata->rowToDraw(type, ROW);
@@ -22,7 +73,17 @@ void ResultViewTable::draw_cell(TableContext context, int ROW, int COL, int X, i
       fl_font(FL_HELVETICA, 16);
       return; 
     case CONTEXT_COL_HEADER:
-      sprintf(s ,"%u", x); 
+      if (type == R_TATTSLOTTO)
+      {
+	sprintf(s, "%s", tattslottoHeaders[COL]);
+      } else if (type == R_OZLOTTO) {
+	sprintf(s, "%s", ozlottoHeaders[COL]);
+      } else if (type == R_POWERBALL) {
+	sprintf(s, "%s", powerballHeaders[COL]);
+      } else if (type == R_SET_FOR_LIFE) {
+	sprintf(s, "%s", sflHeaders[COL]);
+      }
+      
       draw_col_header(s,X,Y,W,H);
       return; 
     case CONTEXT_ROW_HEADER:  
@@ -85,7 +146,8 @@ void ResultViewTable::init()
     // Cols
     cols(viewdata->cols(type)-1);             // how many columns
     col_header(1);              // enable column headers (along top)
-    col_width_all(80);          // default width of columns
+    col_width_all(70);          // default width of columns
+    col_width(0,128);
     col_resize(1);              // enable column resizing
     end();                      // end the Fl_Table group
 }
@@ -95,3 +157,15 @@ ResultViewTable::ResultViewTable(int X, int Y, int W, int H, const char *L) : Fl
      // Rows
    
   }
+  
+  
+void getColumnHeader(const int col, char *s, const gameType type)
+{
+  if (col == 0) {
+    sprintf(s, "%s", "Date");
+    return;
+  } else if (col >=1 && col <= 5) {
+    sprintf(s, "%s %u", "Ball", col);
+  }
+}
+  

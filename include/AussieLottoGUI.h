@@ -4,7 +4,6 @@
 #define AussieLottoGUI_h
 #include <FL/Fl.H>
 #include "types.h"
-#include "ResultManager.h"
 #include "DrawHistoryManager.h"
 #include <FL/Fl_Window.H>
 #include <FL/Fl_Box.H>
@@ -21,7 +20,6 @@
 
 class UserInterface {
 public:
-  ResultManager *resultManager; 
   DrawHistoryManager *dhm; 
   Fl_Text_Buffer *sflTextBuffer; 
   Fl_Text_Buffer *ozlottoTextBuffer; 
