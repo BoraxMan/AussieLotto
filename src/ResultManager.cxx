@@ -1,5 +1,8 @@
 #include "ResultManager.h"
 #include <iostream>
+#include <sys/stat.h>
+#include <sys/types.h>
+#include <unistd.h>
 
 namespace {
   
@@ -19,6 +22,7 @@ ResultManager::ResultManager(const std::string &configdir) : dbInitialised(false
 {
   std::string x;
   homedir = configdir;
+  mkdir(homedir.c_str(), 0770);
   URLlist.resize(TOTAL_COUNT);
   
   if (initResultFileDatabase() == 0) {
@@ -37,10 +41,13 @@ ResultManager::ResultManager(const std::string &configdir) : dbInitialised(false
   results.push_back(new LottoHistoricResults(7,0, csv_files[R_POWERBALL].c_str()));
   results.push_back(new LottoHistoricResults(8,2, csv_files[R_SET_FOR_LIFE].c_str()));
   results.push_back(new LottoHistoricResults(6,2, csv_files[R_WEEKDAY_TATTSLOTTO].c_str()));
-
+  std::cout << "Results pushed" << std::endl;
 }
 
-
+const bool ResultManager::active() const 
+{
+  return dbInitialised;
+}
 
 std::vector<int> ResultManager::getResults(resultType game, int draw)
 {
@@ -120,24 +127,22 @@ int ResultManager::initResultFileDatabase()
 {
   std::string game;
   std::string url;
-  if (!dbInitialised) {
 
-    std::ifstream urlsfile;
-    urlsfile.open("lottourls", std::ios::in);
+  std::ifstream urlsfile;
+  urlsfile.open("lottourls", std::ios::in);
 
-    if (!urlsfile.is_open()) {
-      return -1;
-    }
-
-    for (int x = 0; x < URL_COUNT; ++x) {
-      urlsfile >> game;
-      urlsfile >> url;
-      if (urlsfile.bad()) { return -1;}
-      populateURLlist(game, url);
-    }
-    urlsfile.close();
-
+  if (!urlsfile.is_open()) {
+    throw(AussieLottoException("Could not load lotto URLs", " "));
   }
+
+  for (int x = 0; x < URL_COUNT; ++x) {
+    urlsfile >> game;
+    urlsfile >> url;
+    if (urlsfile.bad()) { return -1;}
+    populateURLlist(game, url);
+   }
+   urlsfile.close();
+
   return 0;
 }
 

@@ -24,6 +24,8 @@ DrawHistoryManager::DrawHistoryManager(ResultManager *resultmanager, const std::
 
 void DrawHistoryManager::init_result_view(resultType type)
 {
+  if (rm->active() == false) return;
+  
   resultViewTable->setData(rm, type);
   resultViewTable->init();
 }
@@ -67,6 +69,7 @@ void DrawHistoryManager::updateDashboard(void)
   
   std::string s;
   std::stringstream out;
+  if (rm->active() == false) return;
 
   int x = rm->getLastDraw(R_TATTSLOTTO);
   out << x;

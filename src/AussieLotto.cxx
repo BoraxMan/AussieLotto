@@ -653,7 +653,6 @@ void AusLotto::show_lottostrike_entry_window(void)
 
 AusLotto::AusLotto(ResultManager *resultmanager, const std::string &configdir) : ensurePowerballValue(false)
 {
-  homedir = configdir;
 
   tattslottoTextBuffer = new Fl_Text_Buffer();
   ozlottoTextBuffer = new Fl_Text_Buffer();
@@ -671,7 +670,7 @@ AusLotto::AusLotto(ResultManager *resultmanager, const std::string &configdir) :
 
   NumberSelectorArray.reset();
   rm = resultmanager;
-  dhm = new DrawHistoryManager(rm, homedir);
+  dhm = new DrawHistoryManager(rm, configdir);
   dhm->make_window();
   dhm->updateDashboard();
 }

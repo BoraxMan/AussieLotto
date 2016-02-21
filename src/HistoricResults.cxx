@@ -215,7 +215,9 @@ void LottoHistoricResults::setSupps(const int x)
 
 int LottoHistoricResults::size(void) const
 {
-  return results.size();
+  if (loaded) {
+    return results.size();
+  } else return 0;
 }
 
 int LottoHistoricResults::getLastDrawNumber() const

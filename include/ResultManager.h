@@ -35,6 +35,7 @@ class ResultManager {
     void downloadResults(resultType game);
     int (*progress_callback)(void *, double, double, double, double);
     void *ptr; // Pointer to the GUI hosting the callback widget.
+    const bool active() const ;
     
   private:
 
