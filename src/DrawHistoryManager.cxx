@@ -3,6 +3,14 @@
     
 #include "DrawHistoryManager.h"
 
+const char *resultTypeLabels[] = {
+  "Tattslotto Results",
+  "OzLotto Results",
+  "Powerball Results",
+  "Set For Life Results",
+  "Monday, Wednesday Tattslotto Results"
+};
+
 
 int xferinfo(void *gui,
                     double dltotal, double dlnow,
@@ -28,6 +36,8 @@ void DrawHistoryManager::init_result_view(resultType type)
   if (rm->active() == false) return;
   
   resultViewTable->setData(rm, type);
+  resultViewTable->label("                                                                             ");
+  resultViewTable->label(resultTypeLabels[static_cast<int>(type)]);
   resultViewTable->init();
 }
 

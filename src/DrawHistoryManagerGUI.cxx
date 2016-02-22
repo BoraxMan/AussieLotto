@@ -123,12 +123,14 @@ Fl_Double_Window* DrawHistoryManagerGUI::make_window() {
       resultViewTable->box(FL_THIN_DOWN_FRAME);
       resultViewTable->color(FL_BACKGROUND_COLOR);
       resultViewTable->selection_color(FL_BACKGROUND_COLOR);
-      resultViewTable->labeltype(FL_NORMAL_LABEL);
+      resultViewTable->labeltype(FL_EMBOSSED_LABEL);
       resultViewTable->labelfont(0);
       resultViewTable->labelsize(14);
       resultViewTable->labelcolor(FL_FOREGROUND_COLOR);
       resultViewTable->align(Fl_Align(FL_ALIGN_TOP));
       resultViewTable->when(FL_WHEN_RELEASE);
+      { new Fl_Output(40, 295, 25, 25);
+      } // Fl_Output* o
       init_result_view(R_TATTSLOTTO);
       resultViewTable->end();
     } // ResultViewTable* resultViewTable

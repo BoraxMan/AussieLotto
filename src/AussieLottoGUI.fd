@@ -128,11 +128,11 @@ class UserInterface {open
       }
       Fl_Tabs tabular {
         callback {changeTab()} open
-        xywh {0 125 670 605} box THIN_DOWN_BOX labeltype NO_LABEL align 37
+        xywh {0 125 680 605} box THIN_DOWN_BOX labeltype NO_LABEL align 37
       } {
         Fl_Group tattslotto_tab {
           label {Tattslotto/Gold Lotto/X Lotto} open
-          xywh {0 150 660 470} box DOWN_BOX color 140 selection_color 29 labeltype EMBOSSED_LABEL
+          xywh {0 150 680 470} box DOWN_BOX color 140 selection_color 29 labeltype EMBOSSED_LABEL
         } {
           Fl_Group {} {
             label {Lottery Numbers} open
@@ -185,13 +185,25 @@ class UserInterface {open
             xywh {440 305 120 60} color 14 align 128
           }
           Fl_Value_Input t_draw {
-            xywh {460 185 60 25}
+            xywh {460 160 60 25}
           }
           Fl_Button {} {
             label {Use Draw Results}
             user_data R_TATTSLOTTO
-            callback use_draw_results
-            xywh {520 185 140 25}
+            callback use_draw_results selected
+            xywh {455 205 140 25}
+          }
+          Fl_Group radiobuttons {open
+            xywh {525 150 145 55}
+          } {
+            Fl_Round_Button weekday_but {
+              label {Mon, Wed Lotto}
+              xywh {530 175 135 25} type Radio down_box ROUND_DOWN_BOX
+            }
+            Fl_Round_Button sat_but {
+              label {Saturday Lotto}
+              xywh {530 150 140 25} type Radio down_box ROUND_DOWN_BOX value 1
+            }
           }
         }
         Fl_Group ozlotto_tab {
@@ -263,7 +275,7 @@ class UserInterface {open
         }
         Fl_Group powerball_tab {
           label Powerball open
-          xywh {0 150 660 580} box DOWN_BOX color 187 labeltype EMBOSSED_LABEL hide
+          xywh {0 150 670 580} box DOWN_BOX color 187 labeltype EMBOSSED_LABEL hide
         } {
           Fl_Group {} {
             label {Powerball Numbers} open
@@ -324,7 +336,7 @@ class UserInterface {open
         }
         Fl_Group lottostrike_tab {
           label {Lotto Strike} open
-          xywh {0 150 660 470} box DOWN_BOX color 11 selection_color 29 labeltype EMBOSSED_LABEL hide resizable
+          xywh {0 150 670 470} box DOWN_BOX color 11 selection_color 29 labeltype EMBOSSED_LABEL hide resizable
         } {
           Fl_Group {} {
             label {Gold Lotto Numbers} open
@@ -1181,6 +1193,6 @@ while (p->parent()) p = p->parent();
 
 ((UserInterface*)p->user_data())->use_draw_results_cb(w, userdata);} {}
   }
-  Function {use_draw_results_cb(Fl_Widget* w, void* userdata) = 0} {open return_type {virtual void}
+  Function {use_draw_results_cb(Fl_Widget* w, void* userdata) = 0} {return_type {virtual void}
   } {}
 } 

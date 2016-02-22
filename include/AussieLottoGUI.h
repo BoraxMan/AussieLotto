@@ -13,6 +13,7 @@
 #include <FL/Fl_Tabs.H>
 #include <FL/Fl_Group.H>
 #include <FL/Fl_Text_Display.H>
+#include <FL/Fl_Round_Button.H>
 #include <FL/Fl_Check_Button.H>
 #include <FL/Fl_Double_Window.H>
 #include <FL/Fl_Help_View.H>
@@ -85,6 +86,9 @@ private:
   static void cb_Enter(Fl_Button*, void*);
 public:
   Fl_Value_Input *t_draw;
+  Fl_Group *radiobuttons;
+  Fl_Round_Button *weekday_but;
+  Fl_Round_Button *sat_but;
   Fl_Group *ozlotto_tab;
   Fl_Value_Input *oz_num1;
   Fl_Value_Input *oz_num2;

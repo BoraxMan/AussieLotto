@@ -36,8 +36,7 @@ Date::Date() : m_day(0), m_month(0), m_year(0)
 
 Date::Date(const char date[8])
 {
-  std::string s(date);
-  std::cout << s << std::endl;
+
   char num[2];
   char lnum[4];
   strncpy(lnum, date, 4);
@@ -46,7 +45,6 @@ Date::Date(const char date[8])
   m_month = atoi(num);
   strncpy(num, date + 6, 2);
   m_day = atoi(num);
-  std::cout << "!" << m_day << " " << m_month << " " << m_year << std::endl;
   assert(m_day > 0 && m_day <= 31);
   assert(m_month > 0 && m_month <= 12);
 
@@ -72,7 +70,6 @@ Date::operator std::string() const
  }
  
  std::stringstream sdate;
- std::cout << m_day << " " << m_month << " " << m_year << std::endl;
  sdate << m_day << "/" << month[m_month - 1] << "/" << m_year;
  return sdate.str();
   

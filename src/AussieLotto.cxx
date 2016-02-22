@@ -684,6 +684,13 @@ void AusLotto::no_draw(int draw)
 void AusLotto::use_draw_results_cb(Fl_Widget* w, void* userdata)
 {
   if (userdata == (resultType*)R_TATTSLOTTO) {
+      if (weekday_but->value()) {
+          userdata = (resultType*)R_WEEKDAY_TATTSLOTTO;
+      }
+  }
+      
+      
+  if (userdata == (resultType*)R_TATTSLOTTO) {
     int draw = static_cast<int>(this->t_draw->value());
     if (draw == 0) {
       this->t_draw->value(rm->getLastDraw(R_TATTSLOTTO));
@@ -764,6 +771,26 @@ void AusLotto::use_draw_results_cb(Fl_Widget* w, void* userdata)
     this->sfl_num8->value(balls[7]);
     this->sfl_bonus1->value(supps[0]);
     this->sfl_bonus2->value(supps[1]);
+    return;
+  } else if (userdata == (resultType*)R_WEEKDAY_TATTSLOTTO) {
+    int draw = static_cast<int>(this->t_draw->value());
+    if (draw == 0) {
+      this->t_draw->value(rm->getLastDraw(R_WEEKDAY_TATTSLOTTO));
+    }
+    const std::vector<int> &balls = rm->getResults(R_WEEKDAY_TATTSLOTTO, draw);
+    if (balls.size() == 0) {
+      no_draw(draw);
+      return;
+    }
+    const std::vector<int> &supps = rm->getSupps(R_WEEKDAY_TATTSLOTTO, draw);
+    this->num1->value(balls[0]);
+    this->num2->value(balls[1]);
+    this->num3->value(balls[2]);
+    this->num4->value(balls[3]);
+    this->num5->value(balls[4]);
+    this->num6->value(balls[5]);
+    this->supp1->value(supps[0]);
+    this->supp2->value(supps[1]);
     return;
   }
     

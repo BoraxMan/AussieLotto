@@ -41,7 +41,7 @@ ResultManager::ResultManager(const std::string &configdir) : dbInitialised(false
   results.push_back(new LottoHistoricResults(7,0, csv_files[R_POWERBALL].c_str()));
   results.push_back(new LottoHistoricResults(8,2, csv_files[R_SET_FOR_LIFE].c_str()));
   results.push_back(new LottoHistoricResults(6,2, csv_files[R_WEEKDAY_TATTSLOTTO].c_str()));
-  std::cout << "Results pushed" << std::endl;
+
 }
 
 const bool ResultManager::active() const 
