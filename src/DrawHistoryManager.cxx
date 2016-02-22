@@ -9,6 +9,7 @@ int xferinfo(void *gui,
                     double ultotal, double ulnow)
 {
   ((DrawHistoryManager*)gui)->update_progress_bar->value(dlnow/dltotal);
+
     Fl::check();
   return 0;
 }
@@ -32,33 +33,49 @@ void DrawHistoryManager::init_result_view(resultType type)
 
 void DrawHistoryManager::update_results_callback(Fl_Widget* w, void* userdata)
 {
-      this->update_progress_bar->value(0.0f);
+    this->update_progress_bar->label("Beginning transfer...");
+  
+    this->update_progress_bar->value(0.0f);
+  
   if (tatts_c->value()) {
     this->update_progress_bar->value(0.0f);
+    this->update_progress_bar->label("Downloading Tattslotto results");
     rm->downloadResults(R_TATTSLOTTO);
     
   }
   if (ozlotto_c->value()) {
     this->update_progress_bar->value(0.0f);
+    this->update_progress_bar->label("Downloading OzLotto results");
     rm->downloadResults(R_OZLOTTO);
     
   }
   if (powerball_c->value()) {
     this->update_progress_bar->value(0.0f);
+    this->update_progress_bar->label("Downloading Powerball results");
     rm->downloadResults(R_POWERBALL);
   }
 
   if (sfl_c->value()) {
     this->update_progress_bar->value(0.0f);
+    this->update_progress_bar->label("Downloading Set For Life results");
     rm->downloadResults(R_SET_FOR_LIFE);
     
   }
   if (weekday_tatts_c->value()) {
     this->update_progress_bar->value(0.0f);
+    this->update_progress_bar->label("Downloading Weekday Lottoresults");
     rm->downloadResults(R_WEEKDAY_TATTSLOTTO);
     
   }
-
+  
+  this->update_progress_bar->label("Finished.");  
+  
+  rm->reload();
+  init_result_view(R_TATTSLOTTO);
+  init_result_view(R_OZLOTTO);
+  init_result_view(R_SET_FOR_LIFE);
+  init_result_view(R_POWERBALL);
+  init_result_view(R_WEEKDAY_TATTSLOTTO);
   updateDashboard();
 
 }  
@@ -91,10 +108,16 @@ void DrawHistoryManager::updateDashboard(void)
   s = out.str();
   this->sfl_last_draw->value(s.c_str());
   out.str("");
+  
+  x = rm->getLastDraw(R_WEEKDAY_TATTSLOTTO);
+  out << x;
+  s = out.str();
+  this->weekday_last_draw->value(s.c_str());
+  out.str("");
+  
   s = rm->getDate(R_TATTSLOTTO);
   this->tatts_last_date->value(s.c_str());
   out.str("");
-
   s = rm->getDate(R_OZLOTTO);
   this->ozlotto_last_date->value(s.c_str());
   out.str("");
@@ -103,5 +126,8 @@ void DrawHistoryManager::updateDashboard(void)
   out.str("");
   s = rm->getDate(R_SET_FOR_LIFE);
   this->sfl_last_date->value(s.c_str());
+    out.str("");
+  s = rm->getDate(R_WEEKDAY_TATTSLOTTO);
+  this->weekday_last_date->value(s.c_str());
 
 }

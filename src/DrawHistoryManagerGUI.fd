@@ -80,7 +80,7 @@ class DrawHistoryManagerGUI {open
         label {Latest Draw Date}
         xywh {5 135 200 30} box BORDER_BOX color 51 labeltype ENGRAVED_LABEL labelsize 16
       }
-      Fl_Output ozlotto_last_date {selected
+      Fl_Output ozlotto_last_date {
         xywh {475 135 135 30}
       }
       Fl_Output powerball_last_date {
@@ -122,10 +122,25 @@ class DrawHistoryManagerGUI {open
         code0 {init_result_view(R_TATTSLOTTO);}
         class ResultViewTable
       } {}
+      Fl_Box {} {
+        label {Weekday Lotto}
+        xywh {745 75 135 30} box BORDER_BOX
+      }
+      Fl_Output weekday_last_date {
+        xywh {745 135 135 30}
+      }
+      Fl_Button {} {
+        label {View Results}
+        callback {init_result_view(R_WEEKDAY_TATTSLOTTO);}
+        xywh {745 165 135 30}
+      }
+      Fl_Output weekday_last_draw {selected
+        xywh {745 105 135 30}
+      }
     }
     Fl_Window update_window {
       label {Update Results} open
-      xywh {657 510 310 235} type Double visible
+      xywh {527 674 310 235} type Double visible
     } {
       Fl_Check_Button tatts_c {
         label Tattslotto

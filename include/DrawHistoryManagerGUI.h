@@ -42,6 +42,12 @@ private:
   static void cb_View3(Fl_Button*, void*);
 public:
   ResultViewTable *resultViewTable;
+  Fl_Output *weekday_last_date;
+private:
+  inline void cb_View4_i(Fl_Button*, void*);
+  static void cb_View4(Fl_Button*, void*);
+public:
+  Fl_Output *weekday_last_draw;
   Fl_Double_Window *update_window;
   Fl_Check_Button *tatts_c;
   Fl_Check_Button *ozlotto_c;

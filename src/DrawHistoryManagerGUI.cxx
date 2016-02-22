@@ -37,6 +37,13 @@ void DrawHistoryManagerGUI::cb_View3(Fl_Button* o, void* v) {
   ((DrawHistoryManagerGUI*)(o->parent()->user_data()))->cb_View3_i(o,v);
 }
 
+void DrawHistoryManagerGUI::cb_View4_i(Fl_Button*, void*) {
+  init_result_view(R_WEEKDAY_TATTSLOTTO);
+}
+void DrawHistoryManagerGUI::cb_View4(Fl_Button* o, void* v) {
+  ((DrawHistoryManagerGUI*)(o->parent()->user_data()))->cb_View4_i(o,v);
+}
+
 Fl_Double_Window* DrawHistoryManagerGUI::make_window() {
   { main_window = new Fl_Double_Window(970, 810, "Results Manager");
     main_window->color((Fl_Color)12);
@@ -125,6 +132,16 @@ Fl_Double_Window* DrawHistoryManagerGUI::make_window() {
       init_result_view(R_TATTSLOTTO);
       resultViewTable->end();
     } // ResultViewTable* resultViewTable
+    { Fl_Box* o = new Fl_Box(745, 75, 135, 30, "Weekday Lotto");
+      o->box(FL_BORDER_BOX);
+    } // Fl_Box* o
+    { weekday_last_date = new Fl_Output(745, 135, 135, 30);
+    } // Fl_Output* weekday_last_date
+    { Fl_Button* o = new Fl_Button(745, 165, 135, 30, "View Results");
+      o->callback((Fl_Callback*)cb_View4);
+    } // Fl_Button* o
+    { weekday_last_draw = new Fl_Output(745, 105, 135, 30);
+    } // Fl_Output* weekday_last_draw
     main_window->end();
     main_window->resizable(main_window);
   } // Fl_Double_Window* main_window

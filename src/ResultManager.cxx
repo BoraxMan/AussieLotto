@@ -49,6 +49,15 @@ const bool ResultManager::active() const
   return dbInitialised;
 }
 
+void ResultManager::reload(void)
+{
+ std::vector<LottoHistoricResults*>::iterator it;
+ for (it = results.begin(); it != results.end(); it++)
+ {
+     (*it)->reload();
+ }
+    
+}
 std::vector<int> ResultManager::getResults(resultType game, int draw)
 {
   return results[game]->getResults(draw);

@@ -82,6 +82,8 @@ void ResultViewTable::draw_cell(TableContext context, int ROW, int COL, int X, i
 	sprintf(s, "%s", powerballHeaders[COL]);
       } else if (type == R_SET_FOR_LIFE) {
 	sprintf(s, "%s", sflHeaders[COL]);
+      } else if (type == R_WEEKDAY_TATTSLOTTO) {
+        sprintf(s, "%s", tattslottoHeaders[COL]);
       }
       
       draw_col_header(s,X,Y,W,H);
