@@ -2,10 +2,11 @@
 #include <fstream>
 #include <iostream>
 #include <iomanip>
+#include <cstdio>
 
 #include "AussieLottoException.h"
 #include "ResultDownloader.h"
-
+#include "ExceptionHandler.h"
 
 static char curl_error[CURL_ERROR_SIZE];
 
@@ -19,8 +20,10 @@ int downloadFile(const char *url, const char *destfile, int (*progress_callback)
   CURL *curl;
   CURLcode res;
   std::fstream fout;
-
-  fout.open(destfile, std::ios::trunc | std::ios::out);
+  std::string newfile(destfile);
+  newfile += ".new";
+  
+  fout.open(newfile.c_str(), std::ios::trunc | std::ios::out);
   curl_global_init(CURL_GLOBAL_ALL);
   curl = curl_easy_init();
   curl_easy_setopt(curl, CURLOPT_NOPROGRESS, 0);
@@ -56,14 +59,17 @@ int downloadFile(const char *url, const char *destfile, int (*progress_callback)
         } //end switch
     } // end if
   } catch (AussieLottoException &e) {
-      std::cout << e.what() << std::endl;
-      std::cout << e.where() << std::endl;
+      exceptionHander(e);
       curl_easy_cleanup(curl);
+      std::remove(newfile.c_str());
       return -1;
   }
 
   curl_easy_cleanup(curl);
   fout.close();
+  // If successs, delete the old file, and move the new file to the old one.
+  std::remove(destfile);
+  std::rename(newfile.c_str(), destfile);
   return SUCCESS;
 
 }
