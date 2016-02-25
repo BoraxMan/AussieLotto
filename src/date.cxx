@@ -36,9 +36,12 @@ Date::Date() : m_day(0), m_month(0), m_year(0)
 
 Date::Date(const char date[8])
 {
-
-  char num[2];
-  char lnum[4];
+  std::string s(date);
+  s.resize(8);
+  char num[3];
+  char lnum[5];
+  num[2] = 0;
+  lnum[4] = 0;
   strncpy(lnum, date, 4);
   m_year = atoi(lnum);
   strncpy(num, date + 4, 2);
