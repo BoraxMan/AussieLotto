@@ -33,24 +33,35 @@ int downloadFile(const char *url, const char *destfile, int (*progress_callback)
   try {
     res = curl_easy_perform(curl);
     if (res != CURLE_OK) {
-      if (res == CURLE_COULDNT_CONNECT) {
-	throw (AussieLottoException(failure_message, curl_error));
-      } else if (res == CURLE_COULDNT_RESOLVE_HOST) {
-	throw (AussieLottoException(failure_message, curl_error));
-      } else if (res == CURLE_READ_ERROR) {
-	throw (AussieLottoException(failure_message, curl_error));
-      } else if (res == CURLE_GOT_NOTHING) {
-	throw (AussieLottoException(failure_message, curl_error));
-      } else if (res == CURLE_RECV_ERROR) {
-	throw (AussieLottoException(failure_message, curl_error));
-      } else throw(AussieLottoException(failure_message,  curl_error));
-    }
+        switch(res)
+        {
+            case CURLE_COULDNT_CONNECT:
+                throw (AussieLottoException(failure_message, curl_error));
+                break;
+            case CURLE_COULDNT_RESOLVE_HOST:
+                throw (AussieLottoException(failure_message, curl_error));
+                break;
+            case CURLE_READ_ERROR:
+                throw (AussieLottoException(failure_message, curl_error));
+                break;
+            case CURLE_GOT_NOTHING:
+                throw (AussieLottoException(failure_message, curl_error));
+                break;
+            case CURLE_RECV_ERROR:
+                throw (AussieLottoException(failure_message, curl_error));
+                break;
+            default:
+                throw(AussieLottoException(failure_message,  curl_error));
+                break;
+        } //end switch
+    } // end if
   } catch (AussieLottoException &e) {
-    std::cout << e.what() << std::endl;
-    std::cout << e.where() << std::endl;
-    curl_easy_cleanup(curl);
-    return -1;
-    }
+      std::cout << e.what() << std::endl;
+      std::cout << e.where() << std::endl;
+      curl_easy_cleanup(curl);
+      return -1;
+  }
+
   curl_easy_cleanup(curl);
   fout.close();
   return SUCCESS;
