@@ -17,25 +17,25 @@ decl {\#include "types.h"} {public global
 decl {\#include "DrawHistoryManager.h"} {public global
 } 
 
-class UserInterface {open selected
+class UserInterface {open
 } {
-  decl {DrawHistoryManager *dhm;} {public local
+  decl {DrawHistoryManager *dhm;} {protected local
   }
-  decl {Fl_Text_Buffer *sflTextBuffer;} {public local
+  decl {Fl_Text_Buffer *sflTextBuffer;} {protected local
   }
-  decl {Fl_Text_Buffer *ozlottoTextBuffer;} {public local
+  decl {Fl_Text_Buffer *ozlottoTextBuffer;} {selected protected local
   }
-  decl {Fl_Text_Buffer *lottostrikeTextBuffer;} {public local
+  decl {Fl_Text_Buffer *lottostrikeTextBuffer;} {protected local
   }
-  decl {Fl_Text_Buffer *licenseTextBuffer;} {public local
+  decl {Fl_Text_Buffer *licenseTextBuffer;} {protected local
   }
-  decl {Fl_Text_Buffer *powerballTextBuffer;} {public local
+  decl {Fl_Text_Buffer *powerballTextBuffer;} {protected local
   }
-  decl {Fl_Text_Buffer *tattslottoTextBuffer;} {public local
+  decl {Fl_Text_Buffer *tattslottoTextBuffer;} {protected local
   }
-  decl {Fl_Text_Buffer *textbuf_results;} {public local
+  decl {Fl_Text_Buffer *textbuf_results;} {protected local
   }
-  decl {Fl_Text_Buffer *help_text;} {public local
+  decl {Fl_Text_Buffer *help_text;} {protected local
   }
   Function {make_window()} {open
   } {
@@ -1088,66 +1088,67 @@ return 0;
 // Closes the program by hiding the main gui.  Hiding the main window ends the 
 // execution loop.} {}
   }
-  Function {show_help_window()} {} {
+  Function {show_help_window()} {protected
+  } {
     code {this->help_window->show();} {}
   }
-  Function {open_file() = 0} {open return_type {virtual int}
+  Function {open_file() = 0} {open protected return_type {virtual int}
   } {}
-  Function {save_file() = 0} {open return_type {virtual int}
+  Function {save_file() = 0} {open protected return_type {virtual int}
   } {}
-  Function {clear_results() = 0} {open return_type {virtual void}
+  Function {clear_results() = 0} {open protected return_type {virtual void}
   } {}
-  Function {check_lotto() = 0} {open return_type {virtual void}
+  Function {check_lotto() = 0} {open protected return_type {virtual void}
   } {}
-  Function {generate() = 0} {open return_type {virtual int}
+  Function {generate() = 0} {open protected return_type {virtual int}
   } {}
-  Function {clear_lotto() = 0} {open return_type {virtual void}
+  Function {clear_lotto() = 0} {open protected return_type {virtual void}
   } {}
-  Function {changeTab() = 0} {open return_type {virtual void}
+  Function {changeTab() = 0} {open protected return_type {virtual void}
   } {}
-  Function {tattsEntry() = 0} {open return_type {virtual void}
+  Function {tattsEntry() = 0} {open protected return_type {virtual void}
   } {}
-  Function {ozlottoEntry() = 0} {open return_type {virtual void}
+  Function {ozlottoEntry() = 0} {open protected return_type {virtual void}
   } {}
-  Function {powerballEntry() = 0} {open return_type {virtual void}
+  Function {powerballEntry() = 0} {open protected return_type {virtual void}
   } {}
-  Function {lottostrikeEntry() = 0} {open return_type {virtual void}
+  Function {lottostrikeEntry() = 0} {open protected return_type {virtual void}
   } {}
-  Function {setForLifeEntry() = 0} {open return_type {virtual void}
+  Function {setForLifeEntry() = 0} {open protected return_type {virtual void}
   } {}
-  Function {saveResults() = 0} {open return_type {virtual void}
+  Function {saveResults() = 0} {open protected return_type {virtual void}
   } {}
-  Function {NumberSelectorUpdate_cb(Fl_Widget* w, void* userdata)} {return_type {static void}
+  Function {NumberSelectorUpdate_cb(Fl_Widget* w, void* userdata)} {protected return_type {static void}
   } {
     code {Fl_Widget *p = w->parent();
 while (p->parent()) p = p->parent();
 int ptr = *((int*)(&userdata));
 ((UserInterface*)p->user_data())->NumberSelectorUpdate(ptr);} {}
   }
-  Function {show_Numberentry_window()} {return_type virtual
+  Function {show_Numberentry_window()} {protected return_type virtual
   } {
     code {this->Numberentry->show();} {}
   }
-  Function {submitButtonNums() = 0} {open return_type {virtual void}
+  Function {submitButtonNums() = 0} {open protected return_type {virtual void}
   } {}
-  Function {clearNumberSelector() = 0} {open return_type {virtual void}
+  Function {clearNumberSelector() = 0} {open protected return_type {virtual void}
   } {}
-  Function {loadHelp() = 0} {open return_type {virtual void}
+  Function {loadHelp() = 0} {open protected return_type {virtual void}
   } {}
-  Function {show_license_window()} {return_type {virtual void}
+  Function {show_license_window()} {protected return_type {virtual void}
   } {
     code {this->LicenseWindow->show();} {}
   }
-  Function {ensurePowerballButton() = 0} {return_type {virtual void}
+  Function {ensurePowerballButton() = 0} {protected return_type {virtual void}
   } {}
-  Function {show_divisions(Fl_Widget* w, void* userdata)} {open return_type {static void}
+  Function {show_divisions(Fl_Widget* w, void* userdata)} {protected return_type {static void}
   } {
     code {Fl_Widget *p = w->parent();
 while (p->parent()) p = p->parent();
 
 ((UserInterface*)p->user_data())->show_div_callback(w, userdata);} {}
   }
-  Function {show_div_callback(Fl_Widget* w, void* userdata)} {open return_type void
+  Function {show_div_callback(Fl_Widget* w, void* userdata)} {protected return_type void
   } {
     code {if (userdata == (gameType*)LOTTOSTRIKE) {
 	this->lottostrike_divisions_window->show();
@@ -1159,28 +1160,28 @@ while (p->parent()) p = p->parent();
 	powerball_divisions_window->show();
 }} {}
   }
-  Function {hide_parent(Fl_Widget *w, void* data)} {return_type {static void}
+  Function {hide_parent(Fl_Widget *w, void* data)} {protected return_type {static void}
   } {
     code {(w->parent())->hide();} {}
   }
-  Function {show_entry_callback(Fl_Widget* w, void* userdata) = 0} {open return_type {virtual void}
+  Function {show_entry_callback(Fl_Widget* w, void* userdata) = 0} {open protected return_type {virtual void}
   } {}
-  Function {show_entry_window(Fl_Widget* w, void* userdata)} {open return_type {static void}
+  Function {show_entry_window(Fl_Widget* w, void* userdata)} {protected return_type {static void}
   } {
     code {Fl_Widget *p = w->parent();
 while (p->parent()) p = p->parent();
 
 ((UserInterface*)p->user_data())->show_entry_callback(w, userdata);} {}
   }
-  Function {NumberSelectorUpdate(int x) = 0;} {open return_type {virtual void}
+  Function {NumberSelectorUpdate(int x) = 0;} {open protected return_type {virtual void}
   } {}
-  Function {use_draw_results(Fl_Widget* w, void* userdata)} {open return_type {static void}
+  Function {use_draw_results(Fl_Widget* w, void* userdata)} {protected return_type {static void}
   } {
     code {Fl_Widget *p = w->parent();
 while (p->parent()) p = p->parent();
 
 ((UserInterface*)p->user_data())->use_draw_results_cb(w, userdata);} {}
   }
-  Function {use_draw_results_cb(Fl_Widget* w, void* userdata) = 0} {open return_type {virtual void}
+  Function {use_draw_results_cb(Fl_Widget* w, void* userdata) = 0} {open protected return_type {virtual void}
   } {}
 } 

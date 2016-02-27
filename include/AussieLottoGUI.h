@@ -20,7 +20,7 @@
 #include <FL/Fl_Light_Button.H>
 
 class UserInterface {
-public:
+protected:
   DrawHistoryManager *dhm; 
   Fl_Text_Buffer *sflTextBuffer; 
   Fl_Text_Buffer *ozlottoTextBuffer; 
@@ -30,6 +30,7 @@ public:
   Fl_Text_Buffer *tattslottoTextBuffer; 
   Fl_Text_Buffer *textbuf_results; 
   Fl_Text_Buffer *help_text; 
+public:
   Fl_Window* make_window();
   Fl_Window *lotto_gui;
 private:
@@ -247,6 +248,7 @@ public:
   Fl_Double_Window *lottostrike_divisions_window;
   Fl_Double_Window *LicenseWindow;
   int quit();
+protected:
   void show_help_window();
   virtual int open_file() = 0;
   virtual int save_file() = 0;
