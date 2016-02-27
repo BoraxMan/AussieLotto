@@ -73,6 +73,7 @@ Date::operator std::string() const
  }
  
  std::stringstream sdate;
+ std::cout << m_day << " " << m_month << " " << m_year << std::endl;
  sdate << m_day << "/" << month[m_month - 1] << "/" << m_year;
  return sdate.str();
   

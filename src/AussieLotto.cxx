@@ -650,6 +650,18 @@ void AusLotto::show_lottostrike_entry_window(void)
   this->LottostrikeNumberEntryWindow->show();
 }
 
+void AusLotto::show_setforlife_entry_window(void)
+{
+  for ( int r = 0; r < 16; ++r )
+  {
+    for ( int c = 0; c < setforlifeBalls; ++c )
+    {
+      sew[r][c]->value("");
+    } 
+  }
+  this->SetForLifeNumberEntryWindow->show();
+}
+
 
 AusLotto::AusLotto(ResultManager *resultmanager, const std::string &configdir) : ensurePowerballValue(false)
 {
@@ -681,6 +693,22 @@ void AusLotto::no_draw(int draw)
   fl_message("There are no results available for draw %u.  Try downloading the latest results and trying again.", draw);
   return;
 }
+
+void AusLotto::show_entry_callback(Fl_Widget* w, void* userdata)
+{
+  if (userdata == (gameType*)LOTTOSTRIKE) {
+	show_lottostrike_entry_window();
+} else if (userdata == (gameType*)OZLOTTO) {
+	show_ozlotto_entry_window();
+} else if (userdata == (gameType*)TATTSLOTTO) {
+	show_tatts_entry_window();
+} else if (userdata == (gameType*)POWERBALL) {
+	show_powerball_entry_window();
+} else if (userdata == (gameType*)SET_FOR_LIFE) {
+	show_setforlife_entry_window();
+}
+}
+
 void AusLotto::use_draw_results_cb(Fl_Widget* w, void* userdata)
 {
   if (userdata == (resultType*)R_TATTSLOTTO) {
@@ -688,9 +716,8 @@ void AusLotto::use_draw_results_cb(Fl_Widget* w, void* userdata)
           userdata = (resultType*)R_WEEKDAY_TATTSLOTTO;
       }
   }
-      
-      
-  if (userdata == (resultType*)R_TATTSLOTTO) {
+ 
+ if (userdata == (resultType*)R_TATTSLOTTO) {
     int draw = static_cast<int>(this->t_draw->value());
     if (draw == 0) {
       this->t_draw->value(rm->getLastDraw(R_TATTSLOTTO));

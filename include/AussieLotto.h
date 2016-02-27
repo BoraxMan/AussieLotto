@@ -71,6 +71,7 @@ private:
   void show_ozlotto_entry_window();
   void show_powerball_entry_window();
   void show_lottostrike_entry_window();
+  void show_setforlife_entry_window();
   void clear_lotto(void);
   void clear_results(void);
   void show_license_window(void);
@@ -97,6 +98,7 @@ public:
   void createPowerballEntryWindows(void);
   void createLottostrikeEntryWindows(void);
   void createSetForLifeEntryWindows(void);
+  void show_entry_callback(Fl_Widget* w, void* userdata);
   AusLotto(ResultManager *resultmanager, const std::string &configdir);
 protected:
 

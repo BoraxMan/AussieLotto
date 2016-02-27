@@ -17,7 +17,7 @@ decl {\#include "types.h"} {public global
 decl {\#include "DrawHistoryManager.h"} {public global
 } 
 
-class UserInterface {open
+class UserInterface {open selected
 } {
   decl {DrawHistoryManager *dhm;} {public local
   }
@@ -41,7 +41,7 @@ class UserInterface {open
   } {
     Fl_Window lotto_gui {
       label {Aussie Lotto} open
-      xywh {393 385 670 620} type Single color 14 selection_color 32 labelcolor 12 align 80 when 6 visible
+      xywh {821 178 670 620} type Single color 14 selection_color 32 labelcolor 12 align 80 when 6 visible
     } {
       Fl_Box {} {
         label {Aussie Lotto}
@@ -190,7 +190,7 @@ class UserInterface {open
           Fl_Button {} {
             label {Use Draw Results}
             user_data R_TATTSLOTTO
-            callback use_draw_results selected
+            callback use_draw_results
             xywh {455 205 140 25}
           }
           Fl_Group radiobuttons {open
@@ -1163,20 +1163,8 @@ while (p->parent()) p = p->parent();
   } {
     code {(w->parent())->hide();} {}
   }
-  Function {show_entry_callback(Fl_Widget* w, void* userdata)} {open return_type void
-  } {
-    code {if (userdata == (gameType*)LOTTOSTRIKE) {
-	LottostrikeNumberEntryWindow->show();
-} else if (userdata == (gameType*)OZLOTTO) {
-	OzlottoNumberEntryWindow->show();
-} else if (userdata == (gameType*)TATTSLOTTO) {
-	TattsNumberEntryWindow->show();
-} else if (userdata == (gameType*)POWERBALL) {
-	PowerballNumberEntryWindow->show();
-} else if (userdata == (gameType*)SET_FOR_LIFE) {
-	SetForLifeNumberEntryWindow->show();
-}} {}
-  }
+  Function {show_entry_callback(Fl_Widget* w, void* userdata) = 0} {open return_type {virtual void}
+  } {}
   Function {show_entry_window(Fl_Widget* w, void* userdata)} {open return_type {static void}
   } {
     code {Fl_Widget *p = w->parent();
@@ -1193,6 +1181,6 @@ while (p->parent()) p = p->parent();
 
 ((UserInterface*)p->user_data())->use_draw_results_cb(w, userdata);} {}
   }
-  Function {use_draw_results_cb(Fl_Widget* w, void* userdata) = 0} {return_type {virtual void}
+  Function {use_draw_results_cb(Fl_Widget* w, void* userdata) = 0} {open return_type {virtual void}
   } {}
 } 

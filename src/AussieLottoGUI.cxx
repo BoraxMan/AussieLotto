@@ -1297,20 +1297,6 @@ void UserInterface::hide_parent(Fl_Widget *w, void* data) {
   (w->parent())->hide();
 }
 
-void UserInterface::show_entry_callback(Fl_Widget* w, void* userdata) {
-  if (userdata == (gameType*)LOTTOSTRIKE) {
-  	LottostrikeNumberEntryWindow->show();
-  } else if (userdata == (gameType*)OZLOTTO) {
-  	OzlottoNumberEntryWindow->show();
-  } else if (userdata == (gameType*)TATTSLOTTO) {
-  	TattsNumberEntryWindow->show();
-  } else if (userdata == (gameType*)POWERBALL) {
-  	PowerballNumberEntryWindow->show();
-  } else if (userdata == (gameType*)SET_FOR_LIFE) {
-  	SetForLifeNumberEntryWindow->show();
-  }
-}
-
 void UserInterface::show_entry_window(Fl_Widget* w, void* userdata) {
   Fl_Widget *p = w->parent();
   while (p->parent()) p = p->parent();

@@ -271,7 +271,7 @@ public:
   static void show_divisions(Fl_Widget* w, void* userdata);
   void show_div_callback(Fl_Widget* w, void* userdata);
   static void hide_parent(Fl_Widget *w, void* data);
-  void show_entry_callback(Fl_Widget* w, void* userdata);
+  virtual void show_entry_callback(Fl_Widget* w, void* userdata) = 0;
   static void show_entry_window(Fl_Widget* w, void* userdata);
   virtual void NumberSelectorUpdate(int x) = 0;;
   static void use_draw_results(Fl_Widget* w, void* userdata);
