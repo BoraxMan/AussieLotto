@@ -227,7 +227,8 @@ std::string lottostrikeGame::checkResults()
   std::sort(results_tally.begin(), results_tally.end());
   if (!winners)
   {
-    printNoWinners();
+    strout << "You haven't won anything!" << std::endl;
+    strout << "Better luck next time..." << std::endl << std::ends;
     return strout.str();
   }
   

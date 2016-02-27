@@ -29,7 +29,7 @@ class DrawHistoryManagerGUI {open
   } {
     Fl_Window main_window {
       label {Results Manager} open
-      xywh {490 209 970 810} type Double color 12 resizable visible
+      xywh {490 219 970 810} type Double color 12 resizable visible
     } {
       Fl_Box {} {
         label {Result Manager}
@@ -109,7 +109,7 @@ class DrawHistoryManagerGUI {open
       }
       Fl_Button {} {
         label {View Results}
-        callback {init_result_view(R_OZLOTTO);} selected
+        callback {init_result_view(R_OZLOTTO);}
         xywh {475 165 135 30}
       }
       Fl_Button {} {
@@ -117,8 +117,8 @@ class DrawHistoryManagerGUI {open
         callback {init_result_view(R_SET_FOR_LIFE);}
         xywh {610 165 135 30}
       }
-      Fl_Table resultViewTable {open
-        xywh {15 270 955 335} labelsize 18
+      Fl_Table resultViewTable {open selected
+        xywh {15 270 955 335} labelsize 28
         code0 {init_result_view(R_TATTSLOTTO);}
         class ResultViewTable
       } {
@@ -144,7 +144,7 @@ class DrawHistoryManagerGUI {open
     }
     Fl_Window update_window {
       label {Update Results} open
-      xywh {70 720 310 235} type Double visible
+      xywh {70 730 310 235} type Double visible
     } {
       Fl_Check_Button tatts_c {
         label Tattslotto

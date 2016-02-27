@@ -81,13 +81,7 @@ int LottoGame::generateGames(int numgames)
 {
   return 0;
 }
-#include <iostream>
-void LottoGame::printNoWinners(void)
-{
-  std::cout << " SDF " << std::endl;
-  strout << "You haven't won anything!" << std::endl;
-  strout << "Better luck next time..." << std::endl << std::ends;
-}
+
 
 std::string LottoGame::checkResults()
 {
