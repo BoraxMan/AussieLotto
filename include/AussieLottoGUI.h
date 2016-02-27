@@ -171,6 +171,7 @@ private:
   inline void cb_OK_i(Fl_Button*, void*);
   static void cb_OK(Fl_Button*, void*);
 public:
+  Fl_Double_Window *setforlife_divisions_window;
   Fl_Double_Window *OzlottoNumberEntryWindow;
   Fl_Group *OzlottoEntryGroup;
 private:

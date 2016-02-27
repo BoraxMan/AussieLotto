@@ -273,7 +273,7 @@ std::string powerballGame::checkResults()
       results_tally.at(winners).push_back(1);
       results_tally.at(winners++).push_back(c);;
     }
-    else if (tat == 6 && !sup)
+    else if (tat == 6 && !pow)
     {
       results_tally.at(winners).push_back(2);
       results_tally.at(winners++).push_back(c);

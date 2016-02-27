@@ -52,7 +52,7 @@ protected:
     std::string id;
     std::vector<std::vector<int> > numbers;
     std::vector<int> results;
-    void printNoWinners();
+    virtual void printNoWinners();
     
   public:
   //  void setGameType(gameType x);

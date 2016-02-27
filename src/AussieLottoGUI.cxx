@@ -152,6 +152,7 @@ Fl_Menu_Item UserInterface::menu_Winning[] = {
  {"Oz Lotto", 0,  (Fl_Callback*)show_divisions, (void*)(OZLOTTO), 0, FL_NORMAL_LABEL, 0, 14, 0},
  {"Powerball", 0,  (Fl_Callback*)show_divisions, (void*)(POWERBALL), 0, FL_NORMAL_LABEL, 0, 14, 0},
  {"Lotto Strike", 0,  (Fl_Callback*)show_divisions, (void*)(LOTTOSTRIKE), 0, FL_NORMAL_LABEL, 0, 14, 0},
+ {"Set For Life", 0,  (Fl_Callback*)show_divisions, (void*)(SET_FOR_LIFE), 0, FL_NORMAL_LABEL, 0, 14, 0},
  {0,0,0,0,0,0,0,0,0}
 };
 
@@ -281,6 +282,7 @@ Fl_Window* UserInterface::make_window() {
         tattslotto_tab->color(FL_DARK_CYAN);
         tattslotto_tab->selection_color((Fl_Color)29);
         tattslotto_tab->labeltype(FL_EMBOSSED_LABEL);
+        tattslotto_tab->hide();
         { Fl_Group* o = new Fl_Group(20, 170, 280, 45, "Lottery Numbers");
           o->box(FL_PLASTIC_DOWN_BOX);
           o->color((Fl_Color)6);
@@ -624,7 +626,6 @@ Fl_Window* UserInterface::make_window() {
         setforlife_tab->box(FL_DOWN_BOX);
         setforlife_tab->color(FL_CYAN);
         setforlife_tab->labeltype(FL_EMBOSSED_LABEL);
-        setforlife_tab->hide();
         { Fl_Group* o = new Fl_Group(5, 170, 345, 45, "Set For Life Numbers");
           o->box(FL_PLASTIC_DOWN_BOX);
           o->color((Fl_Color)6);
@@ -894,54 +895,59 @@ Fl_Window* UserInterface::make_window() {
     oz_divisions_window->set_modal();
     oz_divisions_window->end();
   } // Fl_Double_Window* oz_divisions_window
-  { powerball_divisions_window = new Fl_Double_Window(555, 330, "Divisions");
+  { powerball_divisions_window = new Fl_Double_Window(480, 405, "Divisions");
     powerball_divisions_window->color((Fl_Color)14);
     powerball_divisions_window->user_data((void*)(this));
     powerball_divisions_window->align(Fl_Align(FL_ALIGN_CLIP|FL_ALIGN_INSIDE));
-    { Fl_Text_Display* o = new Fl_Text_Display(15, 70, 15, 20, "Division 1 : 6 numbers and the powerball");
-      o->box(FL_NO_BOX);
-      o->labelsize(18);
-      o->align(Fl_Align(FL_ALIGN_RIGHT));
-    } // Fl_Text_Display* o
-    { Fl_Text_Display* o = new Fl_Text_Display(15, 100, 15, 20, "Division 2 : 6 numbers and a supplementary");
-      o->box(FL_NO_BOX);
-      o->labelsize(18);
-      o->align(Fl_Align(FL_ALIGN_RIGHT));
-    } // Fl_Text_Display* o
-    { Fl_Text_Display* o = new Fl_Text_Display(15, 130, 15, 20, "Division 3 : 6 numbers");
-      o->box(FL_NO_BOX);
-      o->labelsize(18);
-      o->align(Fl_Align(FL_ALIGN_RIGHT));
-    } // Fl_Text_Display* o
-    { Fl_Text_Display* o = new Fl_Text_Display(15, 160, 15, 20, "Division 4 : 5 numbers and a supplementary");
-      o->box(FL_NO_BOX);
-      o->labelsize(18);
-      o->align(Fl_Align(FL_ALIGN_RIGHT));
-    } // Fl_Text_Display* o
-    { Fl_Text_Display* o = new Fl_Text_Display(15, 190, 15, 20, "Division 5 : 5 numbers");
-      o->box(FL_NO_BOX);
-      o->labelsize(18);
-      o->align(Fl_Align(FL_ALIGN_RIGHT));
-    } // Fl_Text_Display* o
-    { Fl_Text_Display* o = new Fl_Text_Display(15, 215, 15, 20, "Division 6 : 4 numbers");
-      o->box(FL_NO_BOX);
-      o->labelsize(18);
-      o->align(Fl_Align(FL_ALIGN_RIGHT));
-    } // Fl_Text_Display* o
-    { Fl_Text_Display* o = new Fl_Text_Display(15, 245, 15, 20, "Division 7 : 3 numbers and a supplementary");
-      o->box(FL_NO_BOX);
-      o->labelsize(18);
-      o->align(Fl_Align(FL_ALIGN_RIGHT));
-    } // Fl_Text_Display* o
-    { Fl_Box* o = new Fl_Box(25, 10, 560, 40, "Powerball Winning Divisions");
+    { Fl_Box* o = new Fl_Box(0, 0, 480, 40, "Powerball Winning Divisions");
       o->box(FL_DOWN_BOX);
       o->color((Fl_Color)4);
       o->labelsize(28);
       o->labelcolor((Fl_Color)3);
     } // Fl_Box* o
-    { Fl_Button* o = new Fl_Button(395, 280, 95, 30, "Close");
+    { Fl_Button* o = new Fl_Button(190, 340, 95, 30, "Close");
       o->callback((Fl_Callback*)hide_parent);
     } // Fl_Button* o
+    { Fl_Text_Display* o = new Fl_Text_Display(25, 80, 15, 20, "Division 1 : 6 numbers and the powerball");
+      o->box(FL_NO_BOX);
+      o->labelsize(18);
+      o->align(Fl_Align(FL_ALIGN_RIGHT));
+    } // Fl_Text_Display* o
+    { Fl_Text_Display* o = new Fl_Text_Display(25, 110, 15, 20, "Division 2 : 6 numbers");
+      o->box(FL_NO_BOX);
+      o->labelsize(18);
+      o->align(Fl_Align(FL_ALIGN_RIGHT));
+    } // Fl_Text_Display* o
+    { Fl_Text_Display* o = new Fl_Text_Display(25, 140, 15, 20, "Division 3 : 5 numbers and the powerball");
+      o->box(FL_NO_BOX);
+      o->labelsize(18);
+      o->align(Fl_Align(FL_ALIGN_RIGHT));
+    } // Fl_Text_Display* o
+    { Fl_Text_Display* o = new Fl_Text_Display(25, 170, 15, 20, "Division 4 : 5 numbers");
+      o->box(FL_NO_BOX);
+      o->labelsize(18);
+      o->align(Fl_Align(FL_ALIGN_RIGHT));
+    } // Fl_Text_Display* o
+    { Fl_Text_Display* o = new Fl_Text_Display(25, 200, 15, 20, "Division 5 : 4 numbers and the powerball");
+      o->box(FL_NO_BOX);
+      o->labelsize(18);
+      o->align(Fl_Align(FL_ALIGN_RIGHT));
+    } // Fl_Text_Display* o
+    { Fl_Text_Display* o = new Fl_Text_Display(25, 230, 15, 20, "Division 6 : 3 numbers and the powerball");
+      o->box(FL_NO_BOX);
+      o->labelsize(18);
+      o->align(Fl_Align(FL_ALIGN_RIGHT));
+    } // Fl_Text_Display* o
+    { Fl_Text_Display* o = new Fl_Text_Display(25, 260, 15, 20, "Division 7 : 4 numbers");
+      o->box(FL_NO_BOX);
+      o->labelsize(18);
+      o->align(Fl_Align(FL_ALIGN_RIGHT));
+    } // Fl_Text_Display* o
+    { Fl_Text_Display* o = new Fl_Text_Display(25, 290, 15, 20, "Division 8 : 2 numbers and the powerball");
+      o->box(FL_NO_BOX);
+      o->labelsize(18);
+      o->align(Fl_Align(FL_ALIGN_RIGHT));
+    } // Fl_Text_Display* o
     powerball_divisions_window->set_modal();
     powerball_divisions_window->end();
   } // Fl_Double_Window* powerball_divisions_window
@@ -961,6 +967,62 @@ Fl_Window* UserInterface::make_window() {
     } // Fl_Button* o
     TattsNumberEntryWindow->end();
   } // Fl_Double_Window* TattsNumberEntryWindow
+  { setforlife_divisions_window = new Fl_Double_Window(495, 375, "Divisions");
+    setforlife_divisions_window->color((Fl_Color)14);
+    setforlife_divisions_window->user_data((void*)(this));
+    setforlife_divisions_window->align(Fl_Align(FL_ALIGN_CLIP|FL_ALIGN_INSIDE));
+    { Fl_Text_Display* o = new Fl_Text_Display(15, 70, 15, 20, "Division 1 : 8 numbers");
+      o->box(FL_NO_BOX);
+      o->labelsize(18);
+      o->align(Fl_Align(FL_ALIGN_RIGHT));
+    } // Fl_Text_Display* o
+    { Fl_Text_Display* o = new Fl_Text_Display(15, 100, 15, 20, "Division 2 : 7 numbers and 1 bonus number");
+      o->box(FL_NO_BOX);
+      o->labelsize(18);
+      o->align(Fl_Align(FL_ALIGN_RIGHT));
+    } // Fl_Text_Display* o
+    { Fl_Text_Display* o = new Fl_Text_Display(15, 130, 15, 20, "Division 3 : 7 numbers");
+      o->box(FL_NO_BOX);
+      o->labelsize(18);
+      o->align(Fl_Align(FL_ALIGN_RIGHT));
+    } // Fl_Text_Display* o
+    { Fl_Text_Display* o = new Fl_Text_Display(15, 160, 15, 20, "Division 4 : 6 numbers and 1 or 2 bonus numbers");
+      o->box(FL_NO_BOX);
+      o->labelsize(18);
+      o->align(Fl_Align(FL_ALIGN_RIGHT));
+    } // Fl_Text_Display* o
+    { Fl_Text_Display* o = new Fl_Text_Display(15, 190, 15, 20, "Division 5 : 6 numbers");
+      o->box(FL_NO_BOX);
+      o->labelsize(18);
+      o->align(Fl_Align(FL_ALIGN_RIGHT));
+    } // Fl_Text_Display* o
+    { Fl_Text_Display* o = new Fl_Text_Display(15, 220, 15, 20, "Division 6 : 5 numbers and 1 or 2 bonus numbers");
+      o->box(FL_NO_BOX);
+      o->labelsize(18);
+      o->align(Fl_Align(FL_ALIGN_RIGHT));
+    } // Fl_Text_Display* o
+    { Fl_Text_Display* o = new Fl_Text_Display(15, 250, 15, 20, "Division 7 : 5 numbers");
+      o->box(FL_NO_BOX);
+      o->labelsize(18);
+      o->align(Fl_Align(FL_ALIGN_RIGHT));
+    } // Fl_Text_Display* o
+    { Fl_Box* o = new Fl_Box(0, 0, 495, 40, "Set For Life Winning Divisions");
+      o->box(FL_DOWN_BOX);
+      o->color((Fl_Color)4);
+      o->labelsize(28);
+      o->labelcolor((Fl_Color)3);
+    } // Fl_Box* o
+    { Fl_Button* o = new Fl_Button(165, 325, 95, 30, "Close");
+      o->callback((Fl_Callback*)hide_parent);
+    } // Fl_Button* o
+    { Fl_Text_Display* o = new Fl_Text_Display(15, 280, 15, 20, "Division 8 : 4 numbers and 1 or 2 bonus numbers");
+      o->box(FL_NO_BOX);
+      o->labelsize(18);
+      o->align(Fl_Align(FL_ALIGN_RIGHT));
+    } // Fl_Text_Display* o
+    setforlife_divisions_window->set_modal();
+    setforlife_divisions_window->end();
+  } // Fl_Double_Window* setforlife_divisions_window
   { OzlottoNumberEntryWindow = new Fl_Double_Window(430, 565, "Ozlotto Number");
     OzlottoNumberEntryWindow->color((Fl_Color)14);
     OzlottoNumberEntryWindow->user_data((void*)(this));
@@ -1290,6 +1352,8 @@ void UserInterface::show_div_callback(Fl_Widget* w, void* userdata) {
   	divisions_window->show();
   } else if (userdata == (gameType*)POWERBALL) {
   	powerball_divisions_window->show();
+  } else if (userdata == (gameType*)SET_FOR_LIFE) {
+  	setforlife_divisions_window->show();
   }
 }
 

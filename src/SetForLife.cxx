@@ -1,6 +1,6 @@
 #include "SetForLife.h"
 
-
+#include <iostream>
 //*******************
 // Set For Life Games
 //*******************
@@ -63,7 +63,7 @@ int setforlifeGame::saveGame(std::string fname)
   file_out.open(fname.c_str(), std::ios::out | std::ios::trunc | std::ios::binary);
   
   if (!file_out.is_open())
-    throw std::string("Could not open file");
+    throw AussieLottoException("Could not open file", fname.c_str());
   
   file_out << tatts_id << "\n";
   file_out << games << "\n";
@@ -117,17 +117,13 @@ std::string setforlifeGame::checkResults()
   std::vector<std::vector<int> > results_tally; 
   
   std::ostringstream strout; // The stream that we will write the results to.
-  
-  if (!results[0] || !results[1] || !results[2] ||
-      !results[3] || !results[4] || !results[5] ||
-      !results_supps[0] || !results_supps[1])
-      throw std::string("Can't have zero as a lottery number.");
 
   if (results[0] > highest_ball || results[1] > highest_ball || 
       results[2] > highest_ball || results[3] > highest_ball ||
       results[4] > highest_ball || results[5] > highest_ball ||
+      results[6] > highest_ball || results[7] > highest_ball ||
       results_supps[0] > highest_ball || results_supps[1] > highest_ball)
-      throw std::string("You have entered a number greater than the maximum possible.");
+      throw AussieLottoException("You have entered a number greater than the maximum possible.", " ");
   
   for (c = 0; c < games; ++c)
   {
@@ -150,6 +146,10 @@ std::string setforlifeGame::checkResults()
       ++tat;
     else if (numbers[c][i] == results[5])
       ++tat;
+    else if (numbers[c][i] == results[6])
+      ++tat;
+    else if (numbers[c][i] == results[7])
+      ++tat;
     if (numbers[c][i] == results_supps[0])
       ++sup;
     if (numbers[c][i] == results_supps[1])
@@ -159,34 +159,44 @@ std::string setforlifeGame::checkResults()
     // whether you got one or two.  Here we just test for the existance of a supplementary
     // number and not how many there were (except for division 6, which needs two supps).
     }
-    if (tat == 6)
+    if (tat == 8)
     {
       results_tally.at(winners).push_back(1);
       results_tally.at(winners++).push_back(c);
     }
-    else if (tat == 5 && sup)
+    else if (tat == 7 && sup)
     {
       results_tally.at(winners).push_back(2);
       results_tally.at(winners++).push_back(c);
     }
-    else if (tat == 5 && !sup)
+    else if (tat == 7 && !sup)
     {
       results_tally.at(winners).push_back(3);
       results_tally.at(winners++).push_back(c);
     }
-    else if (tat == 4)
+    else if (tat == 6 && sup)
     {
       results_tally.at(winners).push_back(4);
       results_tally.at(winners++).push_back(c);
     }
-    else if (tat == 3 && sup)
+    else if (tat == 6 && !sup)
     {
       results_tally.at(winners).push_back(5);
       results_tally.at(winners++).push_back(c);
     }
-    else if (tat <= 2 && (sup == 2))
+    else if (tat == 5 && sup)
     {
       results_tally.at(winners).push_back(6);
+      results_tally.at(winners++).push_back(c);
+    }
+    else if (tat == 5 && !sup)
+    {
+      results_tally.at(winners).push_back(7);
+      results_tally.at(winners++).push_back(c);
+    }
+    else if (tat == 4 && sup)
+    {
+      results_tally.at(winners).push_back(8);
       results_tally.at(winners++).push_back(c);
     }
   } // end of (for c < games) loop
@@ -212,7 +222,7 @@ std::string setforlifeGame::checkResults()
  
 
   if (winners == 1)
-    strout << "You've won a single game." << std::endl;
+    strout << "You've won a single game." << std::ends;
   else
     strout << "You've won " << winners << " games." << std::endl << std::ends;
 

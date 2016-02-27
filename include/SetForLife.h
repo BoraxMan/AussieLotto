@@ -6,6 +6,7 @@
 #include <algorithm>
 #include <vector>
 #include "LottoGame.h"
+#include "AussieLottoException.h"
 
 class setforlifeGame : public LottoGame
 {

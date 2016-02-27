@@ -23,7 +23,7 @@ class UserInterface {open
   }
   decl {Fl_Text_Buffer *sflTextBuffer;} {protected local
   }
-  decl {Fl_Text_Buffer *ozlottoTextBuffer;} {selected protected local
+  decl {Fl_Text_Buffer *ozlottoTextBuffer;} {protected local
   }
   decl {Fl_Text_Buffer *lottostrikeTextBuffer;} {protected local
   }
@@ -41,7 +41,7 @@ class UserInterface {open
   } {
     Fl_Window lotto_gui {
       label {Aussie Lotto} open
-      xywh {821 178 670 620} type Single color 14 selection_color 32 labelcolor 12 align 80 when 6 visible
+      xywh {0 362 670 620} type Single color 14 selection_color 32 labelcolor 12 align 80 when 6 visible
     } {
       Fl_Box {} {
         label {Aussie Lotto}
@@ -132,7 +132,7 @@ class UserInterface {open
       } {
         Fl_Group tattslotto_tab {
           label {Tattslotto/Gold Lotto/X Lotto} open
-          xywh {0 150 680 470} box DOWN_BOX color 140 selection_color 29 labeltype EMBOSSED_LABEL
+          xywh {0 150 680 470} box DOWN_BOX color 140 selection_color 29 labeltype EMBOSSED_LABEL hide
         } {
           Fl_Group {} {
             label {Lottery Numbers} open
@@ -207,7 +207,7 @@ class UserInterface {open
           }
         }
         Fl_Group ozlotto_tab {
-          label OzLotto open
+          label OzLotto
           xywh {0 150 670 470} box DOWN_BOX color 60 labeltype EMBOSSED_LABEL hide
         } {
           Fl_Group {} {
@@ -274,7 +274,7 @@ class UserInterface {open
           }
         }
         Fl_Group powerball_tab {
-          label Powerball open
+          label Powerball
           xywh {0 150 670 580} box DOWN_BOX color 187 labeltype EMBOSSED_LABEL hide
         } {
           Fl_Group {} {
@@ -335,11 +335,11 @@ class UserInterface {open
           }
         }
         Fl_Group lottostrike_tab {
-          label {Lotto Strike} open
+          label {Lotto Strike}
           xywh {0 150 670 470} box DOWN_BOX color 11 selection_color 29 labeltype EMBOSSED_LABEL hide resizable
         } {
           Fl_Group {} {
-            label {Gold Lotto Numbers} open
+            label {Gold Lotto Numbers}
             xywh {20 170 280 45} box PLASTIC_DOWN_BOX color 6 labelsize 16
           } {
             Fl_Value_Input lsnum1 {
@@ -374,8 +374,8 @@ class UserInterface {open
           }
         }
         Fl_Group setforlife_tab {
-          label {Set for life} open
-          xywh {0 150 670 470} box DOWN_BOX color 223 labeltype EMBOSSED_LABEL hide
+          label {Set for life}
+          xywh {0 150 670 470} box DOWN_BOX color 223 labeltype EMBOSSED_LABEL
         } {
           Fl_Group {} {
             label {Set For Life Numbers} open
@@ -472,6 +472,12 @@ class UserInterface {open
           callback show_divisions
           xywh {30 30 34 20}
         }
+        MenuItem {} {
+          label {Set For Life}
+          user_data SET_FOR_LIFE
+          callback show_divisions
+          xywh {40 40 34 20}
+        }
       }
       Fl_Button {} {
         label License
@@ -507,7 +513,7 @@ class UserInterface {open
     }
     Fl_Window divisions_window {
       label {Tattslotto Divisions}
-      xywh {330 218 505 295} type Double color 14 align 80 hide modal
+      xywh {330 218 505 295} type Double color 14 align 80 modal visible
     } {
       Fl_Text_Display {} {
         label {Division 1 : 6 numbers}
@@ -605,44 +611,48 @@ class UserInterface {open
     }
     Fl_Window powerball_divisions_window {
       label Divisions
-      xywh {350 238 555 330} type Double color 14 align 80 hide modal
+      xywh {175 309 480 405} type Double color 14 align 80 hide modal
     } {
-      Fl_Text_Display {} {
-        label {Division 1 : 6 numbers and the powerball}
-        xywh {15 70 15 20} box NO_BOX labelsize 18 align 8
-      }
-      Fl_Text_Display {} {
-        label {Division 2 : 6 numbers and a supplementary}
-        xywh {15 100 15 20} box NO_BOX labelsize 18 align 8
-      }
-      Fl_Text_Display {} {
-        label {Division 3 : 6 numbers}
-        xywh {15 130 15 20} box NO_BOX labelsize 18 align 8
-      }
-      Fl_Text_Display {} {
-        label {Division 4 : 5 numbers and a supplementary}
-        xywh {15 160 15 20} box NO_BOX labelsize 18 align 8
-      }
-      Fl_Text_Display {} {
-        label {Division 5 : 5 numbers}
-        xywh {15 190 15 20} box NO_BOX labelsize 18 align 8
-      }
-      Fl_Text_Display {} {
-        label {Division 6 : 4 numbers}
-        xywh {15 215 15 20} box NO_BOX labelsize 18 align 8
-      }
-      Fl_Text_Display {} {
-        label {Division 7 : 3 numbers and a supplementary}
-        xywh {15 245 15 20} box NO_BOX labelsize 18 align 8
-      }
       Fl_Box {} {
         label {Powerball Winning Divisions}
-        xywh {25 10 560 40} box DOWN_BOX color 4 labelsize 28 labelcolor 3
+        xywh {0 0 480 40} box DOWN_BOX color 4 labelsize 28 labelcolor 3
       }
       Fl_Button {} {
         label Close
         callback hide_parent
-        xywh {395 280 95 30}
+        xywh {190 340 95 30}
+      }
+      Fl_Text_Display {} {
+        label {Division 1 : 6 numbers and the powerball}
+        xywh {25 80 15 20} box NO_BOX labelsize 18 align 8
+      }
+      Fl_Text_Display {} {
+        label {Division 2 : 6 numbers}
+        xywh {25 110 15 20} box NO_BOX labelsize 18 align 8
+      }
+      Fl_Text_Display {} {
+        label {Division 3 : 5 numbers and the powerball}
+        xywh {25 140 15 20} box NO_BOX labelsize 18 align 8
+      }
+      Fl_Text_Display {} {
+        label {Division 4 : 5 numbers}
+        xywh {25 170 15 20} box NO_BOX labelsize 18 align 8
+      }
+      Fl_Text_Display {} {
+        label {Division 5 : 4 numbers and the powerball}
+        xywh {25 200 15 20} box NO_BOX labelsize 18 align 8
+      }
+      Fl_Text_Display {} {
+        label {Division 6 : 3 numbers and the powerball}
+        xywh {25 230 15 20} box NO_BOX labelsize 18 align 8
+      }
+      Fl_Text_Display {} {
+        label {Division 7 : 4 numbers}
+        xywh {25 260 15 20} box NO_BOX labelsize 18 align 8
+      }
+      Fl_Text_Display {} {
+        label {Division 8 : 2 numbers and the powerball}
+        xywh {25 290 15 20} box NO_BOX labelsize 18 align 8
       }
     }
     Fl_Window TattsNumberEntryWindow {
@@ -662,6 +672,52 @@ class UserInterface {open
         label Cancel
         callback hide_parent
         xywh {305 535 105 20} color 14
+      }
+    }
+    Fl_Window setforlife_divisions_window {
+      label Divisions
+      xywh {360 248 495 375} type Double color 14 align 80 modal visible
+    } {
+      Fl_Text_Display {} {
+        label {Division 1 : 8 numbers}
+        xywh {15 70 15 20} box NO_BOX labelsize 18 align 8
+      }
+      Fl_Text_Display {} {
+        label {Division 2 : 7 numbers and 1 bonus number}
+        xywh {15 100 15 20} box NO_BOX labelsize 18 align 8
+      }
+      Fl_Text_Display {} {
+        label {Division 3 : 7 numbers}
+        xywh {15 130 15 20} box NO_BOX labelsize 18 align 8
+      }
+      Fl_Text_Display {} {
+        label {Division 4 : 6 numbers and 1 or 2 bonus numbers}
+        xywh {15 160 15 20} box NO_BOX labelsize 18 align 8
+      }
+      Fl_Text_Display {} {
+        label {Division 5 : 6 numbers}
+        xywh {15 190 15 20} box NO_BOX labelsize 18 align 8
+      }
+      Fl_Text_Display {} {
+        label {Division 6 : 5 numbers and 1 or 2 bonus numbers}
+        xywh {15 220 15 20} box NO_BOX labelsize 18 align 8
+      }
+      Fl_Text_Display {} {
+        label {Division 7 : 5 numbers}
+        xywh {15 250 15 20} box NO_BOX labelsize 18 align 8
+      }
+      Fl_Box {} {
+        label {Set For Life Winning Divisions}
+        xywh {0 0 495 40} box DOWN_BOX color 4 labelsize 28 labelcolor 3
+      }
+      Fl_Button {} {
+        label Close
+        callback hide_parent
+        xywh {165 325 95 30}
+      }
+      Fl_Text_Display {} {
+        label {Division 8 : 4 numbers and 1 or 2 bonus numbers}
+        xywh {15 280 15 20} box NO_BOX labelsize 18 align 8
       }
     }
     Fl_Window OzlottoNumberEntryWindow {
@@ -684,7 +740,7 @@ class UserInterface {open
       }
     }
     Fl_Window LottostrikeNumberEntryWindow {
-      label {Lotto Strike Number} open
+      label {Lotto Strike Number}
       xywh {77 56 430 565} type Double color 14 hide
     } {
       Fl_Group LottostrikeEntryGroup {
@@ -703,7 +759,7 @@ class UserInterface {open
       }
     }
     Fl_Window SetForLifeNumberEntryWindow {
-      label {Set For Life Number} open
+      label {Set For Life Number}
       xywh {471 73 430 565} type Double color 14 align 80 hide
     } {
       Fl_Group SetForLifeEntryGroup {
@@ -722,7 +778,7 @@ class UserInterface {open
       }
     }
     Fl_Window Numberentry {
-      label {Number Entry} open
+      label {Number Entry}
       xywh {90 386 350 250} type Double align 80 visible
     } {
       Fl_Light_Button button_1 {
@@ -1007,7 +1063,7 @@ class UserInterface {open
       }
     }
     Fl_Window PowerballNumberEntryWindow {
-      label {Powerball Number} open
+      label {Powerball Number}
       xywh {461 63 430 565} type Double color 14 align 80 hide
     } {
       Fl_Group PowerballEntryGroup {
@@ -1026,8 +1082,8 @@ class UserInterface {open
       }
     }
     Fl_Window lottostrike_divisions_window {
-      label {Lotto Strike Divisions} open
-      xywh {360 248 490 240} type Double color 14 align 80 hide modal
+      label {Lotto Strike Divisions}
+      xywh {360 248 490 240} type Double color 14 align 80 modal visible
     } {
       Fl_Text_Display {} {
         label {Division 1 : All 4 of the 1st four numbers in order}
@@ -1141,14 +1197,14 @@ int ptr = *((int*)(&userdata));
   }
   Function {ensurePowerballButton() = 0} {protected return_type {virtual void}
   } {}
-  Function {show_divisions(Fl_Widget* w, void* userdata)} {protected return_type {static void}
+  Function {show_divisions(Fl_Widget* w, void* userdata)} {open protected return_type {static void}
   } {
     code {Fl_Widget *p = w->parent();
 while (p->parent()) p = p->parent();
 
 ((UserInterface*)p->user_data())->show_div_callback(w, userdata);} {}
   }
-  Function {show_div_callback(Fl_Widget* w, void* userdata)} {protected return_type void
+  Function {show_div_callback(Fl_Widget* w, void* userdata)} {open protected return_type void
   } {
     code {if (userdata == (gameType*)LOTTOSTRIKE) {
 	this->lottostrike_divisions_window->show();
@@ -1158,7 +1214,10 @@ while (p->parent()) p = p->parent();
 	divisions_window->show();
 } else if (userdata == (gameType*)POWERBALL) {
 	powerball_divisions_window->show();
-}} {}
+} else if (userdata == (gameType*)SET_FOR_LIFE) {
+	setforlife_divisions_window->show();
+}} {selected
+    }
   }
   Function {hide_parent(Fl_Widget *w, void* data)} {protected return_type {static void}
   } {

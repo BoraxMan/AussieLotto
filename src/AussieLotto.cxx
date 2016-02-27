@@ -959,6 +959,8 @@ void AusLotto::check_lotto(void)
 	tmpResults.push_back(static_cast<int>(this->sfl_num7->value()));
 	tmpResults.push_back(static_cast<int>(this->sfl_num8->value()));
 	setforlife->setResults(tmpResults);
+        setforlife->setResultsSupps(static_cast<int>(this->sfl_bonus1->value()),
+	static_cast<int>(this->sfl_bonus2->value()));
 	s = setforlife->checkResults();
 	break;
       default:
