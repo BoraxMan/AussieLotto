@@ -22,7 +22,12 @@ ResultManager::ResultManager(const std::string &configdir) : dbInitialised(false
 {
   std::string x;
   homedir = configdir;
+#ifdef __linux
   mkdir(homedir.c_str(), 0770);
+#else
+  mkdir(homedir.c_str());
+#endif
+  
   URLlist.resize(TOTAL_COUNT);
   
   if (initResultFileDatabase() == 0) {
