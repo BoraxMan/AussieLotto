@@ -1,3 +1,4 @@
+#include <iomanip>
 #include "Powerball.h"
 
 
@@ -227,6 +228,7 @@ std::string powerballGame::checkResults()
   int sup;
   int c;
   int pow;
+  float prize_total = 0;
   int winners = 0;
   std::vector<std::vector<int> > results_tally; 
 
@@ -329,13 +331,23 @@ std::string powerballGame::checkResults()
     strout << numbers[results_tally[c][1]][3] << "\t" << numbers[results_tally[c][1]][4] << "\t";
     strout << numbers[results_tally[c][1]][5] << "\n";
     strout << "Powerball :" << pb[results_tally[c][1]];
+    strout << std::fixed << std::setprecision(2) << std::setfill('0');
+    if (m_prizesAvailable)
+    {
+      strout << "\nPrize : $" << m_prizes[(results_tally[c][0]-1)];
+      prize_total += m_prizes[(results_tally[c][0]-1)];
+    }
     strout << "\n\n";
   }
  
   if (winners == 1)
     strout << "You've won a single game." << std::endl;
   else
-    strout << "You've won " << winners << " games." << std::endl << std::ends;
+    if (m_prizesAvailable)
+    {
+      strout << "Total prize money won = $" << prize_total << std::endl;
+    }
+    strout << std::ends;
 
 return strout.str();
 }

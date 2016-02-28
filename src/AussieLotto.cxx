@@ -728,6 +728,8 @@ void AusLotto::use_draw_results_cb(Fl_Widget* w, void* userdata)
       return;
     }
     const std::vector<int> &supps = rm->getSupps(R_TATTSLOTTO, draw);
+    const std::vector<float> &prizes = rm->getPrizes(R_TATTSLOTTO, draw);
+    tatts->setPrizes(prizes);
     this->num1->value(balls[0]);
     this->num2->value(balls[1]);
     this->num3->value(balls[2]);
@@ -748,6 +750,8 @@ void AusLotto::use_draw_results_cb(Fl_Widget* w, void* userdata)
       return;
     }
     const std::vector<int> &supps = rm->getSupps(R_OZLOTTO, draw);
+    const std::vector<float> &prizes = rm->getPrizes(R_OZLOTTO, draw);
+    ozlotto->setPrizes(prizes);
     this->oz_num1->value(balls[0]);
     this->oz_num2->value(balls[1]);
     this->oz_num3->value(balls[2]);
@@ -769,6 +773,8 @@ void AusLotto::use_draw_results_cb(Fl_Widget* w, void* userdata)
       return;
     }
     const std::vector<int> &supps = rm->getSupps(R_POWERBALL, draw);
+    const std::vector<float> &prizes = rm->getPrizes(R_POWERBALL, draw);
+    powerball->setPrizes(prizes);
     this->pb_num1->value(balls[0]);
     this->pb_num2->value(balls[1]);
     this->pb_num3->value(balls[2]);
@@ -788,6 +794,8 @@ void AusLotto::use_draw_results_cb(Fl_Widget* w, void* userdata)
       return;
     }
     const std::vector<int> &supps = rm->getSupps(R_SET_FOR_LIFE, draw);
+    const std::vector<float> &prizes = rm->getPrizes(R_SET_FOR_LIFE, draw);
+    setforlife->setPrizes(prizes);
     this->sfl_num1->value(balls[0]);
     this->sfl_num2->value(balls[1]);
     this->sfl_num3->value(balls[2]);
@@ -810,6 +818,8 @@ void AusLotto::use_draw_results_cb(Fl_Widget* w, void* userdata)
       return;
     }
     const std::vector<int> &supps = rm->getSupps(R_WEEKDAY_TATTSLOTTO, draw);
+    const std::vector<float> &prizes = rm->getPrizes(R_WEEKDAY_TATTSLOTTO, draw);
+    tatts->setPrizes(prizes);
     this->num1->value(balls[0]);
     this->num2->value(balls[1]);
     this->num3->value(balls[2]);
@@ -995,6 +1005,7 @@ void AusLotto::clear_results(void)
       this->num6->value(0);
       this->supp1->value(0);
       this->supp2->value(0);
+      this->t_draw->value(0);
       break;
     case OZLOTTO:
       this->oz_num1->value(0);
@@ -1006,6 +1017,7 @@ void AusLotto::clear_results(void)
       this->oz_num7->value(0);
       this->oz_supp1->value(0);
       this->oz_supp2->value(0);
+      this->o_draw->value(0);
       break;
     case POWERBALL:
       this->pb_num1->value(0);
@@ -1015,6 +1027,7 @@ void AusLotto::clear_results(void)
       this->pb_num5->value(0); 
       this->pb_num6->value(0); 
       this->powerball_value->value(0);
+      this->p_draw->value(0);
       break;
     case LOTTOSTRIKE:
       this->lsnum1->value(0);
@@ -1033,6 +1046,7 @@ void AusLotto::clear_results(void)
       this->sfl_num6->value(0);
       this->sfl_num7->value(0);
       this->sfl_num8->value(0);
+      this->s_draw->value(0);
       break;
     default:
       break;
@@ -1309,7 +1323,7 @@ int AusLotto::generate()
   }
 
   gt = this->getGameTab();
-  
+  clear_results();
   switch(gt)
   {
     case TATTSLOTTO:

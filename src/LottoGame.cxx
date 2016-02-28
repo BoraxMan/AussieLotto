@@ -56,7 +56,7 @@ gameType getFileGameType(char *fname)
 // Lotto Game methods
 //*******************
 
-LottoGame::LottoGame() : memoryAllocated(false), games(0), outputted(0), balls(0)
+LottoGame::LottoGame() : memoryAllocated(false), games(0), outputted(0), balls(0), m_prizesAvailable(false)
 {  
 
 }
@@ -112,6 +112,11 @@ int LottoGame::setResults(std::vector<int> passedResults) throw (AussieLottoExce
   return 0;
 }
 
+int LottoGame::setPrizes(std::vector<float> prizes)
+{
+  m_prizes = prizes;
+  m_prizesAvailable = true;
+}
 
 int LottoGame::loadGame(char *fname)
 {

@@ -282,7 +282,6 @@ Fl_Window* UserInterface::make_window() {
         tattslotto_tab->color(FL_DARK_CYAN);
         tattslotto_tab->selection_color((Fl_Color)29);
         tattslotto_tab->labeltype(FL_EMBOSSED_LABEL);
-        tattslotto_tab->hide();
         { Fl_Group* o = new Fl_Group(20, 170, 280, 45, "Lottery Numbers");
           o->box(FL_PLASTIC_DOWN_BOX);
           o->color((Fl_Color)6);
@@ -626,6 +625,7 @@ Fl_Window* UserInterface::make_window() {
         setforlife_tab->box(FL_DOWN_BOX);
         setforlife_tab->color(FL_CYAN);
         setforlife_tab->labeltype(FL_EMBOSSED_LABEL);
+        setforlife_tab->hide();
         { Fl_Group* o = new Fl_Group(5, 170, 345, 45, "Set For Life Numbers");
           o->box(FL_PLASTIC_DOWN_BOX);
           o->color((Fl_Color)6);

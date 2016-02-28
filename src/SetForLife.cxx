@@ -1,3 +1,4 @@
+#include <iomanip>
 #include "SetForLife.h"
 
 #include <iostream>
@@ -113,6 +114,7 @@ std::string setforlifeGame::checkResults()
   int tat;
   int sup;
   int c;
+  float prize_total = 0;
   int winners = 0;
   std::vector<std::vector<int> > results_tally; 
   
@@ -218,6 +220,12 @@ std::string setforlifeGame::checkResults()
     strout << numbers[results_tally[c][1]][2] << "\t" << numbers[results_tally[c][1]][3] << "\t"; 
     strout << numbers[results_tally[c][1]][4] << "\t" << numbers[results_tally[c][1]][5] << "\t";
     strout << numbers[results_tally[c][1]][6] << "\t" << numbers[results_tally[c][1]][7] << "\t";
+    strout << std::fixed << std::setprecision(2) << std::setfill('0');
+    if (m_prizesAvailable)
+    {
+      strout << "\nPrize : $" << m_prizes[(results_tally[c][0]-1)];
+      prize_total += m_prizes[(results_tally[c][0]-1)];
+    }
     strout << "\n\n";
   }
  
@@ -225,7 +233,14 @@ std::string setforlifeGame::checkResults()
   if (winners == 1)
     strout << "You've won a single game." << std::ends;
   else
-    strout << "You've won " << winners << " games." << std::endl << std::ends;
+  {
+    strout << "You've won " << winners << " games." << std::endl;
+    if (m_prizesAvailable)
+    {
+      strout << "Total prize money won = $" << prize_total << std::endl;
+    }
+    strout << std::ends;
+  }
 
 return strout.str();
   

@@ -1,3 +1,4 @@
+#include <iomanip>
 #include "OzLotto.h"
 
 //**********************
@@ -93,6 +94,7 @@ std::string ozlottoGame::checkResults()
   int tat;
   int sup;
   int c;
+  float prize_total = 0;
   int winners = 0;
   std::vector<std::vector<int> > results_tally; 
   // results_tally is two column array.  The first is the division number, the second the game number.
@@ -195,13 +197,26 @@ std::string ozlottoGame::checkResults()
     strout << numbers[results_tally[c][1]][2] << "\t";
     strout << numbers[results_tally[c][1]][3] << "\t" << numbers[results_tally[c][1]][4] << "\t";
     strout << numbers[results_tally[c][1]][5] << "\t" << numbers[results_tally[c][1]][6] << "\t";
+    strout << std::fixed << std::setprecision(2) << std::setfill('0');
+    if (m_prizesAvailable)
+    {
+      strout << "\nPrize : $" << m_prizes[(results_tally[c][0]-1)];
+      prize_total += m_prizes[(results_tally[c][0]-1)];
+    }
     strout << "\n\n";
   }
  
 if (winners == 1)
   strout << "You've won a single game." << std::endl;
 else
-  strout << "You've won " << winners << " games." << std::endl << std::ends;
+{
+  strout << "You've won " << winners << " games." << std::endl;
+  if (m_prizesAvailable)
+  {
+    strout << "Total prize money won = $" << prize_total << std::endl;
+  }
+  strout << std::ends;
+}
 
 return strout.str();
   

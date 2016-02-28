@@ -41,7 +41,7 @@ class UserInterface {open
   } {
     Fl_Window lotto_gui {
       label {Aussie Lotto} open
-      xywh {0 362 670 620} type Single color 14 selection_color 32 labelcolor 12 align 80 when 6 visible
+      xywh {725 399 670 620} type Single color 14 selection_color 32 labelcolor 12 align 80 when 6 visible
     } {
       Fl_Box {} {
         label {Aussie Lotto}
@@ -68,7 +68,7 @@ class UserInterface {open
         }
         MenuItem {} {
           label Exit
-          callback {quit()}
+          callback {quit()} selected
           xywh {0 0 100 20}
         }
       }
@@ -132,7 +132,7 @@ class UserInterface {open
       } {
         Fl_Group tattslotto_tab {
           label {Tattslotto/Gold Lotto/X Lotto} open
-          xywh {0 150 680 470} box DOWN_BOX color 140 selection_color 29 labeltype EMBOSSED_LABEL hide
+          xywh {0 150 680 470} box DOWN_BOX color 140 selection_color 29 labeltype EMBOSSED_LABEL
         } {
           Fl_Group {} {
             label {Lottery Numbers} open
@@ -375,7 +375,7 @@ class UserInterface {open
         }
         Fl_Group setforlife_tab {
           label {Set for life}
-          xywh {0 150 670 470} box DOWN_BOX color 223 labeltype EMBOSSED_LABEL
+          xywh {0 150 670 470} box DOWN_BOX color 223 labeltype EMBOSSED_LABEL hide
         } {
           Fl_Group {} {
             label {Set For Life Numbers} open
@@ -513,7 +513,7 @@ class UserInterface {open
     }
     Fl_Window divisions_window {
       label {Tattslotto Divisions}
-      xywh {330 218 505 295} type Double color 14 align 80 modal visible
+      xywh {330 228 505 295} type Double color 14 align 80 modal visible
     } {
       Fl_Text_Display {} {
         label {Division 1 : 6 numbers}
@@ -676,7 +676,7 @@ class UserInterface {open
     }
     Fl_Window setforlife_divisions_window {
       label Divisions
-      xywh {360 248 495 375} type Double color 14 align 80 modal visible
+      xywh {360 258 495 375} type Double color 14 align 80 modal visible
     } {
       Fl_Text_Display {} {
         label {Division 1 : 8 numbers}
@@ -779,7 +779,7 @@ class UserInterface {open
     }
     Fl_Window Numberentry {
       label {Number Entry}
-      xywh {90 386 350 250} type Double align 80 visible
+      xywh {90 396 350 250} type Double align 80 visible
     } {
       Fl_Light_Button button_1 {
         label 1
@@ -1083,7 +1083,7 @@ class UserInterface {open
     }
     Fl_Window lottostrike_divisions_window {
       label {Lotto Strike Divisions}
-      xywh {360 248 490 240} type Double color 14 align 80 modal visible
+      xywh {360 258 490 240} type Double color 14 align 80 modal visible
     } {
       Fl_Text_Display {} {
         label {Division 1 : All 4 of the 1st four numbers in order}
@@ -1216,8 +1216,7 @@ while (p->parent()) p = p->parent();
 	powerball_divisions_window->show();
 } else if (userdata == (gameType*)SET_FOR_LIFE) {
 	setforlife_divisions_window->show();
-}} {selected
-    }
+}} {}
   }
   Function {hide_parent(Fl_Widget *w, void* data)} {protected return_type {static void}
   } {

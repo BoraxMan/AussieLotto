@@ -52,6 +52,8 @@ protected:
     std::string id;
     std::vector<std::vector<int> > numbers;
     std::vector<int> results;
+    std::vector<float> m_prizes;
+    bool m_prizesAvailable;
     
   public:
   //  void setGameType(gameType x);
@@ -59,6 +61,7 @@ protected:
     virtual int loadGame(char *fname);
     virtual int generateGames(int numGames);
     int setResultsSupps(int x1, int x2) throw (AussieLottoException);
+    int setPrizes(std::vector<float> prizes);
     virtual std::string checkResults();
     int getNumGames() const;
     virtual int setResults(std::vector<int> passedResults) throw (AussieLottoException);
