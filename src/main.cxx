@@ -20,6 +20,9 @@ int main(void)
   passwd* pw = getpwuid(getuid());
   std::string path(pw->pw_dir);
   path += "/.config/aussielotto/";
+#else
+  std::string path = getenv("APPDATA");
+  path += "\\aussielotto\\";
 #endif
   homedir += path;
   ResultManager *resultManager;

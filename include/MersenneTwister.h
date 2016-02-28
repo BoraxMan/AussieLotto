@@ -58,8 +58,8 @@ class MersenneTwister;
 
 
 /* Period parameters */  
-#define N 624
-#define M 397
+#define EHN 624
+#define EHM 397
 #define MATRIX_A 0x9908b0dfUL   /* constant vector a */
 #define UPPER_MASK 0x80000000UL /* most significant w-r bits */
 #define LOWER_MASK 0x7fffffffUL /* least significant r bits */
@@ -86,7 +86,7 @@ private:
 static uint32_t	mag01[2] = {0x0UL, MATRIX_A};
 
 class MersenneTwister {
-	uint32_t	mt[N];
+	uint32_t	mt[EHN];
 	int			mti;
 
 	void init_genrand(uint32_t seed);
@@ -113,19 +113,19 @@ public:
 	inline uint32_t genrand_uint32() {
 		uint32_t y;
 
-		if (mti >= N) { /* generate N words at one time */
+		if (mti >= EHN) { /* generate N words at one time */
 			int kk;
 
-			for (kk = 0; kk < N-M; kk++) {
+			for (kk = 0; kk < EHN-EHM; kk++) {
 				y = (mt[kk] & UPPER_MASK) | (mt[kk + 1] & LOWER_MASK);
-				mt[kk] = mt[kk + M] ^ (y >> 1) ^ mag01[y & 0x1UL];
+				mt[kk] = mt[kk + EHM] ^ (y >> 1) ^ mag01[y & 0x1UL];
 			}
-			for (; kk< N-1; kk++) {
+			for (; kk< EHN-1; kk++) {
 				y = (mt[kk] & UPPER_MASK) | (mt[kk + 1] & LOWER_MASK);
-				mt[kk] = mt[kk + (M-N)] ^ (y >> 1) ^ mag01[y & 0x1UL];
+				mt[kk] = mt[kk + (EHM-EHN)] ^ (y >> 1) ^ mag01[y & 0x1UL];
 			}
-			y = (mt[N-1] & UPPER_MASK) | (mt[0] & LOWER_MASK);
-			mt[N-1] = mt[M-1] ^ (y >> 1) ^ mag01[y & 0x1UL];
+			y = (mt[EHN-1] & UPPER_MASK) | (mt[0] & LOWER_MASK);
+			mt[EHN-1] = mt[EHM-1] ^ (y >> 1) ^ mag01[y & 0x1UL];
 
 			mti = 0;
 		}
