@@ -23,14 +23,17 @@ int downloadFile(const char *url, const char *destfile, int (*progress_callback)
   std::string newfile(destfile);
   newfile += ".new";
   
-  fout.open(newfile.c_str(), std::ios::trunc | std::ios::out);
-  curl_global_init(CURL_GLOBAL_ALL);
+  fout.open(newfile.c_str(), std::ios::trunc | std::ios::out | std::ios::binary);
   curl = curl_easy_init();
+  curl_global_init(CURL_GLOBAL_ALL);
   curl_easy_setopt(curl, CURLOPT_NOPROGRESS, 0);
   curl_easy_setopt(curl, CURLOPT_URL, url);
   curl_easy_setopt(curl, CURLOPT_ERRORBUFFER, curl_error);
   curl_easy_setopt(curl, CURLOPT_XFERINFODATA, (void*)ptr);
   curl_easy_setopt(curl, CURLOPT_PROGRESSFUNCTION, progress_callback);
+#ifndef __linux
+  curl_easy_setopt(curl, CURLOPT_SSL_VERIFYPEER, 0); // Windows may need this.
+#endif
   curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, write_data);
   curl_easy_setopt(curl, CURLOPT_WRITEDATA, &fout);
   try {
