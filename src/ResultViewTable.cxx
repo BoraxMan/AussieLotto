@@ -97,9 +97,9 @@ void ResultViewTable::draw_cell(TableContext context, int ROW, int COL, int X, i
       {
 	date = viewdata->getDate(type, x);
 	sprintf(s,"%s",date.c_str());     
-      } else if (( COL <= balls.size() ) && (COL >= 1)) {
+      } else if (( static_cast<unsigned int>(COL) <= balls.size() ) && (static_cast<unsigned int>(COL) >= 1)) {
 	sprintf(s, "%u", balls[COL-1]);
-      } else if (( COL > balls.size()) && (COL <= (balls.size() + supps.size()))) {
+      } else if (( static_cast<unsigned int>(COL) > balls.size()) && (static_cast<unsigned int>(COL) <= (balls.size() + supps.size()))) {
 	sprintf(s, "%u", supps[COL - (balls.size() + 1)]);
       } else {
 	sprintf(s, "%u", 0);
