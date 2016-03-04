@@ -68,7 +68,7 @@ class UserInterface {open
         }
         MenuItem {} {
           label Exit
-          callback {quit()} selected
+          callback {quit()}
           xywh {0 0 100 20}
         }
       }
@@ -132,7 +132,7 @@ class UserInterface {open
       } {
         Fl_Group tattslotto_tab {
           label {Tattslotto/Gold Lotto/X Lotto} open
-          xywh {0 150 680 470} box DOWN_BOX color 140 selection_color 29 labeltype EMBOSSED_LABEL
+          xywh {0 150 680 470} box DOWN_BOX color 140 selection_color 29 labeltype EMBOSSED_LABEL hide
         } {
           Fl_Group {} {
             label {Lottery Numbers} open
@@ -335,30 +335,24 @@ class UserInterface {open
           }
         }
         Fl_Group lottostrike_tab {
-          label {Lotto Strike}
-          xywh {0 150 670 470} box DOWN_BOX color 11 selection_color 29 labeltype EMBOSSED_LABEL hide resizable
+          label {Lotto Strike} open
+          xywh {0 145 670 475} box DOWN_BOX color 11 selection_color 29 labeltype EMBOSSED_LABEL resizable
         } {
           Fl_Group {} {
-            label {Gold Lotto Numbers}
-            xywh {20 170 280 45} box PLASTIC_DOWN_BOX color 6 labelsize 16
+            label {Lotto Strike Numbers} open
+            xywh {20 165 215 50} box PLASTIC_DOWN_BOX color 6 labelsize 16
           } {
             Fl_Value_Input lsnum1 {
-              xywh {45 180 35 30} color 58 textsize 16 textcolor 3
+              xywh {45 175 35 30} color 58 textsize 16 textcolor 3
             }
             Fl_Value_Input lsnum2 {
-              xywh {85 180 35 30} color 58 textsize 16 textcolor 3
+              xywh {85 175 35 30} color 58 textsize 16 textcolor 3
             }
-            Fl_Value_Input lsnum3 {
-              xywh {125 180 35 30} color 58 textsize 16 textcolor 3
+            Fl_Value_Input lsnum3 {selected
+              xywh {125 175 35 30} color 58 textsize 16 textcolor 3
             }
             Fl_Value_Input lsnum4 {
-              xywh {165 180 35 30} color 58 textsize 16 textcolor 3
-            }
-            Fl_Value_Input lsnum5 {
-              xywh {205 180 35 30} color 58 textsize 16 textcolor 3
-            }
-            Fl_Value_Input lsnum6 {
-              xywh {245 180 35 30} color 58 textsize 16 textcolor 3
+              xywh {165 175 40 30} color 58 textsize 16 textcolor 3
             }
           }
           Fl_Text_Display lottostrike_number_view {
@@ -513,7 +507,7 @@ class UserInterface {open
     }
     Fl_Window divisions_window {
       label {Tattslotto Divisions}
-      xywh {330 228 505 295} type Double color 14 align 80 modal visible
+      xywh {330 228 505 295} type Double color 14 align 80 hide modal
     } {
       Fl_Text_Display {} {
         label {Division 1 : 6 numbers}

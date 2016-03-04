@@ -952,8 +952,6 @@ void AusLotto::check_lotto(void)
 	tmpResults.push_back(static_cast<int>(this->lsnum2->value()));
 	tmpResults.push_back(static_cast<int>(this->lsnum3->value()));
 	tmpResults.push_back(static_cast<int>(this->lsnum4->value()));
-	tmpResults.push_back(static_cast<int>(this->lsnum5->value()));
-	tmpResults.push_back(static_cast<int>(this->lsnum6->value()));
 	lottostrike->setResults(tmpResults);
 	s = lottostrike->checkResults();
 	break;
@@ -1034,8 +1032,6 @@ void AusLotto::clear_results(void)
       this->lsnum2->value(0);
       this->lsnum3->value(0);
       this->lsnum4->value(0);
-      this->lsnum5->value(0);
-      this->lsnum6->value(0);
       break;
     case SET_FOR_LIFE:
       this->sfl_num1->value(0);

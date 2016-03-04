@@ -148,6 +148,7 @@ std::string lottostrikeGame::checkResults()
   int oldmatches, matches = 0;
   int winners = 0;
   std::vector<std::vector<int> > results_tally; 
+  std::vector<int> match_count;
   
   std::ostringstream strout; // The stream that we will write the results to.
   
@@ -163,42 +164,37 @@ std::string lottostrikeGame::checkResults()
     index2 = 0;
     oldmatches = 0;
     index = 0;
-    matches = 0;
     
     if (results_tally.size() == static_cast<size_t>(winners))  
       results_tally.resize(results_tally.size() + 10);
       
-    while(index < balls)
+    
+    while ((index2 < balls) && (index < balls))
     {
-      if((numbers[c][index] == results[index2]) && (index2 < balls))
-      {
-	++matches; 
-	++index;
-	++index2;
+      // Look for the result.
+      matches = 0;
+      std::vector<int>::iterator it = std::find(numbers[c].begin(), numbers[c].end(), results[index2]);
+      
+      int index3 = index2++; // A temporary copy of index2.
+      
+      if (it != numbers[c].end())  // A match.
+      { 
+        // Lets see how matches we get.
+        for (std::vector<int>::iterator x = it; x != numbers[c].end() && index3 < balls; ++x) // Keep going until we hit the end of of either the user numbers or
+          // end of the results sequence.
+        {
+          if (*x == results[index3++])
+          {
+            ++matches;
+          }
+          else break;
+        }
       }
-      else if (matches == 0 && (index2 < balls))
-      {
-	++index2;
-      }
+      match_count.push_back(matches); // Save the number of matches.
 
-      else if (index2 >= balls)
-      {
-	index2 = 0;
-	++index;
-	oldmatches = matches;
-	matches = 0;
-      }
-      else
-      {
-	oldmatches = matches;
-	matches = 0;
-      }
-    } // end while;
-
-    if (oldmatches > matches)
-      matches = oldmatches; // If we found two sequences we found, had
-      // the original as thelarger sequence while continuing
-      // our search, use the original.
+    }
+        
+    matches = *max_element(match_count.begin(), match_count.end());
     
     if (matches == 4)
     {

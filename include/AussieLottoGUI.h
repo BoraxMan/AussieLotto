@@ -128,8 +128,6 @@ public:
   Fl_Value_Input *lsnum2;
   Fl_Value_Input *lsnum3;
   Fl_Value_Input *lsnum4;
-  Fl_Value_Input *lsnum5;
-  Fl_Value_Input *lsnum6;
   Fl_Text_Display *lottostrike_number_view;
   Fl_Button *ShowLottostrikeEntryWidget;
   Fl_Group *setforlife_tab;

@@ -282,6 +282,7 @@ Fl_Window* UserInterface::make_window() {
         tattslotto_tab->color(FL_DARK_CYAN);
         tattslotto_tab->selection_color((Fl_Color)29);
         tattslotto_tab->labeltype(FL_EMBOSSED_LABEL);
+        tattslotto_tab->hide();
         { Fl_Group* o = new Fl_Group(20, 170, 280, 45, "Lottery Numbers");
           o->box(FL_PLASTIC_DOWN_BOX);
           o->color((Fl_Color)6);
@@ -559,46 +560,35 @@ Fl_Window* UserInterface::make_window() {
         } // Fl_Value_Input* p_draw
         powerball_tab->end();
       } // Fl_Group* powerball_tab
-      { lottostrike_tab = new Fl_Group(0, 150, 670, 470, "Lotto Strike");
+      { lottostrike_tab = new Fl_Group(0, 145, 670, 475, "Lotto Strike");
         lottostrike_tab->box(FL_DOWN_BOX);
         lottostrike_tab->color((Fl_Color)11);
         lottostrike_tab->selection_color((Fl_Color)29);
         lottostrike_tab->labeltype(FL_EMBOSSED_LABEL);
-        lottostrike_tab->hide();
-        { Fl_Group* o = new Fl_Group(20, 170, 280, 45, "Gold Lotto Numbers");
+        { Fl_Group* o = new Fl_Group(20, 165, 215, 50, "Lotto Strike Numbers");
           o->box(FL_PLASTIC_DOWN_BOX);
           o->color((Fl_Color)6);
           o->labelsize(16);
-          { lsnum1 = new Fl_Value_Input(45, 180, 35, 30);
+          { lsnum1 = new Fl_Value_Input(45, 175, 35, 30);
             lsnum1->color((Fl_Color)58);
             lsnum1->textsize(16);
             lsnum1->textcolor((Fl_Color)3);
           } // Fl_Value_Input* lsnum1
-          { lsnum2 = new Fl_Value_Input(85, 180, 35, 30);
+          { lsnum2 = new Fl_Value_Input(85, 175, 35, 30);
             lsnum2->color((Fl_Color)58);
             lsnum2->textsize(16);
             lsnum2->textcolor((Fl_Color)3);
           } // Fl_Value_Input* lsnum2
-          { lsnum3 = new Fl_Value_Input(125, 180, 35, 30);
+          { lsnum3 = new Fl_Value_Input(125, 175, 35, 30);
             lsnum3->color((Fl_Color)58);
             lsnum3->textsize(16);
             lsnum3->textcolor((Fl_Color)3);
           } // Fl_Value_Input* lsnum3
-          { lsnum4 = new Fl_Value_Input(165, 180, 35, 30);
+          { lsnum4 = new Fl_Value_Input(165, 175, 40, 30);
             lsnum4->color((Fl_Color)58);
             lsnum4->textsize(16);
             lsnum4->textcolor((Fl_Color)3);
           } // Fl_Value_Input* lsnum4
-          { lsnum5 = new Fl_Value_Input(205, 180, 35, 30);
-            lsnum5->color((Fl_Color)58);
-            lsnum5->textsize(16);
-            lsnum5->textcolor((Fl_Color)3);
-          } // Fl_Value_Input* lsnum5
-          { lsnum6 = new Fl_Value_Input(245, 180, 35, 30);
-            lsnum6->color((Fl_Color)58);
-            lsnum6->textsize(16);
-            lsnum6->textcolor((Fl_Color)3);
-          } // Fl_Value_Input* lsnum6
           o->end();
         } // Fl_Group* o
         { Fl_Text_Display* o = lottostrike_number_view = new Fl_Text_Display(15, 250, 410, 355, "Lotto Strike Numbers");
