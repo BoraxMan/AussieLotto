@@ -41,11 +41,11 @@ class UserInterface {open
   } {
     Fl_Window lotto_gui {
       label {Aussie Lotto} open
-      xywh {725 399 670 620} type Single color 14 selection_color 32 labelcolor 12 align 80 when 6 visible
+      xywh {725 419 670 625} type Single color 14 selection_color 32 labelcolor 12 align 80 when 6 visible
     } {
       Fl_Box {} {
         label {Aussie Lotto}
-        xywh {0 0 675 40} box DOWN_BOX color 4 selection_color 7 labeltype SHADOW_LABEL labelfont 1 labelsize 26 labelcolor 1
+        xywh {0 0 670 45} box DOWN_BOX color 4 selection_color 7 labeltype SHADOW_LABEL labelfont 1 labelsize 26 labelcolor 1
       }
       Fl_Button {} {
         label Quit
@@ -128,11 +128,11 @@ class UserInterface {open
       }
       Fl_Tabs tabular {
         callback {changeTab()} open
-        xywh {0 125 680 605} box THIN_DOWN_BOX labeltype NO_LABEL align 37
+        xywh {0 125 670 605} box THIN_DOWN_BOX labeltype NO_LABEL align 37
       } {
         Fl_Group tattslotto_tab {
-          label {Tattslotto/Gold Lotto/X Lotto} open
-          xywh {0 150 680 470} box DOWN_BOX color 140 selection_color 29 labeltype EMBOSSED_LABEL hide
+          label {Tattslotto/Gold Lotto/X Lotto} open selected
+          xywh {0 145 670 475} box DOWN_BOX color 140 selection_color 29 labeltype EMBOSSED_LABEL
         } {
           Fl_Group {} {
             label {Lottery Numbers} open
@@ -194,7 +194,7 @@ class UserInterface {open
             xywh {455 205 140 25}
           }
           Fl_Group radiobuttons {open
-            xywh {525 150 145 55}
+            xywh {525 145 145 60}
           } {
             Fl_Round_Button weekday_but {
               label {Mon, Wed Lotto}
@@ -202,13 +202,13 @@ class UserInterface {open
             }
             Fl_Round_Button sat_but {
               label {Saturday Lotto}
-              xywh {530 150 140 25} type Radio down_box ROUND_DOWN_BOX value 1
+              xywh {530 145 140 30} type Radio down_box ROUND_DOWN_BOX value 1
             }
           }
         }
         Fl_Group ozlotto_tab {
           label OzLotto
-          xywh {0 150 670 470} box DOWN_BOX color 60 labeltype EMBOSSED_LABEL hide
+          xywh {0 145 670 475} box DOWN_BOX color 60 labeltype EMBOSSED_LABEL hide
         } {
           Fl_Group {} {
             label {Oz Lotto Numbers} open
@@ -275,7 +275,7 @@ class UserInterface {open
         }
         Fl_Group powerball_tab {
           label Powerball
-          xywh {0 150 670 580} box DOWN_BOX color 187 labeltype EMBOSSED_LABEL hide
+          xywh {0 145 670 585} box DOWN_BOX color 187 labeltype EMBOSSED_LABEL hide
         } {
           Fl_Group {} {
             label {Powerball Numbers} open
@@ -322,7 +322,7 @@ class UserInterface {open
           Fl_Check_Button ensurePowerball {
             label {Ensure Powerball}
             callback {ensurePowerballButton()}
-            xywh {400 150 185 55} down_box DOWN_BOX align 148
+            xywh {400 145 185 60} down_box DOWN_BOX align 148
           }
           Fl_Button {} {
             label {Use Draw Results}
@@ -336,7 +336,7 @@ class UserInterface {open
         }
         Fl_Group lottostrike_tab {
           label {Lotto Strike} open
-          xywh {0 145 670 475} box DOWN_BOX color 11 selection_color 29 labeltype EMBOSSED_LABEL resizable
+          xywh {0 145 670 475} box DOWN_BOX color 11 selection_color 29 labeltype EMBOSSED_LABEL hide resizable
         } {
           Fl_Group {} {
             label {Lotto Strike Numbers} open
@@ -348,7 +348,7 @@ class UserInterface {open
             Fl_Value_Input lsnum2 {
               xywh {85 175 35 30} color 58 textsize 16 textcolor 3
             }
-            Fl_Value_Input lsnum3 {selected
+            Fl_Value_Input lsnum3 {
               xywh {125 175 35 30} color 58 textsize 16 textcolor 3
             }
             Fl_Value_Input lsnum4 {
@@ -369,7 +369,7 @@ class UserInterface {open
         }
         Fl_Group setforlife_tab {
           label {Set for life}
-          xywh {0 150 670 470} box DOWN_BOX color 223 labeltype EMBOSSED_LABEL hide
+          xywh {0 145 670 475} box DOWN_BOX color 223 labeltype EMBOSSED_LABEL hide
         } {
           Fl_Group {} {
             label {Set For Life Numbers} open
@@ -670,7 +670,7 @@ class UserInterface {open
     }
     Fl_Window setforlife_divisions_window {
       label Divisions
-      xywh {360 258 495 375} type Double color 14 align 80 modal visible
+      xywh {360 278 495 375} type Double color 14 align 80 modal visible
     } {
       Fl_Text_Display {} {
         label {Division 1 : 8 numbers}
@@ -773,7 +773,7 @@ class UserInterface {open
     }
     Fl_Window Numberentry {
       label {Number Entry}
-      xywh {90 396 350 250} type Double align 80 visible
+      xywh {90 416 350 250} type Double align 80 visible
     } {
       Fl_Light_Button button_1 {
         label 1
@@ -1077,7 +1077,7 @@ class UserInterface {open
     }
     Fl_Window lottostrike_divisions_window {
       label {Lotto Strike Divisions}
-      xywh {360 258 490 240} type Double color 14 align 80 modal visible
+      xywh {360 278 490 240} type Double color 14 align 80 modal visible
     } {
       Fl_Text_Display {} {
         label {Division 1 : All 4 of the 1st four numbers in order}

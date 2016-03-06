@@ -213,14 +213,14 @@ void UserInterface::cb_OK5(Fl_Button* o, void* v) {
 }
 
 Fl_Window* UserInterface::make_window() {
-  { lotto_gui = new Fl_Window(670, 620, "Aussie Lotto");
+  { lotto_gui = new Fl_Window(670, 625, "Aussie Lotto");
     lotto_gui->color((Fl_Color)14);
     lotto_gui->selection_color(FL_GRAY0);
     lotto_gui->labelcolor((Fl_Color)12);
     lotto_gui->user_data((void*)(this));
     lotto_gui->align(Fl_Align(FL_ALIGN_CLIP|FL_ALIGN_INSIDE));
     lotto_gui->when(FL_WHEN_RELEASE_ALWAYS);
-    { Fl_Box* o = new Fl_Box(0, 0, 675, 40, "Aussie Lotto");
+    { Fl_Box* o = new Fl_Box(0, 0, 670, 45, "Aussie Lotto");
       o->box(FL_DOWN_BOX);
       o->color((Fl_Color)4);
       o->selection_color(FL_BACKGROUND2_COLOR);
@@ -272,17 +272,16 @@ Fl_Window* UserInterface::make_window() {
       o->color((Fl_Color)14);
       o->callback((Fl_Callback*)cb_Help);
     } // Fl_Button* o
-    { tabular = new Fl_Tabs(0, 125, 680, 605);
+    { tabular = new Fl_Tabs(0, 125, 670, 605);
       tabular->box(FL_THIN_DOWN_BOX);
       tabular->labeltype(FL_NO_LABEL);
       tabular->callback((Fl_Callback*)cb_tabular);
       tabular->align(Fl_Align(37));
-      { tattslotto_tab = new Fl_Group(0, 150, 680, 470, "Tattslotto/Gold Lotto/X Lotto");
+      { tattslotto_tab = new Fl_Group(0, 145, 670, 475, "Tattslotto/Gold Lotto/X Lotto");
         tattslotto_tab->box(FL_DOWN_BOX);
         tattslotto_tab->color(FL_DARK_CYAN);
         tattslotto_tab->selection_color((Fl_Color)29);
         tattslotto_tab->labeltype(FL_EMBOSSED_LABEL);
-        tattslotto_tab->hide();
         { Fl_Group* o = new Fl_Group(20, 170, 280, 45, "Lottery Numbers");
           o->box(FL_PLASTIC_DOWN_BOX);
           o->color((Fl_Color)6);
@@ -365,12 +364,12 @@ Fl_Window* UserInterface::make_window() {
         { Fl_Button* o = new Fl_Button(455, 205, 140, 25, "Use Draw Results");
           o->callback((Fl_Callback*)use_draw_results, (void*)(R_TATTSLOTTO));
         } // Fl_Button* o
-        { radiobuttons = new Fl_Group(525, 150, 145, 55);
+        { radiobuttons = new Fl_Group(525, 145, 145, 60);
           { weekday_but = new Fl_Round_Button(530, 175, 135, 25, "Mon, Wed Lotto");
             weekday_but->type(102);
             weekday_but->down_box(FL_ROUND_DOWN_BOX);
           } // Fl_Round_Button* weekday_but
-          { sat_but = new Fl_Round_Button(530, 150, 140, 25, "Saturday Lotto");
+          { sat_but = new Fl_Round_Button(530, 145, 140, 30, "Saturday Lotto");
             sat_but->type(102);
             sat_but->down_box(FL_ROUND_DOWN_BOX);
             sat_but->value(1);
@@ -379,7 +378,7 @@ Fl_Window* UserInterface::make_window() {
         } // Fl_Group* radiobuttons
         tattslotto_tab->end();
       } // Fl_Group* tattslotto_tab
-      { ozlotto_tab = new Fl_Group(0, 150, 670, 470, "OzLotto");
+      { ozlotto_tab = new Fl_Group(0, 145, 670, 475, "OzLotto");
         ozlotto_tab->box(FL_DOWN_BOX);
         ozlotto_tab->color(FL_DARK_GREEN);
         ozlotto_tab->labeltype(FL_EMBOSSED_LABEL);
@@ -474,7 +473,7 @@ Fl_Window* UserInterface::make_window() {
         } // Fl_Button* o
         ozlotto_tab->end();
       } // Fl_Group* ozlotto_tab
-      { powerball_tab = new Fl_Group(0, 150, 670, 580, "Powerball");
+      { powerball_tab = new Fl_Group(0, 145, 670, 585, "Powerball");
         powerball_tab->box(FL_DOWN_BOX);
         powerball_tab->color((Fl_Color)187);
         powerball_tab->labeltype(FL_EMBOSSED_LABEL);
@@ -548,7 +547,7 @@ Fl_Window* UserInterface::make_window() {
           ShowPowerballEntryWidget->callback((Fl_Callback*)show_entry_window, (void*)(POWERBALL));
           ShowPowerballEntryWidget->align(Fl_Align(FL_ALIGN_WRAP));
         } // Fl_Button* ShowPowerballEntryWidget
-        { ensurePowerball = new Fl_Check_Button(400, 150, 185, 55, "Ensure Powerball");
+        { ensurePowerball = new Fl_Check_Button(400, 145, 185, 60, "Ensure Powerball");
           ensurePowerball->down_box(FL_DOWN_BOX);
           ensurePowerball->callback((Fl_Callback*)cb_ensurePowerball);
           ensurePowerball->align(Fl_Align(132|FL_ALIGN_INSIDE));
@@ -565,6 +564,7 @@ Fl_Window* UserInterface::make_window() {
         lottostrike_tab->color((Fl_Color)11);
         lottostrike_tab->selection_color((Fl_Color)29);
         lottostrike_tab->labeltype(FL_EMBOSSED_LABEL);
+        lottostrike_tab->hide();
         { Fl_Group* o = new Fl_Group(20, 165, 215, 50, "Lotto Strike Numbers");
           o->box(FL_PLASTIC_DOWN_BOX);
           o->color((Fl_Color)6);
@@ -611,7 +611,7 @@ Fl_Window* UserInterface::make_window() {
         lottostrike_tab->end();
         Fl_Group::current()->resizable(lottostrike_tab);
       } // Fl_Group* lottostrike_tab
-      { setforlife_tab = new Fl_Group(0, 150, 670, 470, "Set for life");
+      { setforlife_tab = new Fl_Group(0, 145, 670, 475, "Set for life");
         setforlife_tab->box(FL_DOWN_BOX);
         setforlife_tab->color(FL_CYAN);
         setforlife_tab->labeltype(FL_EMBOSSED_LABEL);
