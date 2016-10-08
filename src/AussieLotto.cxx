@@ -35,7 +35,7 @@ bool fexists(std::string filename)
 {
   bool x;
   std::ifstream ifile(filename.c_str());
-  x = ifile;
+  x = ifile.is_open();
   ifile.close();
   return x;
 }
