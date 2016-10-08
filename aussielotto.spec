@@ -1,11 +1,11 @@
 Summary: A tattslotto game player and checker
 Name: aussielotto
-VERSION: 1.0.4
+VERSION: 1.1.0
 RELEASE: 1
 LICENSE: GPL
 Group: Applications
-Source: aussielotto-1.0.4.tar.gz
-#Source0: http://dennisk.customer.netspace.net.au/aussielotto/aussielotto-1.0.4.tar.gz
+Source: aussielotto-1.1.0.tar.gz
+#Source0: http://dennisk.customer.netspace.net.au/aussielotto/aussielotto-1.1.0.tar.gz
 
 URL: http://dennisk.customer.netspace.net.au/aussielotto.html
 Distribution: Fedora
