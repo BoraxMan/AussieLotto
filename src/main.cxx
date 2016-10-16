@@ -31,6 +31,8 @@ int main(void)
     resultManager = new ResultManager(homedir);
   } catch (AussieLottoException &e) {
     exceptionHander(e);
+    // Cant run without the result manager.  Bail out.
+    return 1;
   }
   
   AusLotto x(resultManager, homedir);

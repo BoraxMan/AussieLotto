@@ -6,3 +6,6 @@ desktop_DATA = dist/aussielotto.desktop
 
 icondir=$(datadir)/icons/hicolor/64x64/apps
 icon_DATA = dist/aussielotto.png
+
+urldir = $(datadir)/aussielotto
+url_DATA = src/lottourls

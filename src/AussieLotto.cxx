@@ -31,7 +31,7 @@
 const int max_games = 1048576;
 
 
-bool fexists(std::string filename)
+static bool fexists(std::string filename)
 {
   bool x;
   std::ifstream ifile(filename.c_str());

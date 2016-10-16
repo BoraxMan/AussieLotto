@@ -18,6 +18,16 @@ namespace {
   
 };
 
+static bool fexists(std::string filename)
+{
+  bool x;
+  std::ifstream ifile(filename.c_str());
+  x = ifile.is_open();
+  ifile.close();
+  return x;
+}
+
+
 ResultManager::ResultManager(const std::string &configdir) : dbInitialised(false)
 {
   std::string x;
@@ -143,10 +153,28 @@ int ResultManager::initResultFileDatabase()
   std::string url;
 
   std::ifstream urlsfile;
-  urlsfile.open("lottourls", std::ios::in);
+  
+   
+#ifdef __linux
+  std::string fname = DATADIR;
+  fname+="/aussielotto/lottourls";
+#else
+  std::string fname;
+#endif
+  if (fexists(fname))
+    {
+      urlsfile.open(fname.c_str(), std::ios::in);
+    } else {
+    fname = "lottourls";
+    if (fexists(fname))
+    {
+      urlsfile.open(fname.c_str(), std::ios::in);
+    }
+    }
+  
 
   if (!urlsfile.is_open()) {
-    throw(AussieLottoException("Could not load lotto URLs", " "));
+    throw(AussieLottoException("Could not load lotto URLs", "The file 'lottourls' could not be found.\nCheck the software is properly installed.\n\nExiting..."));
   }
 
   for (int x = 0; x < URL_COUNT; ++x) {
