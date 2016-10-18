@@ -23,6 +23,8 @@ add your own chosen numbers.
 This supports Tattslotto, Lotto Strike, Ozlotto,
 Powerball and Lotto X.
 
+%global debug_package %{nil}
+
 %prep
 %setup
 
@@ -40,7 +42,7 @@ make install-strip DESTDIR=$RPM_BUILD_ROOT
 %{_bindir}/*
 %{_datadir}/applications/*
 %{_datadir}/icons/hicolor/64x64/apps/*
-
+%{_datadir}/aussielotto/lottourls
 %post
 /bin/touch --no-create %{_datadir}/icons/hicolor &>/dev/null || :
 
