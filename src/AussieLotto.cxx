@@ -1152,7 +1152,7 @@ void AusLotto::loadHelp(void)
   std::string fname= DATADIR;
   fname += "/doc/aussielotto/help.html";
 #else
-  std::string fname;
+  std::string fname = "help.html";
 #endif
   if (fexists(fname))
   {
