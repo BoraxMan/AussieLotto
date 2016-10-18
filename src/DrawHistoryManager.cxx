@@ -73,7 +73,7 @@ void DrawHistoryManager::update_results_callback(Fl_Widget* w, void* userdata)
   }
   if (weekday_tatts_c->value()) {
     this->update_progress_bar->value(0.0f);
-    this->update_progress_bar->label("Downloading Weekday Lottoresults");
+    this->update_progress_bar->label("Downloading Weekday Lotto results");
     rm->downloadResults(R_WEEKDAY_TATTSLOTTO);
     
   }
