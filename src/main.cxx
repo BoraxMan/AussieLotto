@@ -45,5 +45,4 @@ int main(void)
   x.createLottostrikeEntryWindows();
   x.createSetForLifeEntryWindows();
   return Fl::run();
-  delete resultManager;
 }

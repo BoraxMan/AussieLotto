@@ -662,6 +662,10 @@ void AusLotto::show_setforlife_entry_window(void)
   this->SetForLifeNumberEntryWindow->show();
 }
 
+AusLotto::~AusLotto()
+{
+  delete rm;
+}
 
 AusLotto::AusLotto(ResultManager *resultmanager, const std::string &configdir) : ensurePowerballValue(false)
 {

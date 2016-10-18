@@ -79,6 +79,7 @@ private:
   void use_draw_results_cb(Fl_Widget* w, void* userdata);
   ResultManager *rm;
   std::string homedir;
+
   
 public:
   void tattsEntry(void);
@@ -100,6 +101,7 @@ public:
   void createSetForLifeEntryWindows(void);
   void show_entry_callback(Fl_Widget* w, void* userdata);
   AusLotto(ResultManager *resultmanager, const std::string &configdir);
+  ~AusLotto();
 protected:
 
 };
