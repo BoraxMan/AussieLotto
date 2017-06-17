@@ -1,0 +1,11 @@
+[Desktop Entry]
+Type=Application
+Encoding=UTF-8
+Name=Aussie Lotto
+Exec=aussielotto
+Comment=A tattslotto game player and checker
+Icon=aussielotto
+Terminal=false
+Categories=Utility
+StartupNotify=false
+X-Desktop-File-Install-Version=0.22
