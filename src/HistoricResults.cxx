@@ -165,7 +165,7 @@ int LottoHistoricResults::tokenToInt(std::string &token)
   return (val);
 }
 
-int LottoHistoricResults::reload()
+void LottoHistoricResults::reload()
 {
   results.clear();
   loadHistoricData(fin.getName());

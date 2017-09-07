@@ -112,7 +112,7 @@ int LottoGame::setResults(std::vector<int> passedResults) throw (AussieLottoExce
   return 0;
 }
 
-int LottoGame::setPrizes(std::vector<float> prizes)
+void LottoGame::setPrizes(std::vector<float> prizes)
 {
   m_prizes = prizes;
   m_prizesAvailable = true;

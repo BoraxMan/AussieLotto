@@ -49,7 +49,7 @@ public:
 	LottoHistoricResults(const int bls, const int sups, const char *filename);
 	LottoHistoricResults(const LottoHistoricResults &src);
 	int loadHistoricData(const char *filename);
-	int reload();
+	void reload();
 	void setBalls(const int balls);
 	void setSupps(const int supps);
 	int size(void) const;

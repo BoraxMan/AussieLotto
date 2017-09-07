@@ -776,7 +776,7 @@ void AusLotto::use_draw_results_cb(Fl_Widget* w, void* userdata)
       no_draw(draw);
       return;
     }
-    const std::vector<int> &supps = rm->getSupps(R_POWERBALL, draw);
+    //const std::vector<int> &supps = rm->getSupps(R_POWERBALL, draw);
     const std::vector<float> &prizes = rm->getPrizes(R_POWERBALL, draw);
     powerball->setPrizes(prizes);
     this->pb_num1->value(balls[0]);

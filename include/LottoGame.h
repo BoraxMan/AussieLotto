@@ -61,7 +61,7 @@ protected:
     virtual int loadGame(char *fname);
     virtual int generateGames(int numGames);
     int setResultsSupps(int x1, int x2) throw (AussieLottoException);
-    int setPrizes(std::vector<float> prizes);
+    void setPrizes(std::vector<float> prizes);
     virtual std::string checkResults();
     int getNumGames() const;
     virtual int setResults(std::vector<int> passedResults) throw (AussieLottoException);

@@ -23,7 +23,7 @@ class lottostrikeGame : public LottoGame
     
     friend std::ostream &operator<<(std::ostream &outstream, lottostrikeGame & p);
   private:
-
+    using LottoGame::addGame;
 };
 
 

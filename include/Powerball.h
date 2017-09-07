@@ -30,6 +30,9 @@ class powerballGame : public LottoGame
     std::vector<int> powerballPool;
     std::vector<int> pb;
     int powerballsRemaining;
+    using LottoGame::addGame;
+    using LottoGame::generateGames;
+    using LottoGame::setResults;
 };
 
 
