@@ -41,7 +41,7 @@ class UserInterface {open
   } {
     Fl_Window lotto_gui {
       label {Aussie Lotto} open
-      xywh {725 419 670 625} type Single color 14 selection_color 32 labelcolor 12 align 80 when 6 visible
+      xywh {353 152 670 625} type Single color 14 selection_color 32 labelcolor 12 align 80 when 6 visible
     } {
       Fl_Box {} {
         label {Aussie Lotto}
@@ -74,7 +74,7 @@ class UserInterface {open
       }
       Fl_Button {} {
         label About
-        callback {fl_message("Aussie Lotto\\nWritten by Dennis Katsonis, April 2014.\\nVersion " PROG_VERSION"\\nBuild date : "__DATE__ "  " __TIME__"\\n(C) Dennis Katsonis 2014\\nLicensed under the GPL3.  See 'License' for more details");}
+        callback {fl_message("Aussie Lotto\\nWritten by Dennis Katsonis, April 2014.\\nVersion " PROG_VERSION"\\n(C) Dennis Katsonis 2014\\nLicensed under the GPL3.  See 'License' for more details");} selected
         xywh {415 55 80 25} color 14 selection_color 6
       }
       Fl_Button {} {
@@ -131,7 +131,7 @@ class UserInterface {open
         xywh {0 125 670 605} box THIN_DOWN_BOX labeltype NO_LABEL align 37
       } {
         Fl_Group tattslotto_tab {
-          label {Tattslotto/Gold Lotto/X Lotto} open selected
+          label {Tattslotto/Gold Lotto/X Lotto} open
           xywh {0 145 670 475} box DOWN_BOX color 140 selection_color 29 labeltype EMBOSSED_LABEL
         } {
           Fl_Group {} {
@@ -670,7 +670,7 @@ class UserInterface {open
     }
     Fl_Window setforlife_divisions_window {
       label Divisions
-      xywh {360 278 495 375} type Double color 14 align 80 modal visible
+      xywh {360 288 495 375} type Double color 14 align 80 modal visible
     } {
       Fl_Text_Display {} {
         label {Division 1 : 8 numbers}
@@ -773,7 +773,7 @@ class UserInterface {open
     }
     Fl_Window Numberentry {
       label {Number Entry}
-      xywh {90 416 350 250} type Double align 80 visible
+      xywh {90 426 350 250} type Double align 80 visible
     } {
       Fl_Light_Button button_1 {
         label 1
@@ -1077,7 +1077,7 @@ class UserInterface {open
     }
     Fl_Window lottostrike_divisions_window {
       label {Lotto Strike Divisions}
-      xywh {360 278 490 240} type Double color 14 align 80 modal visible
+      xywh {360 288 490 240} type Double color 14 align 80 modal visible
     } {
       Fl_Text_Display {} {
         label {Division 1 : All 4 of the 1st four numbers in order}

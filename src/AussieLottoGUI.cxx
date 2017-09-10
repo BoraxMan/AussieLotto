@@ -41,7 +41,7 @@ Fl_Menu_Item UserInterface::menu_File[] = {
 };
 
 void UserInterface::cb_About_i(Fl_Button*, void*) {
-  fl_message("Aussie Lotto\nWritten by Dennis Katsonis, April 2014.\nVersion " PROG_VERSION"\nBuild date : "__DATE__ "  " __TIME__"\n(C) Dennis Katsonis 2014\nLicensed under the GPL3.  See 'License' for more details");
+  fl_message("Aussie Lotto\nWritten by Dennis Katsonis, April 2014.\nVersion " PROG_VERSION"\n(C) Dennis Katsonis 2014\nLicensed under the GPL3.  See 'License' for more details");
 }
 void UserInterface::cb_About(Fl_Button* o, void* v) {
   ((UserInterface*)(o->parent()->user_data()))->cb_About_i(o,v);

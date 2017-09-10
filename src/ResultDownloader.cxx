@@ -31,7 +31,7 @@ int downloadFile(const char *url, const char *destfile, int (*progress_callback)
   curl_easy_setopt(curl, CURLOPT_ERRORBUFFER, curl_error);
   curl_easy_setopt(curl, CURLOPT_XFERINFODATA, (void*)ptr);
   curl_easy_setopt(curl, CURLOPT_PROGRESSFUNCTION, progress_callback);
-#ifndef __linux
+#ifdef __WIN32
   curl_easy_setopt(curl, CURLOPT_SSL_VERIFYPEER, 0); // Windows may need this.
 #endif
   curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, write_data);

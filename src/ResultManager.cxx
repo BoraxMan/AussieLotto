@@ -34,9 +34,11 @@ ResultManager::ResultManager(const std::string &configdir) : dbInitialised(false
   homedir = configdir;
 #ifdef __linux
   mkdir(homedir.c_str(), 0770);
-#else
+#elif __WIN32
   mkdir(homedir.c_str());
-#endif
+#elif __APPLE__
+  mkdir(homedir.c_str(), 0770);
+ #endif
   
   URLlist.resize(TOTAL_COUNT);
   
@@ -158,7 +160,9 @@ int ResultManager::initResultFileDatabase()
 #ifdef __linux
   std::string fname = DATADIR;
   fname+="/aussielotto/lottourls";
-#else
+#elif __WIN32
+  std::string fname;
+#elif __APPLE__
   std::string fname;
 #endif
   if (fexists(fname))

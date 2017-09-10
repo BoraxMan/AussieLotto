@@ -64,8 +64,11 @@ void AusLotto::show_license_window(void)
 #ifdef __linux
   std::string fname= DATADIR;
   fname+="/doc/aussielotto/LICENSE";
-#else
+#elif __WIN32
   std::string fname;
+#elif __APPLE__
+  std::string fname= DATADIR;
+  fname+="/doc/aussielotto/LICENSE";  
 #endif
   if (fexists(fname))
     {
@@ -1149,6 +1152,9 @@ int AusLotto::save_file(void)
 void AusLotto::loadHelp(void)
 {
 #ifdef __linux
+  std::string fname= DATADIR;
+  fname += "/doc/aussielotto/help.html";
+#elif __APPLE__
   std::string fname= DATADIR;
   fname += "/doc/aussielotto/help.html";
 #else
