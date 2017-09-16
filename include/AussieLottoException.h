@@ -2,6 +2,7 @@
 #define ALEXCEPTION_H
 
 #include <stdexcept>
+#include <string>
 
 class AussieLottoException : public std::exception
 {
