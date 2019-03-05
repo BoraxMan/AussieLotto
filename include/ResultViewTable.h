@@ -1,6 +1,6 @@
 #ifndef RESULTVIEWTABLE_H
 #define RESULTVIEWTABLE_H
-#include <FL/Fl_Table.h>
+#include <FL/Fl_Table.H>
 #include <FL/fl_draw.H>
 #include <FL/Fl.H>
 #include <FL/Fl_Double_Window.H>
