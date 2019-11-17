@@ -38,7 +38,7 @@ ResultManager::ResultManager(const std::string &configdir) : dbInitialised(false
   mkdir(homedir.c_str());
 #elif __APPLE__
   mkdir(homedir.c_str(), 0770);
-#ifdef __unix__
+#elif __unix__
   mkdir(homedir.c_str(), 0770);
 #endif
   
