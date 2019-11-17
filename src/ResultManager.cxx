@@ -38,7 +38,9 @@ ResultManager::ResultManager(const std::string &configdir) : dbInitialised(false
   mkdir(homedir.c_str());
 #elif __APPLE__
   mkdir(homedir.c_str(), 0770);
- #endif
+#ifdef __unix__
+  mkdir(homedir.c_str(), 0770);
+#endif
   
   URLlist.resize(TOTAL_COUNT);
   
@@ -163,6 +165,8 @@ int ResultManager::initResultFileDatabase()
 #elif __WIN32
   std::string fname;
 #elif __APPLE__
+  std::string fname;
+#elif __unix__
   std::string fname;
 #endif
   if (fexists(fname))

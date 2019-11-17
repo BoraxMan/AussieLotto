@@ -16,6 +16,10 @@
 #include <pwd.h>
 #include <unistd.h>
 #include <sys/types.h>
+#elif __unix__
+#include <pwd.h>
+#include <unistd.h>
+#include <sys/types.h>
 #endif
 
 
@@ -34,7 +38,10 @@ int main(void)
   passwd* pw = getpwuid(getuid());
   std::string path(pw->pw_dir);
   path += "/Library/Caches/aussielotto/";
-
+#elif __unix__
+  passwd* pw = getpwuid(getuid());
+  std::string path(pw->pw_dir);
+  path += "/.config/aussielotto/";
 #endif
   homedir += path;
   ResultManager *resultManager;

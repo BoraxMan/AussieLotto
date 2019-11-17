@@ -30,7 +30,7 @@
 #include <FL/Fl_Box.H>
 #include <FL/Fl_Input.H>
 #include <FL/Fl_Float_Input.H>
-#include <Fl/Fl_Choice.H>
+#include <FL/Fl_Choice.H>
 #include <FL/Fl_File_Chooser.H>
 #include "AussieLottoGUI.h"
 #include "LottoGame.h"

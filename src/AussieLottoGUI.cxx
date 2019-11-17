@@ -2,7 +2,7 @@
 
 #include "AussieLottoGUI.h"
 /* Aussie Lotto */
-#include <Fl/fl_ask.H>
+#include <FL/fl_ask.H>
 #include "defs.h"
 
 void UserInterface::cb_Quit_i(Fl_Button*, void*) {
