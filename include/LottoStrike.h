@@ -18,7 +18,7 @@ class lottostrikeGame : public LottoGame
     lottostrikeGame();
     lottostrikeGame(char *fname);
     lottostrikeGame(int numgames);
-    void addGame(int x1, int x2, int x3, int x4) throw (AussieLottoException);
+    void addGame(int x1, int x2, int x3, int x4)/* throw (AussieLottoException)*/;
     std::string checkResults();
     
     friend std::ostream &operator<<(std::ostream &outstream, lottostrikeGame & p);

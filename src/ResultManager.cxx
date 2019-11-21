@@ -167,7 +167,8 @@ int ResultManager::initResultFileDatabase()
 #elif __APPLE__
   std::string fname;
 #elif __unix__
-  std::string fname;
+  std::string fname = DATADIR;
+  fname+="/aussielotto/lottourls";
 #endif
   if (fexists(fname))
     {

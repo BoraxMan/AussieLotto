@@ -90,7 +90,7 @@ std::string LottoGame::checkResults()
   return test.str();
 }
 
-int LottoGame::setResults(std::vector<int> passedResults) throw (AussieLottoException)
+int LottoGame::setResults(std::vector<int> passedResults)/* throw (AussieLottoException)*/
 {
   size_t c;
 
@@ -167,7 +167,7 @@ int LottoGame::loadGame(char *fname)
   return 0;
 }
 
-int LottoGame::setResultsSupps(int x1, int x2) throw (AussieLottoException)
+int LottoGame::setResultsSupps(int x1, int x2)/* throw (AussieLottoException)*/
 {
   results_supps[0] = x1;
   results_supps[1] = x2;
@@ -189,7 +189,7 @@ int LottoGame::setResultsSupps(int x1, int x2) throw (AussieLottoException)
 }
 
 
-void LottoGame::addGame(std::vector<int>& enteredValues) throw (AussieLottoException)
+void LottoGame::addGame(std::vector<int>& enteredValues)/* throw (AussieLottoException)*/
 {
   
   for (size_t x = 0; x < enteredValues.size(); ++x)

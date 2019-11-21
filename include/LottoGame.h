@@ -60,14 +60,14 @@ protected:
     virtual int saveGame(std::string fname);
     virtual int loadGame(char *fname);
     virtual int generateGames(int numGames);
-    int setResultsSupps(int x1, int x2) throw (AussieLottoException);
+    int setResultsSupps(int x1, int x2)/* throw (AussieLottoException)*/;
     void setPrizes(std::vector<float> prizes);
     virtual std::string checkResults();
     int getNumGames() const;
-    virtual int setResults(std::vector<int> passedResults) throw (AussieLottoException);
+    virtual int setResults(std::vector<int> passedResults)/* throw (AussieLottoException)*/;
     virtual ~LottoGame();
     LottoGame();
-    virtual void addGame(std::vector<int>& enteredValues) throw (AussieLottoException);
+    virtual void addGame(std::vector<int>& enteredValues)/* throw (AussieLottoException)*/;
 };
 
 

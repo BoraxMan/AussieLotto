@@ -96,7 +96,7 @@ int powerballGame::generateGames(int numGames, bool ensurePowerball)
 }
 
 
-int powerballGame::setResults(int x1, int x2, int x3, int x4, int x5, int x6, int pb) throw (AussieLottoException)
+int powerballGame::setResults(int x1, int x2, int x3, int x4, int x5, int x6, int pb)/* throw (AussieLottoException)*/
 { 
   int c;
   results[0] = x1;
@@ -378,7 +378,7 @@ powerballGame::powerballGame(int numgames, bool ensurePowerball)
 }
 
 
-void powerballGame::addGame(int x1, int x2, int x3, int x4, int x5, int x6, int x7) throw (AussieLottoException)
+void powerballGame::addGame(int x1, int x2, int x3, int x4, int x5, int x6, int x7)/* throw (AussieLottoException)*/
 {
   std::vector<int> data;
   

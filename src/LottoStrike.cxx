@@ -21,7 +21,7 @@ std::ostream &operator<<(std::ostream &outstream, lottostrikeGame & p)
   return outstream;
 }
 
-void lottostrikeGame::addGame(int x1, int x2, int x3, int x4) throw (AussieLottoException)
+void lottostrikeGame::addGame(int x1, int x2, int x3, int x4)/* throw (AussieLottoException)*/
 {
   std::vector<int> data;
   
