@@ -316,7 +316,7 @@ Date LottoHistoricResults::getDate(int draw) const
     return empty;
   }
   
-  if (draw == 0) { 
+  if (draw == 0 && (results.size() < 0)) { 
     // Return most recent if draw is zero
     return results[results.size() - 1].date;
   } 
